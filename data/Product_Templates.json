@@ -1,0 +1,17 @@
+[
+  {
+    "codigoProducto": "TOM",
+    "descripcion": "Tomate",
+    "unidadMedida": "kg"
+  },
+  {
+    "codigoProducto": "PAP",
+    "descripcion": "Papas",
+    "unidadMedida": "kg"
+  },
+  {
+    "codigoProducto": "PIÑ",
+    "descripcion": "Piñas",
+    "unidadMedida": "kg"
+  }
+]

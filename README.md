@@ -1,11 +1,8 @@
 # PAU_Software
 Admin Dashboard and E-commerce for "Productores Agrícolas Unidos"
 
-
 # Dependencies:
 pip install pygame pygame_gui numpy (json, os and math already incorporated)
-
-
 
 - **`controllers/`**  
   *Files in this folder control the main tasks and decisions in the dashboard.*  
