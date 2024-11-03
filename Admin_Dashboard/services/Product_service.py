@@ -3,7 +3,7 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from utils.file_handler import FileHandler
 from datetime import datetime
-from constants import REQUIRED_PRODUCT_FIELDS
+from models.Product import REQUIRED_PRODUCT_FIELDS
 
 class ProductService:
     
@@ -64,7 +64,7 @@ class ProductService:
             
             print("\nProductos disponibles:")
             for template in templates:
-                print(f"- {template['codigoProducto']}: {template['descripcion']} ({template['unidadMedida']})")
+                print(f"- {template['codigoProducto']}: {template['nombre']} ({template['unidadMedida']})")
             
             # Seleccionar template
             codigo = input("\nIngrese código del producto: ").strip().upper()
@@ -90,7 +90,7 @@ class ProductService:
             # Crear producto
             product_data = {
                 "codigoProducto": template["codigoProducto"],
-                "descripcion": template["descripcion"],
+                "nombre": template["nombre"],
                 "unidadMedida": template["unidadMedida"],
                 "Date": fecha,
                 "cantidad": cantidad
@@ -100,7 +100,7 @@ class ProductService:
             added_product = self.add_product(product_data)
             print(f"\nProducto agregado exitosamente:")
             print(f"ID: {added_product['Id']}")
-            print(f"Producto: {added_product['descripcion']}")
+            print(f"Producto: {added_product['nombre']}")
             print(f"Cantidad: {added_product['cantidad']} {added_product['unidadMedida']}")
             print(f"Fecha: {added_product['Date']}")
             
@@ -120,7 +120,7 @@ class ProductService:
         
         # Validación de campos requeridos
         if not all(field in product_data for field in REQUIRED_PRODUCT_FIELDS):
-            raise ValueError("Faltan campos requeridos: codigoProducto, descripcion, unidadMedida, Date, cantidad")
+            raise ValueError("Faltan campos requeridos: codigoProducto, nombre, unidadMedida, Date, cantidad")
         
         # Generación de ID y agregado del producto
         product_data["Id"] = self._generate_id(products, product_data)

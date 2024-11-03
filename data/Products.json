@@ -1,7 +1,7 @@
 [
   {
     "codigoProducto": "PAP",
-    "descripcion": "Papas",
+    "nombre": "Papas",
     "unidadMedida": "kg",
     "Date": "2024-12-01",
     "cantidad": 100.0,
@@ -9,10 +9,18 @@
   },
   {
     "codigoProducto": "TOM",
-    "descripcion": "Tomate",
+    "nombre": "Tomate",
     "unidadMedida": "kg",
     "Date": "2024-03-06",
     "cantidad": 50.0,
     "Id": 1
+  },
+  {
+    "codigoProducto": "TOM",
+    "nombre": "Tomate",
+    "unidadMedida": "kg",
+    "Date": "2024-03-06",
+    "cantidad": 50.0,
+    "Id": 2
   }
 ]

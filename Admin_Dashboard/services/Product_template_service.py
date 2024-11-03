@@ -3,7 +3,7 @@ import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from utils.file_handler import FileHandler
-from constants import REQUIRED_TEMPLATE_FIELDS
+from models.Product import REQUIRED_TEMPLATE_FIELDS
 
 class ProductTemplateService:
     """Servicio para manejar plantillas de productos"""
@@ -45,7 +45,7 @@ class ProductTemplateService:
             # Crear template
             template = {
                 "codigoProducto": codigo,
-                "descripcion": nombre,
+                "nombre": nombre,
                 "unidadMedida": unidad
             }
             
