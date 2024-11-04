@@ -28,86 +28,76 @@ class ProductService:
             if p["codigoProducto"] == new_product["codigoProducto"] 
             and p["Date"] == new_product["Date"]
         ]
-        
-        if not matching_products:
-            return 1
-        
-        max_id = max(p["Id"] for p in matching_products)
-        return max_id + 1
+        return 1 if not matching_products else max(p["Id"] for p in matching_products) + 1
 
     # ------------------------
-    # Operaciones públicas
+    # Validaciones
+    # ------------------------
+    def validate_date(self, date_str: str) -> bool:
+        """Valida formato de fecha"""
+        try:
+            datetime.strptime(date_str, "%Y-%m-%d")
+            return True
+        except ValueError:
+            raise ValueError("Formato de fecha inválido. Use YYYY-MM-DD")
+    
+    def validate_quantity(self, cantidad: float) -> bool:
+        """Valida que la cantidad sea positiva"""
+        if not isinstance(cantidad, (int, float)) or cantidad <= 0:
+            raise ValueError("La cantidad debe ser un número positivo")
+        return True
+
+    # ------------------------
+    # Operaciones de templates
+    # ------------------------
+    def get_available_templates(self) -> list:
+        """Obtiene lista de templates disponibles"""
+        templates = self.template_handler.read_file()
+        if not templates:
+            raise ValueError("No hay templates disponibles")
+        return templates
+    
+    def get_template_by_code(self, codigo: str) -> dict:
+        """Obtiene template por código de producto"""
+        templates = self.template_handler.read_file()
+        template = next((t for t in templates if t["codigoProducto"] == codigo.upper()), None)
+        if not template:
+            raise ValueError(f"No existe template con código {codigo}")
+        return template
+
+    # ------------------------
+    # Operaciones de productos
     # ------------------------
     def get_all_products(self) -> list:
         """Obtiene lista de todos los productos"""
         return self.product_handler.read_file()
 
     def get_product_by_id(self, product_id: int) -> dict:
-        """
-        Busca un producto específico por ID
-        :param product_id: ID del producto a buscar
-        :return: Producto encontrado o None
-        """
+        """Busca un producto específico por ID"""
         products = self.product_handler.read_file()
         return next((p for p in products if p["Id"] == product_id), None)
 
-    def add_product_interactive(self):
-        """Proceso interactivo de creación de producto"""
-        try:
-            print("\n=== Agregar Nuevo Producto ===")
-            
-            # Mostrar templates disponibles
-            templates = self.template_handler.read_file()
-            if not templates:
-                print("No hay templates disponibles. Cree algunos primero.")
-                return
-            
-            print("\nProductos disponibles:")
-            for template in templates:
-                print(f"- {template['codigoProducto']}: {template['nombre']} ({template['unidadMedida']})")
-            
-            # Seleccionar template
-            codigo = input("\nIngrese código del producto: ").strip().upper()
-            template = next((t for t in templates if t["codigoProducto"] == codigo), None)
-            if not template:
-                raise ValueError(f"No existe template con código {codigo}")
-            
-            # Solicitar datos adicionales
-            fecha = input("Fecha (YYYY-MM-DD): ").strip()
-            try:
-                datetime.strptime(fecha, "%Y-%m-%d")
-            except ValueError:
-                raise ValueError("Formato de fecha inválido. Use YYYY-MM-DD")
-            
-            cantidad = input("Cantidad: ").strip()
-            try:
-                cantidad = float(cantidad)
-                if cantidad <= 0:
-                    raise ValueError()
-            except ValueError:
-                raise ValueError("La cantidad debe ser un número positivo")
-            
-            # Crear producto
-            product_data = {
-                "codigoProducto": template["codigoProducto"],
-                "nombre": template["nombre"],
-                "unidadMedida": template["unidadMedida"],
-                "Date": fecha,
-                "cantidad": cantidad
-            }
-            
-            # Agregar producto
-            added_product = self.add_product(product_data)
-            print(f"\nProducto agregado exitosamente:")
-            print(f"ID: {added_product['Id']}")
-            print(f"Producto: {added_product['nombre']}")
-            print(f"Cantidad: {added_product['cantidad']} {added_product['unidadMedida']}")
-            print(f"Fecha: {added_product['Date']}")
-            
-        except ValueError as e:
-            print(f"\nError: {str(e)}")
-        except Exception as e:
-            print(f"\nError inesperado: {str(e)}")
+    def create_product(self, codigo: str, fecha: str, cantidad: float) -> dict:
+        """
+        Crea un nuevo producto a partir de template y parámetros
+        :param codigo: Código del producto
+        :param fecha: Fecha en formato YYYY-MM-DD
+        :param cantidad: Cantidad del producto
+        :return: Producto creado
+        """
+        self.validate_date(fecha)
+        self.validate_quantity(cantidad)
+        template = self.get_template_by_code(codigo)
+        
+        product_data = {
+            "codigoProducto": template["codigoProducto"],
+            "nombre": template["nombre"],
+            "unidadMedida": template["unidadMedida"],
+            "Date": fecha,
+            "cantidad": float(cantidad)
+        }
+        
+        return self.add_product(product_data)
 
     def add_product(self, product_data: dict) -> dict:
         """
@@ -128,15 +118,3 @@ class ProductService:
         self.product_handler.write_file(products)
         
         return product_data
-
-# Ejemplo de uso actualizado
-if __name__ == "__main__":
-    service = ProductService()
-    while True:
-        service.add_product_interactive()
-        
-        continuar = input("\n¿Desea agregar otro producto? (s/n): ").lower()
-        if continuar != 's':
-            break
-    
-    print("\nProductos guardados. ¡Hasta luego!")

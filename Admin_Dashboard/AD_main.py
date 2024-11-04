@@ -1,9 +1,16 @@
+import os
+import sys
 import pygame
 from enum import Enum
-# Importación relativa desde la carpeta Admin_Dashboard
-from .views.pre_classification_view import PreClassificationView
-from utils.screen_config import WINDOW_CONFIG
 
+
+# Get the absolute path of the project root directory
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(PROJECT_ROOT)
+
+
+from Admin_Dashboard.views.pre_classification_view import PreClassificationView
+from Admin_Dashboard.constants import WINDOW_CONFIG
 class Screens(Enum):
     PRE_CLASSIFICATION = "pre_classification"
 

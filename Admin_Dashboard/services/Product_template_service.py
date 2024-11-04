@@ -1,65 +1,82 @@
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-
 from utils.file_handler import FileHandler
 from models.Product import REQUIRED_TEMPLATE_FIELDS
 
 class ProductTemplateService:
-    """Servicio para manejar plantillas de productos"""
     
+    # ------------------------
+    # Constructor de servicio
+    # ------------------------
     def __init__(self):
+        """Inicializa el servicio con manejador de archivos"""
         self.file_handler = FileHandler("product_templates")
     
+    # ------------------------
+    # Operaciones de búsqueda
+    # ------------------------
     def get_all_templates(self) -> list:
-        """Obtiene todas las plantillas de productos"""
+        """Obtiene todas las plantillas disponibles"""
         return self.file_handler.read_file()
-    
+
     def get_template_by_code(self, code: str) -> dict:
         """Busca plantilla por código de producto"""
         templates = self.file_handler.read_file()
-        return next((t for t in templates if t["codigoProducto"] == code), None)
+        return next((t for t in templates if t["codigoProducto"] == code.upper()), None)
     
-    def add_template_interactive(self):
-        """Solicita datos del template por consola"""
-        try:
-            print("\n=== Agregar Nueva Plantilla de Producto ===")
+    # ------------------------
+    # Validaciones
+    # ------------------------
+    def validate_template_data(self, codigo: str, nombre: str, unidad: str) -> bool:
+        """
+        Valida los datos de la plantilla
+        :param codigo: Código del producto
+        :param nombre: Nombre del producto
+        :param unidad: Unidad de medida
+        :return: True si los datos son válidos
+        """
+        if not codigo:
+            raise ValueError("El código no puede estar vacío")
+        
+        if self.get_template_by_code(codigo):
+            raise ValueError(f"Ya existe un producto con el código {codigo}")
             
-            # Solicitar datos
-            codigo = input("Código de ítem: ").strip().upper()
-            if not codigo:
-                raise ValueError("El código no puede estar vacío")
-                
-            # Verificar si ya existe
-            if self.get_template_by_code(codigo):
-                raise ValueError(f"Ya existe un producto con el código {codigo}")
+        if not nombre:
+            raise ValueError("El nombre no puede estar vacío")
             
-            nombre = input("Nombre de producto: ").strip()
-            if not nombre:
-                raise ValueError("El nombre no puede estar vacío")
+        if not unidad:
+            raise ValueError("La unidad de medida no puede estar vacía")
             
-            unidad = input("Unidad de medida: ").strip().lower()
-            if not unidad:
-                raise ValueError("La unidad de medida no puede estar vacía")
-            
-            # Crear template
-            template = {
-                "codigoProducto": codigo,
-                "nombre": nombre,
-                "unidadMedida": unidad
-            }
-            
-            # Guardar template
-            self.add_template(template)
-            print(f"\nPlantilla agregada exitosamente: {codigo} - {nombre}")
-            
-        except ValueError as e:
-            print(f"\nError: {str(e)}")
-        except Exception as e:
-            print(f"\nError inesperado: {str(e)}")
+        return True
+    
+    # ------------------------
+    # Operaciones de plantillas
+    # ------------------------
+    def create_template(self, codigo: str, nombre: str, unidad: str) -> dict:
+        """
+        Crea una nueva plantilla de producto
+        :param codigo: Código del producto
+        :param nombre: Nombre del producto
+        :param unidad: Unidad de medida
+        :return: Plantilla creada
+        """
+        self.validate_template_data(codigo, nombre, unidad)
+        
+        template_data = {
+            "codigoProducto": codigo.upper(),
+            "nombre": nombre.strip(),
+            "unidadMedida": unidad.strip().lower()
+        }
+        
+        return self.add_template(template_data)
 
     def add_template(self, template_data: dict) -> dict:
-        """Agrega nueva plantilla de producto"""
+        """
+        Agrega nueva plantilla de producto
+        :param template_data: Diccionario con datos de la plantilla
+        :return: Plantilla agregada
+        """
         templates = self.file_handler.read_file()
         
         if not all(field in template_data for field in REQUIRED_TEMPLATE_FIELDS):
@@ -67,16 +84,5 @@ class ProductTemplateService:
         
         templates.append(template_data)
         self.file_handler.write_file(templates)
-        return template_data
-
-# Ejemplo de uso
-if __name__ == "__main__":
-    service = ProductTemplateService()
-    while True:
-        service.add_template_interactive()
         
-        continuar = input("\n¿Desea agregar otro producto? (s/n): ").lower()
-        if continuar != 's':
-            break
-    
-    print("\nTemplates guardados. ¡Hasta luego!")
+        return template_data
