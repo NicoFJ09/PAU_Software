@@ -7,7 +7,7 @@ class Scrollbar:
     def __init__(self, x, y, width, height, total_items, visible_items):
         self.x = x
         self.y = y
-        self.width = width
+        self.width = 10  # Ancho reducido
         self.height = height
         self.total_items = total_items
         self.visible_items = visible_items
@@ -17,9 +17,31 @@ class Scrollbar:
         self.drag_offset = 0
         
     def draw(self, surface):
-        pygame.draw.rect(surface, COLORS['WHITE'], (self.x, self.y, self.width, self.height))
-        pygame.draw.rect(surface, COLORS['RED'], (self.x, self.thumb_y, self.width, self.thumb_height))
-    
+        # Fondo del scrollbar con bordes redondeados
+        pygame.draw.rect(
+            surface, 
+            COLORS['WHITE'], 
+            (self.x, self.y, self.width, self.height),
+            border_radius=5
+        )
+        
+        # Thumb con bordes redondeados y más estilizado
+        pygame.draw.rect(
+            surface, 
+            COLORS['YELLOW'], 
+            (self.x, self.thumb_y, self.width, self.thumb_height),
+            border_radius=5
+        )
+        
+        # Borde decorativo opcional
+        pygame.draw.rect(
+            surface, 
+            COLORS['YELLOW'], 
+            (self.x, self.y, self.width, self.height),
+            width=1,  # Solo el borde
+            border_radius=5
+        )
+
     def handle_event(self, event):
         # Manejar scroll del mouse
         if event.type == pygame.MOUSEWHEEL:

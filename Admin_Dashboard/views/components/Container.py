@@ -115,9 +115,9 @@ class Container:
         # Crear scrollbar si hay más filas que el límite visible
         if len(self.rows) > self.config['visible_rows']:
             self.scrollbar = Scrollbar(
-                x=self.x + self.width - 20,
+                x=self.x + self.width + 2,  # 5px de separación del contenedor
                 y=self.y,
-                width=20,
+                width=10,  # Scrollbar más delgado
                 height=self.height,
                 total_items=len(self.rows),
                 visible_items=self.config['visible_rows']
@@ -130,7 +130,7 @@ class Container:
             self.update_visible_elements()
 
     def update_visible_elements(self):
-        """Actualiza la visibilidad de los elementos según el scroll"""
+        """Actualiza la posición de los elementos según el scroll sin ocultarlos"""
         for i, row in enumerate(self.rows):
             y_pos = self.y + self.config['margin_top'] + ((i - self.scroll_index) * (self.config['row_height'] + self.config['spacing']))
             
@@ -138,26 +138,30 @@ class Container:
             is_visible = (y_pos >= self.y and 
                         y_pos + self.config['row_height'] <= self.y + self.height)
             
-            # Actualizar visibilidad de elementos UI
-            if 'input' in row:
-                if is_visible:
-                    row['input'].show()
+            # Actualizar posición de elementos UI solo si son visibles
+            if is_visible:
+                if 'input' in row:
                     row['input'].set_relative_position((
                         row['input'].relative_rect.x,
                         y_pos
                     ))
-                else:
-                    row['input'].hide()
-                    
-            if 'button' in row:
-                if is_visible:
-                    row['button'].show()
+                if 'button' in row:
                     row['button'].set_relative_position((
                         row['button'].relative_rect.x,
                         y_pos
                     ))
-                else:
-                    row['button'].hide()
+            else:
+                # Mover elementos fuera de la vista en lugar de ocultarlos
+                if 'input' in row:
+                    row['input'].set_relative_position((
+                        row['input'].relative_rect.x,
+                        -1000  # Fuera de la vista
+                    ))
+                if 'button' in row:
+                    row['button'].set_relative_position((
+                        row['button'].relative_rect.x,
+                        -1000  # Fuera de la vista
+                    ))
 
     def draw_dividers(self):
         """Dibuja líneas divisorias centradas entre las filas"""
