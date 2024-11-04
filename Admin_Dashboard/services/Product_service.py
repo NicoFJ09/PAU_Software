@@ -70,14 +70,14 @@ class ProductService:
         products = self.product_handler.read_file()
         return next((p for p in products if p["Id"] == product_id), None)
 
-    def order_product(self, codigo: str, fecha: str, cantidad: float) -> dict:
+    def order_product(self, codigo: str, cantidad: float) -> dict:
         """
         Crea un nuevo producto a partir de template y parámetros
         :param codigo: Código del producto
-        :param fecha: Fecha en formato YYYY-MM-DD
         :param cantidad: Cantidad del producto
         :return: Producto creado
         """
+        fecha = datetime.now().strftime("%Y-%m-%d")
         self.validate_date(fecha)
         self.validate_quantity(cantidad)
         template = self.get_template_by_code(codigo)

@@ -1,8 +1,8 @@
-# FILE: components/container.py
-
 import pygame
 import pygame_gui
 from Admin_Dashboard.constants import COLORS
+from Admin_Dashboard.views.components.ScrollBar import Scrollbar
+
 
 class Container:
     def __init__(self, surface, ui_manager, position, width, config=None):
@@ -23,14 +23,26 @@ class Container:
             'button_text': 'Order',
             'text_formatter': lambda item: f"{item['nombre']} ({item['unidadMedida']})",
             'item_id_field': 'codigoProducto',
-            'margin_top': 20,  # Márgenes ajustados
-            'margin_bottom': 20
+            'margin_top': 20,
+            'margin_bottom': 20,
+            'visible_rows': 5 
         }
         if config:
             self.config.update(config)
         
+        # Calcular altura inicial del contenedor
+        self.height = (
+            self.config['margin_top'] +
+            (self.config['visible_rows'] * self.config['row_height']) +
+            ((self.config['visible_rows'] - 1) * self.config['spacing']) +
+            self.config['margin_bottom']
+        )
+        
         self.content_font = pygame.font.SysFont("Georgia", 18)
         self.rows = []
+        self.scrollbar = None
+        self.scroll_index = 0
+        
 
     def create_row(self, item, index):
         """Crea una fila con elementos configurables"""
@@ -83,45 +95,87 @@ class Container:
             row_data['button'] = button
         
         return row_data
-
+        
     def setup_rows(self, items):
         """Configura todas las filas y ajusta la altura del contenedor"""
+        # Crear todas las filas
         self.rows = [
             self.create_row(item, i) 
             for i, item in enumerate(items)
         ]
         
-        # Calcular altura total del contenedor incluyendo márgenes
-        if len(self.rows) > 0:
-            self.height = (
-                self.config['margin_top'] +  # Margen superior
-                (len(self.rows) * self.config['row_height']) +  # Altura de todas las filas
-                ((len(self.rows) - 1) * self.config['spacing']) +  # Espaciado entre filas
-                self.config['margin_bottom']  # Margen inferior
+        # Altura fija para las filas visibles
+        self.height = (
+            self.config['margin_top'] +
+            (self.config['visible_rows'] * self.config['row_height']) +
+            ((self.config['visible_rows'] - 1) * self.config['spacing']) +
+            self.config['margin_bottom']
+        )
+        
+        # Crear scrollbar si hay más filas que el límite visible
+        if len(self.rows) > self.config['visible_rows']:
+            self.scrollbar = Scrollbar(
+                x=self.x + self.width - 20,
+                y=self.y,
+                width=20,
+                height=self.height,
+                total_items=len(self.rows),
+                visible_items=self.config['visible_rows']
             )
-        else:
-            self.height = self.config['margin_top'] + self.config['margin_bottom']
+            
+            # Simular scroll inicial para forzar actualización
+            self.scroll_index = 1
+            self.update_visible_elements()
+            self.scroll_index = 0
+            self.update_visible_elements()
+
+    def update_visible_elements(self):
+        """Actualiza la visibilidad de los elementos según el scroll"""
+        for i, row in enumerate(self.rows):
+            y_pos = self.y + self.config['margin_top'] + ((i - self.scroll_index) * (self.config['row_height'] + self.config['spacing']))
+            
+            # Determinar si el elemento está visible
+            is_visible = (y_pos >= self.y and 
+                        y_pos + self.config['row_height'] <= self.y + self.height)
+            
+            # Actualizar visibilidad de elementos UI
+            if 'input' in row:
+                if is_visible:
+                    row['input'].show()
+                    row['input'].set_relative_position((
+                        row['input'].relative_rect.x,
+                        y_pos
+                    ))
+                else:
+                    row['input'].hide()
+                    
+            if 'button' in row:
+                if is_visible:
+                    row['button'].show()
+                    row['button'].set_relative_position((
+                        row['button'].relative_rect.x,
+                        y_pos
+                    ))
+                else:
+                    row['button'].hide()
 
     def draw_dividers(self):
         """Dibuja líneas divisorias centradas entre las filas"""
         if not self.config['show_dividers'] or len(self.rows) <= 1:
             return
             
-        for i in range(len(self.rows) - 1):
+        visible_rows = self.rows[self.scroll_index:self.scroll_index + self.config['visible_rows']]
+        for i in range(len(visible_rows) - 1):
             # Calcular posición Y del elemento actual y siguiente
-            current_row_y = self.rows[i]['text_rect'].bottom
-            next_row_y = self.rows[i + 1]['text_rect'].top
-            
-            # Calcular punto medio entre filas
-            mid_y = (current_row_y + next_row_y) // 2
+            current_row_y = self.y + self.config['margin_top'] + (i + 1) * (self.config['row_height'] + self.config['spacing']) - self.config['spacing'] // 2
             
             # Dibujar línea divisoria
             pygame.draw.line(
                 self.surface,
                 COLORS['RED'],
-                (self.x, mid_y),           # Punto inicial en x del contenedor
-                (self.x + self.width-1, mid_y), # Punto final en x del contenedor
-                2                          # Grosor igual al borde
+                (self.x, current_row_y),
+                (self.x + self.width - 1, current_row_y),
+                2
             )
 
     def draw(self):
@@ -139,15 +193,35 @@ class Container:
             2
         )
         
-        # Filas
-        for row in self.rows:
-            self.surface.blit(row['text'], row['text_rect'])
+        # Actualizar elementos visibles
+        self.update_visible_elements()
+        
+        # Dibujar solo las filas visibles
+        visible_rows = self.rows[self.scroll_index:self.scroll_index + self.config['visible_rows']]
+        for i, row in enumerate(visible_rows):
+            y_pos = self.y + self.config['margin_top'] + (i * (self.config['row_height'] + self.config['spacing']))
+            
+            # Solo dibujar si está dentro del contenedor
+            if y_pos >= self.y and y_pos + self.config['row_height'] <= self.y + self.height:
+                text_rect = row['text_rect'].copy()
+                text_rect.y = y_pos + (self.config['row_height'] - row['text'].get_height()) // 2
+                self.surface.blit(row['text'], text_rect)
 
         # Líneas divisorias
         self.draw_dividers()
+        
+        # Dibujar scrollbar si existe
+        if self.scrollbar:
+            self.scrollbar.draw(self.surface)
 
     def handle_event(self, event, callback):
         """Maneja eventos si hay botones configurados"""
+        if self.scrollbar:
+            new_index = self.scrollbar.handle_event(event)
+            if new_index is not None:
+                self.scroll_index = new_index
+                return
+        
         if not self.config['show_button']:
             return
             

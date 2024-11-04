@@ -1,5 +1,3 @@
-# FILE: pre_classification_view.py
-
 import pygame
 import pygame_gui
 from Admin_Dashboard.constants import COLORS
@@ -37,6 +35,7 @@ class PreClassificationView:
             'item_id_field': 'codigoProducto',
             'margin_top': 5, 
             'margin_bottom': 5,
+            'visible_rows': 5  
         }
         
         self.container = Container(
@@ -46,6 +45,7 @@ class PreClassificationView:
             width=self.window_size[0] - 100,  # Solo pasamos el ancho
             config=container_config
         )
+        
         
         # Configurar productos
         products = self.controller.get_products()

@@ -23,5 +23,15 @@
     "codigoProducto": "S",
     "nombre": "Sal",
     "unidadMedida": "u"
+  },
+  {
+    "codigoProducto": "ORG",
+    "nombre": "Oregano",
+    "unidadMedida": "u"
+  },
+  {
+    "codigoProducto": "PIM",
+    "nombre": "Pimienta",
+    "unidadMedida": "u"
   }
 ]

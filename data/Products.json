@@ -46,5 +46,21 @@
     "Date": "2024-11-04",
     "cantidad": 100.0,
     "Id": 2
+  },
+  {
+    "codigoProducto": "TOM",
+    "nombre": "Tomate",
+    "unidadMedida": "kg",
+    "Date": "2024-11-04",
+    "cantidad": 100.0,
+    "Id": 3
+  },
+  {
+    "codigoProducto": "PIM",
+    "nombre": "Pimienta",
+    "unidadMedida": "u",
+    "Date": "2024-11-04",
+    "cantidad": 50.0,
+    "Id": 1
   }
 ]
