@@ -3,23 +3,16 @@ import sys
 import pygame
 from enum import Enum
 
-
-# Get the absolute path of the project root directory
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(PROJECT_ROOT)
-
-
 from Admin_Dashboard.views.pre_classification_view import PreClassificationView
-from Admin_Dashboard.constants import WINDOW_CONFIG
 class Screens(Enum):
     PRE_CLASSIFICATION = "pre_classification"
 
 class AdminDashboard:
     def __init__(self):
         pygame.init()
-        self.window_size = WINDOW_CONFIG['size']
+        self.window_size = (1280, 720)
         self.window_surface = pygame.display.set_mode(self.window_size)
-        pygame.display.set_caption(WINDOW_CONFIG['caption'])
+        pygame.display.set_caption("Admin Dashboard")
         
         self.clock = pygame.time.Clock()
         self.is_running = True

@@ -1,6 +1,6 @@
 import pygame
 import pygame_gui
-from Admin_Dashboard.constants import PYGAME_CONFIG, COLORS
+from Admin_Dashboard.constants import COLORS
 from Admin_Dashboard.controllers.Post_clasification_controller import PostClassificationController
 
 class PostClassificationView:
@@ -16,14 +16,8 @@ class PostClassificationView:
         self.ui_manager = pygame_gui.UIManager(window_size)
         
         # Fuentes
-        self.title_font = pygame.font.SysFont(
-            PYGAME_CONFIG['font']['name'], 
-            PYGAME_CONFIG['font']['size'] + 10
-        )
-        self.content_font = pygame.font.SysFont(
-            PYGAME_CONFIG['font']['name'], 
-            PYGAME_CONFIG['font']['size']
-        )
+        self.title_font = pygame.font.SysFont("Georgia", 18)
+        self.content_font = pygame.font.SysFont("Georgia", 9)
         # Controlador
         self.controller = PostClassificationController()
 

@@ -1,3 +1,5 @@
+# FILE: Product_service.py
+
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -68,24 +70,18 @@ class ProductService:
     # ------------------------
     # Operaciones de productos
     # ------------------------
-    def get_all_products(self) -> list:
-        """Obtiene lista de todos los productos"""
-        return self.product_handler.read_file()
-
     def get_product_by_id(self, product_id: int) -> dict:
         """Busca un producto específico por ID"""
         products = self.product_handler.read_file()
         return next((p for p in products if p["Id"] == product_id), None)
 
-    def create_product(self, codigo: str, fecha: str, cantidad: float) -> dict:
+    def create_product(self, codigo: str, cantidad: float) -> dict:
         """
         Crea un nuevo producto a partir de template y parámetros
         :param codigo: Código del producto
-        :param fecha: Fecha en formato YYYY-MM-DD
         :param cantidad: Cantidad del producto
         :return: Producto creado
         """
-        self.validate_date(fecha)
         self.validate_quantity(cantidad)
         template = self.get_template_by_code(codigo)
         
@@ -93,7 +89,7 @@ class ProductService:
             "codigoProducto": template["codigoProducto"],
             "nombre": template["nombre"],
             "unidadMedida": template["unidadMedida"],
-            "Date": fecha,
+            "Date": datetime.now().strftime("%Y-%m-%d"),
             "cantidad": float(cantidad)
         }
         
