@@ -11,8 +11,8 @@ class PreClassificationController:
         """Obtener productos del archivo JSON"""
         return self.file_handler.read_file()
     
-    def order_product(self, codigo, cantidad):
+    def order_product(self, codigo: str, cantidad: int):
         return self.ProductService.order_product(codigo, cantidad)
     
-    def create_template(self, product_data):
-        return self.ProductTemplateService.create_template(product_data)
+    def create_template(self, codigo: str, nombre: str, unidad: str):
+        return self.ProductTemplateService.create_template(codigo, nombre, unidad)

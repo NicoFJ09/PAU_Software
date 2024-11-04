@@ -3,7 +3,6 @@ import pygame_gui
 from Admin_Dashboard.constants import COLORS
 from Admin_Dashboard.views.components.ScrollBar import Scrollbar
 
-
 class Container:
     def __init__(self, surface, ui_manager, position, width, config=None):
         self.surface = surface
@@ -42,7 +41,6 @@ class Container:
         self.rows = []
         self.scrollbar = None
         self.scroll_index = 0
-        
 
     def create_row(self, item, index):
         """Crea una fila con elementos configurables"""
@@ -73,10 +71,9 @@ class Container:
             input_box = pygame_gui.elements.UITextEntryLine(
                 relative_rect=input_rect,
                 manager=self.ui_manager,
-                initial_text="0"
+                placeholder_text="0"
             )
             input_box.set_allowed_characters('numbers')
-            input_box.set_text_length_limit(5)
             row_data['input'] = input_box
         
         # Botón (opcional)
@@ -95,7 +92,7 @@ class Container:
             row_data['button'] = button
         
         return row_data
-        
+
     def setup_rows(self, items):
         """Configura todas las filas y ajusta la altura del contenedor"""
         # Crear todas las filas
@@ -128,6 +125,18 @@ class Container:
             self.update_visible_elements()
             self.scroll_index = 0
             self.update_visible_elements()
+
+    def update(self, items):
+        """Actualiza las filas del contenedor con nuevos elementos"""
+        # Eliminar filas existentes
+        for row in self.rows:
+            if 'input' in row:
+                row['input'].kill()
+            if 'button' in row:
+                row['button'].kill()
+        
+        # Configurar filas nuevamente con la lista actualizada de productos
+        self.setup_rows(items)
 
     def update_visible_elements(self):
         """Actualiza la posición de los elementos según el scroll sin ocultarlos"""

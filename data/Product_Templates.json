@@ -33,5 +33,30 @@
     "codigoProducto": "PIM",
     "nombre": "Pimienta",
     "unidadMedida": "u"
+  },
+  {
+    "codigoProducto": "BOT",
+    "nombre": "Botellas",
+    "unidadMedida": "kg"
+  },
+  {
+    "codigoProducto": "BOL",
+    "nombre": "Bolsas",
+    "unidadMedida": "u"
+  },
+  {
+    "codigoProducto": "CHL",
+    "nombre": "Chiles",
+    "unidadMedida": "kg"
+  },
+  {
+    "codigoProducto": "AGU",
+    "nombre": "Agua",
+    "unidadMedida": "u"
+  },
+  {
+    "codigoProducto": "LCH",
+    "nombre": "Leche",
+    "unidadMedida": "l"
   }
 ]

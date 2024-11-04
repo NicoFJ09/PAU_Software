@@ -1,9 +1,7 @@
 import pygame
-from enum import Enum
-
-from Admin_Dashboard.views.pre_classification_view import PreClassificationView
-class Screens(Enum):
-    PRE_CLASSIFICATION = "pre_classification"
+from Admin_Dashboard.Screens import Screens  # Importar Screens desde el nuevo módulo
+from Admin_Dashboard.views.Pre_classification_view import PreClassificationView
+from Admin_Dashboard.views.Post_classification_view import PostClassificationView  # Importar PostClassificationView
 
 class AdminDashboard:
     def __init__(self):
@@ -17,11 +15,23 @@ class AdminDashboard:
         
         self.current_screen = Screens.PRE_CLASSIFICATION
         self.views = {
-            Screens.PRE_CLASSIFICATION: PreClassificationView(
-                self.window_surface, 
-                self.window_size
-            )
+            Screens.PRE_CLASSIFICATION: PreClassificationView,
+            Screens.POST_CLASSIFICATION: PostClassificationView
         }
+        self.current_view = self.views[self.current_screen](
+            self.window_surface, 
+            self.window_size,
+            self.change_screen  # Pasar el callback para cambiar la pantalla
+        )
+
+    def change_screen(self, new_screen):
+        """Cambia la pantalla al nuevo estado"""
+        self.current_screen = new_screen
+        self.current_view = self.views[self.current_screen](
+            self.window_surface, 
+            self.window_size,
+            self.change_screen  # Pasar el callback para cambiar la pantalla
+        )
 
     def run(self):
         """Bucle principal de la aplicación"""
@@ -30,10 +40,10 @@ class AdminDashboard:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     self.is_running = False
-                self.views[self.current_screen].handle_event(event)
+                self.current_view.handle_event(event)
             
-            self.views[self.current_screen].update()
-            self.views[self.current_screen].draw()
+            self.current_view.update()
+            self.current_view.draw()
             pygame.display.flip()
 
 # Función para ser llamada desde main.py
