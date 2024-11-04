@@ -1,9 +1,18 @@
+import os
+import sys
+
+# Get the absolute path of the project root directory
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(PROJECT_ROOT)
+
+# Then your imports
 import pygame
-from utils.screen_config import PYGAME_CONFIG, COLORS
-from .Components.Button import Button
-from .Components.Input_box import InputBox
-from .Components.Form import Form  
+from Admin_Dashboard.utils.screen_config import PYGAME_CONFIG, COLORS
+from Admin_Dashboard.views.Components.Button import Button
+from Admin_Dashboard.views.Components.Input_box import InputBox
+from Admin_Dashboard.views.Components.Form import Form
 from Admin_Dashboard.controllers.Pre_clasification_controller import PreClassificationController
+
 
 class PreClassificationView:
     def __init__(self, surface, window_size):
