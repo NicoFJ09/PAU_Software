@@ -1,9 +1,6 @@
-import sys
-import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from utils.file_handler import FileHandler
+from Admin_Dashboard. utils.file_handler import FileHandler
 from datetime import datetime
-from models.Product import REQUIRED_PRODUCT_FIELDS
+from Admin_Dashboard.models.Product import REQUIRED_PRODUCT_FIELDS
 
 class ProductService:
     
