@@ -24,107 +24,27 @@
     "Id": 2
   },
   {
-    "codigoProducto": "TOM",
-    "nombre": "Tomate",
-    "unidadMedida": "kg",
-    "Date": "2024-11-04",
+    "codigoProducto": "SAN",
+    "nombre": "Sandía",
+    "unidadMedida": "u",
+    "Date": "2024-11-05",
     "cantidad": 100.0,
     "Id": 1
   },
   {
-    "codigoProducto": "PIÑ",
-    "nombre": "Piñas",
-    "unidadMedida": "kg",
-    "Date": "2024-11-04",
-    "cantidad": 30.0,
-    "Id": 1
-  },
-  {
-    "codigoProducto": "TOM",
-    "nombre": "Tomate",
-    "unidadMedida": "kg",
-    "Date": "2024-11-04",
-    "cantidad": 100.0,
+    "codigoProducto": "SAN",
+    "nombre": "Sandía",
+    "unidadMedida": "u",
+    "Date": "2024-11-05",
+    "cantidad": 50.0,
     "Id": 2
   },
   {
-    "codigoProducto": "TOM",
-    "nombre": "Tomate",
-    "unidadMedida": "kg",
-    "Date": "2024-11-04",
-    "cantidad": 100.0,
-    "Id": 3
-  },
-  {
-    "codigoProducto": "PIM",
-    "nombre": "Pimienta",
+    "codigoProducto": "BOL",
+    "nombre": "Bolsas",
     "unidadMedida": "u",
-    "Date": "2024-11-04",
-    "cantidad": 50.0,
-    "Id": 1
-  },
-  {
-    "codigoProducto": "LAT",
-    "nombre": "Latas",
-    "unidadMedida": "u",
-    "Date": "2024-11-04",
-    "cantidad": 200.0,
-    "Id": 1
-  },
-  {
-    "codigoProducto": "TOM",
-    "nombre": "Tomate",
-    "unidadMedida": "kg",
-    "Date": "2024-11-04",
-    "cantidad": 100.0,
-    "Id": 4
-  },
-  {
-    "codigoProducto": "TOM",
-    "nombre": "Tomate",
-    "unidadMedida": "kg",
-    "Date": "2024-11-04",
-    "cantidad": 100.0,
-    "Id": 5
-  },
-  {
-    "codigoProducto": "S",
-    "nombre": "Sal",
-    "unidadMedida": "u",
-    "Date": "2024-11-04",
-    "cantidad": 300.0,
-    "Id": 1
-  },
-  {
-    "codigoProducto": "PAP",
-    "nombre": "Papas",
-    "unidadMedida": "kg",
-    "Date": "2024-11-04",
-    "cantidad": 70.0,
-    "Id": 1
-  },
-  {
-    "codigoProducto": "AGU",
-    "nombre": "Agua",
-    "unidadMedida": "u",
-    "Date": "2024-11-04",
-    "cantidad": 100.0,
-    "Id": 1
-  },
-  {
-    "codigoProducto": "TOM",
-    "nombre": "Tomate",
-    "unidadMedida": "kg",
-    "Date": "2024-11-04",
+    "Date": "2024-11-05",
     "cantidad": 30.0,
-    "Id": 6
-  },
-  {
-    "codigoProducto": "LCH",
-    "nombre": "Leche",
-    "unidadMedida": "l",
-    "Date": "2024-11-04",
-    "cantidad": 20.0,
     "Id": 1
   }
 ]

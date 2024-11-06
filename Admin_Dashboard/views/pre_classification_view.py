@@ -74,7 +74,6 @@ class PreClassificationView:
                 'width': self.container.width,  # Mismo ancho que el container
                 'height': self.container.height,  # Mismo alto que el container
                 'margin_x': self.container.x,   # Mismo margen que el container
-                'visible_rows': 3,
                 'fields': [
                     {'label': 'Código de producto', 'type': 'text'},
                     {'label': 'Nombre', 'type': 'text'},
