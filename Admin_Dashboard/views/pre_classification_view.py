@@ -153,7 +153,7 @@ class PreClassificationView:
         # Manejar evento del botón "Continuar"
         if event.type == pygame.USEREVENT and event.user_type == pygame_gui.UI_BUTTON_PRESSED:
             if event.ui_element == self.continue_button:
-                self.change_screen_callback(Screens.POST_CLASSIFICATION)
+                self.change_screen_callback(Screens.CLASSIFICATION)
 
     def create_and_update_product(self, codigo, nombre, unidad):
         """Crea un nuevo producto y actualiza el contenedor"""

@@ -2,7 +2,7 @@ import pygame
 import pygame_gui
 from Admin_Dashboard.constants import COLORS
 
-class PostClassificationView:
+class ClassificationView:
     def __init__(self, surface, window_size, change_screen_callback):
         self.surface = surface
         self.window_size = window_size
@@ -63,7 +63,7 @@ class PostClassificationView:
         self.surface.fill(COLORS['WHITE'])
         
         # Título
-        title_text = self.title_font.render("Pantalla de post-clasificación", True, COLORS['GREEN'])
+        title_text = self.title_font.render("Pantalla de Clasificación", True, COLORS['GREEN'])
         title_rect = title_text.get_rect(midtop=(self.window_size[0] // 2, 20))
         self.surface.blit(title_text, title_rect)
         

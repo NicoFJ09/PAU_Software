@@ -1,7 +1,7 @@
 import pygame
 from Admin_Dashboard.Screens import Screens  # Importar Screens desde el nuevo módulo
 from Admin_Dashboard.views.Pre_classification_view import PreClassificationView
-from Admin_Dashboard.views.Post_classification_view import PostClassificationView  # Importar PostClassificationView
+from Admin_Dashboard.views.Classification_view import ClassificationView  # Importar PostClassificationView
 
 class AdminDashboard:
     def __init__(self):
@@ -16,7 +16,7 @@ class AdminDashboard:
         self.current_screen = Screens.PRE_CLASSIFICATION
         self.views = {
             Screens.PRE_CLASSIFICATION: PreClassificationView,
-            Screens.POST_CLASSIFICATION: PostClassificationView
+            Screens.CLASSIFICATION: ClassificationView
         }
         self.current_view = self.views[self.current_screen](
             self.window_surface, 
