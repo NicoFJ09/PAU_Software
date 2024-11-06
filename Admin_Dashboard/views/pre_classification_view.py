@@ -47,7 +47,8 @@ class PreClassificationView:
             'item_id_field': 'codigoProducto',
             'margin_top': 5, 
             'margin_bottom': 5,
-            'visible_rows': 5  
+            'visible_rows': 5,
+            'enable_row_selection': False
         }
         
         self.container = Container(

@@ -24,7 +24,8 @@ class Container:
             'item_id_field': 'codigoProducto',
             'margin_top': 20,
             'margin_bottom': 20,
-            'visible_rows': 5 
+            'visible_rows': 5 ,
+            'enable_row_selection': True
         }
         if config:
             self.config.update(config)
@@ -44,9 +45,10 @@ class Container:
 
     def create_row(self, item, index):
         """Crea una fila con elementos configurables"""
-        # Calcular posición Y con margen superior
         y_pos = self.y + self.config['margin_top'] + (index * (self.config['row_height'] + self.config['spacing']))
-        row_data = {}
+        row_data = {
+            'selected': False  # Estado de selección
+        }
         
         # Texto del item - centrado verticalmente en la fila
         text = self.config['text_formatter'](item)
@@ -57,7 +59,8 @@ class Container:
         row_data.update({
             'text': text_surface,
             'text_rect': text_rect,
-            'item_id': item[self.config['item_id_field']]
+            'item': item,  # Guardar el item completo
+            'row_rect': pygame.Rect(self.x, y_pos, self.width, self.config['row_height'])  # Área clicable de la fila
         })
         
         # Input box (opcional)
@@ -92,6 +95,23 @@ class Container:
             row_data['button'] = button
         
         return row_data
+
+    def handle_row_click(self, event):
+        """Maneja el clic en una fila para cambiar su color de fondo y mostrar sus propiedades"""
+        if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+            mouse_pos = event.pos
+            for i, row in enumerate(self.rows):
+                # Calcular la posición Y de la fila teniendo en cuenta el desplazamiento
+                y_pos = self.y + self.config['margin_top'] + ((i - self.scroll_index) * (self.config['row_height'] + self.config['spacing']))
+                row_rect = pygame.Rect(self.x, y_pos, self.width, self.config['row_height'])
+                if row_rect.collidepoint(mouse_pos):
+                    # Deseleccionar todas las filas
+                    for r in self.rows:
+                        r['selected'] = False
+                    # Seleccionar la fila actual
+                    row['selected'] = True
+                    print(row['item'])  # Imprimir propiedades del producto
+                    break
 
     def setup_rows(self, items):
         """Configura todas las filas y ajusta la altura del contenedor"""
@@ -193,7 +213,6 @@ class Container:
 
     def draw(self):
         """Dibuja el contenedor y sus elementos"""
-        # Contenedor y borde
         pygame.draw.rect(
             self.surface,
             COLORS['GREEN'],
@@ -206,24 +225,25 @@ class Container:
             2
         )
         
-        # Actualizar elementos visibles
         self.update_visible_elements()
         
-        # Dibujar solo las filas visibles
         visible_rows = self.rows[self.scroll_index:self.scroll_index + self.config['visible_rows']]
         for i, row in enumerate(visible_rows):
             y_pos = self.y + self.config['margin_top'] + (i * (self.config['row_height'] + self.config['spacing']))
             
-            # Solo dibujar si está dentro del contenedor
             if y_pos >= self.y and y_pos + self.config['row_height'] <= self.y + self.height:
+                if row['selected']:
+                    pygame.draw.rect(
+                        self.surface,
+                        COLORS['LIGHT_GREEN'],  # Color de fondo para la fila seleccionada
+                        (self.x, y_pos, self.width, self.config['row_height'])
+                    )
                 text_rect = row['text_rect'].copy()
                 text_rect.y = y_pos + (self.config['row_height'] - row['text'].get_height()) // 2
                 self.surface.blit(row['text'], text_rect)
-
-        # Líneas divisorias
+        
         self.draw_dividers()
         
-        # Dibujar scrollbar si existe
         if self.scrollbar:
             self.scrollbar.draw(self.surface)
 
@@ -235,6 +255,9 @@ class Container:
                 self.scroll_index = new_index
                 return
         
+        if self.config['enable_row_selection']:
+            self.handle_row_click(event)
+        
         if not self.config['show_button']:
             return
             
@@ -245,7 +268,7 @@ class Container:
                         if self.config['show_input']:
                             amount = int(row['input'].get_text() or "0")
                             if amount > 0:
-                                callback(row['item_id'], amount)
+                                callback(row['item'][self.config['item_id_field']], amount)
                                 row['input'].set_text("0")
                         else:
-                            callback(row['item_id'])
+                            callback(row['item'][self.config['item_id_field']])
