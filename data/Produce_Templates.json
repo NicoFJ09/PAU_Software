@@ -1,0 +1,50 @@
+[
+    {
+        "codigoProducto": "TOM_VE",
+        "nombre": "Tomate verde",
+        "unidadMedida": "kg",
+        "insumo": "TOM"
+    },
+    {
+        "codigoProducto": "TOM_MA",
+        "nombre": "Tomate maduro",
+        "unidadMedida": "kg",
+        "insumo": "TOM"
+    },
+    {
+        "codigoProducto": "TOM_MM_G",
+        "nombre": "Tomate muy maduro grande",
+        "unidadMedida": "kg",
+        "insumo": "TOM"
+    },
+    {
+        "codigoProducto": "TOM_MM_P",
+        "nombre": "Tomate muy maduro pequeño",
+        "unidadMedida": "kg",
+        "insumo": "TOM"
+    },
+    {
+        "codigoProducto": "TOM_DA",
+        "nombre": "Tomate dañado",
+        "unidadMedida": "kg",
+        "insumo": "TOM"
+    },
+    {
+        "codigoProducto": "PAP_P",
+        "nombre": "Papa pequeña",
+        "unidadMedida": "kg",
+        "insumo": "PAP"
+    },
+    {
+        "codigoProducto": "PAP_G",
+        "nombre": "Papa grande",
+        "unidadMedida": "kg",
+        "insumo": "PAP"
+    },
+    {
+        "codigoProducto": "PAP_DA",
+        "nombre": "Papa dañada",
+        "unidadMedida": "kg",
+        "insumo": "PAP"
+    }
+]

@@ -38,5 +38,10 @@
     "codigoProducto": "BOL",
     "nombre": "Bolsas",
     "unidadMedida": "u"
+  },
+  {
+    "codigoProducto": "AGU",
+    "nombre": "Agua",
+    "unidadMedida": "l"
   }
 ]
