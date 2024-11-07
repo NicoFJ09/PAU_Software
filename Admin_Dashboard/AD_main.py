@@ -1,3 +1,11 @@
+import os
+import sys
+
+# Obtener la ruta absoluta del directorio raíz del proyecto
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(os.path.dirname(CURRENT_DIR))
+sys.path.append(PROJECT_ROOT)
+
 import pygame
 from Admin_Dashboard.Screens import Screens  # Importar Screens desde el nuevo módulo
 from Admin_Dashboard.views.Pre_classification_view import PreClassificationView

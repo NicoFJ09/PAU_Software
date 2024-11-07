@@ -1,3 +1,10 @@
+import os
+import sys
+
+# Obtener la ruta absoluta del directorio raíz del proyecto
+CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
+PROJECT_ROOT = os.path.dirname(os.path.dirname(CURRENT_DIR))
+sys.path.append(PROJECT_ROOT)
 from Admin_Dashboard.utils.file_handler import FileHandler
 from Admin_Dashboard.models.Product import REQUIRED_TEMPLATE_FIELDS
 
