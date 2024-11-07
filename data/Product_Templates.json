@@ -8,40 +8,5 @@
     "codigoProducto": "PAP",
     "nombre": "Papas",
     "unidadMedida": "kg"
-  },
-  {
-    "codigoProducto": "PIÑ",
-    "nombre": "Piñas",
-    "unidadMedida": "kg"
-  },
-  {
-    "codigoProducto": "LAT",
-    "nombre": "Latas",
-    "unidadMedida": "u"
-  },
-  {
-    "codigoProducto": "S",
-    "nombre": "Sal",
-    "unidadMedida": "u"
-  },
-  {
-    "codigoProducto": "CHL",
-    "nombre": "Chile",
-    "unidadMedida": "kg"
-  },
-  {
-    "codigoProducto": "SAN",
-    "nombre": "Sandía",
-    "unidadMedida": "u"
-  },
-  {
-    "codigoProducto": "BOL",
-    "nombre": "Bolsas",
-    "unidadMedida": "u"
-  },
-  {
-    "codigoProducto": "AGU",
-    "nombre": "Agua",
-    "unidadMedida": "l"
   }
 ]

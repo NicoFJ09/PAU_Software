@@ -4,7 +4,7 @@ from Admin_Dashboard.constants import COLORS
 from Admin_Dashboard.controllers.Pre_clasification_controller import PreClassificationController
 from Admin_Dashboard.views.components.Container import Container
 from Admin_Dashboard.views.components.Form import Form
-from Admin_Dashboard.Screens import Screens  # Importar Screens desde el nuevo módulo
+from Admin_Dashboard.Screens import Screens 
 
 class PreClassificationView:
     def __init__(self, surface, window_size, change_screen_callback):
@@ -48,7 +48,8 @@ class PreClassificationView:
             'margin_top': 5, 
             'margin_bottom': 5,
             'visible_rows': 5,
-            'enable_row_selection': False
+            'enable_row_selection': False,
+            
         }
         
         self.container = Container(
@@ -75,11 +76,13 @@ class PreClassificationView:
                 'width': self.container.width,  # Mismo ancho que el container
                 'height': self.container.height,  # Mismo alto que el container
                 'margin_x': self.container.x,   # Mismo margen que el container
+                'dropdown_width': 200,  # Ancho del menú desplegable
                 'fields': [
                     {'label': 'Código de producto', 'type': 'text'},
                     {'label': 'Nombre', 'type': 'text'},
                     {'label': 'Unidad de medida', 'type': 'dropdown', 'options': ['Kg', 'U', 'L', 'mL']}
-                ]
+                ],
+                'Title_text': 'Añadir productos nuevos'
             }
         )
 

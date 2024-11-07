@@ -19,14 +19,16 @@ class Form:
             'margin_bottom': 20,
             'spacing': 10,
             'row_height': 40,
-            'input_width': 150,
+            'input_width': 150,  # Ancho de los campos de texto
+            'dropdown_width': 100,  # Ancho del menú desplegable
             'button_width': 100,
             'button_text': 'Añadir',
             'fields': [
                 {'label': 'Campo 1', 'type': 'text'},
                 {'label': 'Campo 2', 'type': 'text'},
                 {'label': 'Campo 3', 'type': 'dropdown', 'options': ['Opción 1', 'Opción 2', 'Opción 3']}
-            ]
+            ],
+            'Title_text': 'Añadir productos nuevos'
         }
         
         if config:
@@ -50,21 +52,26 @@ class Form:
 
     def setup_form_elements(self):
         self.fields = []
-        field_spacing = (self.width - (3 * self.config['input_width'])) / 4
+        num_fields = len(self.config['fields'])
+        total_input_width = sum(self.config['dropdown_width'] if field['type'] == 'dropdown' else self.config['input_width'] for field in self.config['fields'])
+        total_spacing = (num_fields - 1) * self.config['spacing']
+        total_width = total_input_width + total_spacing
+        start_x = self.x + (self.width - total_width) // 2
         
         # Crear encabezado
-        header_surface = self.title_font.render("Añadir productos nuevos", True, COLORS['GREEN'])
+        header_surface = self.title_font.render(self.config['Title_text'], True, COLORS['GREEN'])
         header_rect = header_surface.get_rect(center=(self.x + self.width // 2, self.y + 40))
         self.header = {'surface': header_surface, 'rect': header_rect}
         
         for i, field in enumerate(self.config['fields']):
-            input_x = self.x + field_spacing + (i * (self.config['input_width'] + field_spacing))
+            input_width = self.config['dropdown_width'] if field['type'] == 'dropdown' else self.config['input_width']
+            input_x = start_x + sum(self.config['dropdown_width'] if self.config['fields'][j]['type'] == 'dropdown' else self.config['input_width'] for j in range(i)) + (i * self.config['spacing'])
             input_y = self.y + 100  # Ajustar para dejar espacio para el encabezado
             
             # Renderizar etiqueta
             label_surface = self.content_font.render(field['label'], True, COLORS['GREEN'])
             label_width = label_surface.get_width()
-            label_x = input_x + (self.config['input_width'] - label_width) / 2
+            label_x = input_x + (input_width - label_width) / 2
             label_y = input_y - 20
             label_rect = label_surface.get_rect(x=label_x, y=label_y)
             
@@ -73,7 +80,7 @@ class Form:
                 input_element = pygame_gui.elements.UIDropDownMenu(
                     options_list=field['options'],
                     starting_option=field['options'][0],
-                    relative_rect=pygame.Rect(input_x, input_y, self.config['input_width'], 30),
+                    relative_rect=pygame.Rect(input_x, input_y, self.config['dropdown_width'], 30),
                     manager=self.ui_manager
                 )
             else:
@@ -81,6 +88,8 @@ class Form:
                     relative_rect=pygame.Rect(input_x, input_y, self.config['input_width'], 30),
                     manager=self.ui_manager
                 )
+                if field['type'] == 'number':
+                    input_element.set_allowed_characters('numbers')
             
             self.fields.append({
                 'label_surface': label_surface,

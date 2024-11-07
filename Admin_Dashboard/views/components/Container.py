@@ -111,7 +111,8 @@ class Container:
                     # Seleccionar la fila actual
                     row['selected'] = True
                     print(row['item'])  # Imprimir propiedades del producto
-                    break
+                    return row['item']  # Retornar propiedades del producto
+        return None
 
     def setup_rows(self, items):
         """Configura todas las filas y ajusta la altura del contenedor"""
@@ -256,7 +257,9 @@ class Container:
                 return
         
         if self.config['enable_row_selection']:
-            self.handle_row_click(event)
+            selected_item = self.handle_row_click(event)
+            if selected_item:
+                return selected_item
         
         if not self.config['show_button']:
             return

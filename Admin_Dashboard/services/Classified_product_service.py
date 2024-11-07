@@ -8,79 +8,67 @@ class ClassifiedProductService:
         self.product_handler = FileHandler("products")
         self.template_handler = FileHandler("produce_templates")
     
-    def classify_product(self, lote_id: int, cantidad: float, new_codigo: str, date: str) -> dict:
+    def classify_product(self, product_id: int, cantidad: float, nombre: str, unidadMedida:str, date: str) -> dict:
         """
-        Clasifica una cantidad de un lote específico en un nuevo tipo de producto.
+        Clasifica una cantidad de un producto específico en un nuevo tipo de producto.
         """
         products = self.product_handler.read_file()
         templates = self.template_handler.read_file()
 
-        # Buscar el lote específico primero
-        lote = next((p for p in products if p['Id'] == lote_id and p['Date'] == date and p['codigoProducto'] in ('TOM', 'PAP')), None)
-        if not lote:
-            raise ValueError(f"Lote con ID {lote_id}, fecha {date} y código de producto TOM o PAP no encontrado.")
+        # Buscar el producto específico primero
+        product = next((p for p in products if p['Id'] == product_id and p['Date'] == date and p['codigoProducto'] in ('TOM', 'PAP')), None)
+        if not product:
+            raise ValueError(f"Producto con ID {product_id}, fecha {date} y código de producto TOM o PAP no encontrado.")
 
-        if lote['cantidad'] < cantidad:
-            raise ValueError(f"Cantidad insuficiente en el lote. Disponible: {lote['cantidad']}, Solicitado: {cantidad}")
+        if product['cantidad'] < cantidad:
+            raise ValueError(f"Cantidad insuficiente en el producto. Disponible: {product['cantidad']}, Solicitado: {cantidad}")
 
-        # Buscar la plantilla del nuevo producto
-        template = next((t for t in templates if t['codigoProducto'] == new_codigo), None)
+        # Buscar la plantilla del nuevo producto utilizando el nombre
+        template = next((t for t in templates if t['nombre'] == nombre), None)
         if not template:
-            raise ValueError(f"Plantilla con código {new_codigo} no encontrada.")
+            raise ValueError(f"Plantilla con nombre {nombre} no encontrada.")
 
-        # Actualizar la cantidad del lote original
-        lote['cantidad'] -= cantidad
+        # Obtener el codigoProducto desde la plantilla
+        new_codigo = template['codigoProducto']
 
-        # Verificar si ya existe un lote con el mismo Id, Date y codigoProducto
+        # Actualizar la cantidad del producto original
+        product['cantidad'] -= cantidad
+
+        # Verificar si ya existe un producto con el mismo Id, Date y codigoProducto
         current_date = datetime.now().strftime('%Y-%m-%d')
-        existing_lote = next((p for p in products 
-                            if p['Id'] == lote_id 
+        existing_product = next((p for p in products 
+                            if p['Id'] == product_id 
                             and p['codigoProducto'] == new_codigo 
                             and p['Date'] == current_date), None)
         
-        if existing_lote:
-            # Sumar la cantidad al lote existente
-            existing_lote['cantidad'] += cantidad
+        if existing_product:
+            # Sumar la cantidad al producto existente
+            existing_product['cantidad'] += cantidad
         else:
-            # Crear el nuevo lote clasificado
-            new_lote = {
+            # Crear el nuevo producto clasificado
+            new_product = {
                 "codigoProducto": new_codigo,
-                "nombre": template['nombre'],
-                "unidadMedida": template['unidadMedida'],
+                "nombre": nombre,
+                "unidadMedida": unidadMedida,
                 "Date": current_date,
                 "cantidad": cantidad,
-                "Id": lote_id
+                "Id": product_id
             }
-            # Añadir el nuevo lote al archivo de productos
-            products.append(new_lote)
+            # Añadir el nuevo producto al archivo de productos
+            products.append(new_product)
+
+        # Eliminar productos con cantidad 0
+        products = [p for p in products if p['cantidad'] > 0]
 
         # Guardar los cambios en los archivos JSON
         self.product_handler.write_file(products)
 
-        return existing_lote if existing_lote else new_lote
+        return existing_product if existing_product else new_product
 
-    def get_lotes(self):
+    def get_products(self):
         """
-        Retorna todos los lotes con código TOM o PAP y cantidad mayor a 0.
+        Retorna todos los productos con código TOM o PAP y cantidad mayor a 0.
         """
         products = self.product_handler.read_file()
         filtered_products = [p for p in products if p['codigoProducto'] in ('TOM', 'PAP') and p['cantidad'] > 0]
         return filtered_products
-
-    def get_new_product_types(self, insumo: str):
-        """
-        Retorna todos los tipos de productos basados en el insumo.
-        """
-        templates = self.template_handler.read_file()
-        filtered_templates = [t for t in templates if t['insumo'] == insumo]
-        return filtered_templates
-
-    def select_lote(self, lote_id: int, date: str, codigo_producto: str):
-        """
-        Selecciona un lote específico basado en ID, fecha y código de producto.
-        """
-        products = self.product_handler.read_file()
-        selected_lote = next((p for p in products if p['Id'] == lote_id and p['Date'] == date and p['codigoProducto'] == codigo_producto), None)
-        if not selected_lote:
-            raise ValueError(f"Lote con ID {lote_id}, fecha {date} y código de producto {codigo_producto} no encontrado.")
-        return selected_lote
