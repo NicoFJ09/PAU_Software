@@ -3,7 +3,7 @@
 # ------------------------
 REQUIRED_PRODUCT_FIELDS = [
     "codigoProducto",
-    "nombre", 
+    "Nombre", 
     "unidadMedida",
     "Date",
     "cantidad"
@@ -14,6 +14,6 @@ REQUIRED_PRODUCT_FIELDS = [
 # ------------------------
 REQUIRED_TEMPLATE_FIELDS = [
     "codigoProducto",
-    "nombre",
+    "Nombre",
     "unidadMedida"
 ]

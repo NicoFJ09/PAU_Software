@@ -1,13 +1,12 @@
 import pygame
 import pygame_gui
 from Admin_Dashboard.constants import COLORS
-from Admin_Dashboard.controllers.Classification_controller import ClassificationController
+from Admin_Dashboard.controllers.Recipe_creator_controller import RecipeCreatorController
 from Admin_Dashboard.views.components.Container import Container
 from Admin_Dashboard.views.components.Form import Form
 from Admin_Dashboard.Screens import Screens 
 
-
-class ClassificationView:
+class RecipeCreatorView:
     def __init__(self, surface, window_size, change_screen_callback):
         self.surface = surface
         self.window_size = window_size
@@ -19,7 +18,7 @@ class ClassificationView:
         self.setup_fonts()
 
         # Instanciar Controlador
-        self.controller = ClassificationController()
+        self.controller = RecipeCreatorController()
 
         #Llamar configuración contenedor
         self.setup_container()
@@ -27,12 +26,12 @@ class ClassificationView:
         #Llamar configuración formulario
         self.setup_Form()
 
-        self.selected_item = None # Variable para almacenar el item seleccionado
-        self.classified_produce = None #Variable temporal que clona selected para llamar controller
+        self.selected_items = None # Variable para almacenar el item seleccionado
 
         #Llamar configuración Botón Continuar y Regresar
         self.setup_continue_button()
         self.setup_return_button()
+
     # ------------------------
     # Configurar Contenedor
     # ------------------------
@@ -41,19 +40,20 @@ class ClassificationView:
         container_config = {
             'row_height': 40,
             'spacing': 10,
-            'show_input': False,
+            'show_input': True,
             'show_button': False,
             'show_dividers': True,
-            'input_width': 100,
+            'input_width': 180,
+            'input_x_offset': 100,
             'button_width': 80,
             'button_text': 'Pedir',
-            'text_formatter': lambda item: f"{item['codigoProducto']}_{item['Date']}_{item['Id']} ({item['cantidad']}{item['unidadMedida']})",
+            'text_formatter': lambda item: f"{item['Nombre']} ({item['unidadMedida']})",
             'item_id_field': 'codigoProducto',
             'margin_top': 5, 
             'margin_bottom': 5,
             'visible_rows': 5,
-            'enable_row_selection': True,
-            'enable_multiple_row_selection': False
+            'enable_row_selection': False,
+            'enable_multiple_row_selection': True,
         }
         
         self.container = Container(
@@ -67,6 +67,7 @@ class ClassificationView:
         # Configurar productos en contenedor
         products = self.controller.get_products()
         self.container.setup_rows(products)
+
 
     # ------------------------
     # Configurar Formulario
@@ -91,26 +92,13 @@ class ClassificationView:
                 'margin_x': self.container.x,   # Mismo margen que el container
                 'dropdown_width': 300,  # Ancho del menú desplegable
                 'fields': [
-                    {'label': 'Cantidad', 'type': 'number'},
-                    {'label': 'Tipo de producto', 'type': 'dropdown', 'options': dropdown_options}
+                    {'label': 'Código', 'type': 'text'},
+                    {'label': 'Nombre', 'type': 'text'},
+                    {'label': 'Precio', 'type': 'number'}
                 ],
-                'Title_text': 'Escoge y clasifica tus productos'
+                'Title_text': 'Escoge productos y define características de la receta'
             }
         )
-
-    def update_form_options(self):
-        if self.selected_item:
-            codigo_producto = self.selected_item['codigoProducto']
-            if codigo_producto == 'PAP':
-                dropdown_options = ['Papa pequeña', 'Papa grande', 'Papa dañada']
-            elif codigo_producto == 'TOM':
-                dropdown_options = ['Tomate verde', 'Tomate maduro', 'Tomate muy maduro grande', 'Tomate muy maduro pequeño', 'Tomate dañado']
-            else:
-                dropdown_options = ['']  # Opciones por defecto
-
-            # Actualizar el formulario con las nuevas opciones
-            self.setup_Form(dropdown_options)
-            self.classified_produce = self.selected_item
 
     def setup_continue_button(self):
         """Configura el botón 'Continuar'"""
@@ -166,48 +154,33 @@ class ClassificationView:
     def setup_fonts(self):
         """Configura las fuentes"""
         self.title_font = pygame.font.SysFont("Georgia", 45)
-    
+
     def handle_event(self, event):
         """Maneja eventos de la vista"""
         self.ui_manager.process_events(event)
         selected_item = self.container.handle_event(event, None)
+        self.form.handle_event(event, self.create_recipe)
         if selected_item:
-            self.selected_item = selected_item
-        self.form.handle_event(event, self.classify_and_update_product)
+            self.selected_items = selected_item
 
         # Manejar evento del botón "Continuar"
         if event.type == pygame.USEREVENT and event.user_type == pygame_gui.UI_BUTTON_PRESSED:
             if event.ui_element == self.continue_button:
-                self.change_screen_callback(Screens.RECIPE_CREATOR)
+                self.change_screen_callback(Screens.FACTORY)
             elif event.ui_element == self.return_button:
-                self.change_screen_callback(Screens.PRE_CLASSIFICATION)
+                self.change_screen_callback(Screens.CLASSIFICATION)
 
-    def classify_and_update_product(self, cantidad, nombre):
-        """Maneja la sumisión del formulario"""
-        if self.classified_produce:
-            product_id = self.classified_produce['Id']
-            date = self.classified_produce['Date']
-            unidadMedida = self.classified_produce['unidadMedida']
-            try:
-                self.controller.classify_product(product_id, float(cantidad), nombre, unidadMedida, date)
-                print(f"Producto clasificado: {cantidad} de {nombre}")
-                # Obtener la lista actualizada de productos
-                updated_products = self.controller.get_products()
-                # Actualizar el contenedor con los nuevos productos
-                self.container.update(updated_products)
-            except ValueError as e:
-                print(f"Error al clasificar producto: {e}")
-            self.classified_produce = None
+    def create_recipe(self, codigo_producto: str, nombre: str, precio: float):
+        """Crea una receta con los valores del formulario y los elementos seleccionados del contenedor"""
+        selected_products = self.container.get_selected_items()
+        self.controller.create_recipe(selected_products, codigo_producto, nombre, precio)
+        self.container.reset()
+        
 
     def update(self):
         """Actualiza elementos de la UI"""
         time_delta = pygame.time.Clock().tick(60)/1000.0
         self.ui_manager.update(time_delta)
-        
-        # Actualizar opciones del formulario si hay un item seleccionado
-        if self.selected_item:
-            self.update_form_options()
-            self.selected_item = None  # Resetear el item seleccionado después de actualizar el formulario
 
     def draw(self):
         """Dibuja todos los elementos de la vista"""
@@ -215,7 +188,7 @@ class ClassificationView:
         self.surface.fill(COLORS['WHITE'])
         
         # Título
-        title_text = self.title_font.render("Pantalla de Clasificación", True, COLORS['GREEN'])
+        title_text = self.title_font.render("Pantalla de recetas", True, COLORS['GREEN'])
         title_rect = title_text.get_rect(midtop=(self.window_size[0] // 2, 20))
         self.surface.blit(title_text, title_rect)
         

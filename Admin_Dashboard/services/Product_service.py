@@ -84,7 +84,7 @@ class ProductService:
         
         product_data = {
             "codigoProducto": template["codigoProducto"],
-            "nombre": template["nombre"],
+            "Nombre": template["Nombre"],
             "unidadMedida": template["unidadMedida"],
             "Date": fecha,
             "cantidad": float(cantidad)

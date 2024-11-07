@@ -62,7 +62,7 @@ class ProductTemplateService:
         
         template_data = {
             "codigoProducto": codigo.upper(),
-            "nombre": nombre.strip(),
+            "Nombre": nombre.strip(),
             "unidadMedida": unidad.strip().lower()
         }
         

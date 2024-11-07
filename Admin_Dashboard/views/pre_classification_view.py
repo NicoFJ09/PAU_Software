@@ -40,10 +40,10 @@ class PreClassificationView:
             'show_input': True,
             'show_button': True,
             'show_dividers': True,
-            'input_width': 100,
+            'input_width': 180,
             'button_width': 80,
             'button_text': 'Pedir',
-            'text_formatter': lambda item: f"{item['nombre']} ({item['unidadMedida']})",
+            'text_formatter': lambda item: f"{item['Nombre']} ({item['unidadMedida']})",
             'item_id_field': 'codigoProducto',
             'margin_top': 5, 
             'margin_bottom': 5,
@@ -79,7 +79,7 @@ class PreClassificationView:
                 'dropdown_width': 200,  # Ancho del menú desplegable
                 'fields': [
                     {'label': 'Código de producto', 'type': 'text'},
-                    {'label': 'Nombre', 'type': 'text'},
+                    {'label': "Nombre", 'type': 'text'},
                     {'label': 'Unidad de medida', 'type': 'dropdown', 'options': ['Kg', 'U', 'L', 'mL']}
                 ],
                 'Title_text': 'Añadir productos nuevos'

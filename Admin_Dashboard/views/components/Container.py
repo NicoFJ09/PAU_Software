@@ -20,18 +20,19 @@ class Container:
             'input_width': 100,
             'button_width': 80,
             'button_text': 'Order',
-            'text_formatter': lambda item: f"{item['nombre']} ({item['unidadMedida']})",
+            'text_formatter': lambda item: f"{item['Nombre']} ({item['unidadMedida']})",
             'item_id_field': 'codigoProducto',
             'margin_top': 20,
             'margin_bottom': 20,
-            'visible_rows': 5 ,
-            'enable_row_selection': True
+            'visible_rows': 5,
+            'enable_row_selection': True,
+            'enable_multiple_row_selection': False
         }
         if config:
             self.config.update(config)
         
         # Calcular altura inicial del contenedor
-        self.height = (
+        self.height = ( 
             self.config['margin_top'] +
             (self.config['visible_rows'] * self.config['row_height']) +
             ((self.config['visible_rows'] - 1) * self.config['spacing']) +
@@ -42,6 +43,7 @@ class Container:
         self.rows = []
         self.scrollbar = None
         self.scroll_index = 0
+        self.selected_items = []  # Lista de elementos seleccionados
 
     def create_row(self, item, index):
         """Crea una fila con elementos configurables"""
@@ -74,9 +76,9 @@ class Container:
             input_box = pygame_gui.elements.UITextEntryLine(
                 relative_rect=input_rect,
                 manager=self.ui_manager,
-                placeholder_text="0"
+                placeholder_text="Cantidad de producto"
             )
-            input_box.set_allowed_characters('numbers')
+            input_box.set_allowed_characters('0123456789.')  # Permitir números y punto decimal
             row_data['input'] = input_box
         
         # Botón (opcional)
@@ -100,19 +102,47 @@ class Container:
         """Maneja el clic en una fila para cambiar su color de fondo y mostrar sus propiedades"""
         if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             mouse_pos = event.pos
+            container_rect = pygame.Rect(self.x, self.y, self.width, self.height)
+            
+            # Verificar si el clic ocurrió dentro del área del contenedor
+            if not container_rect.collidepoint(mouse_pos):
+                return None  # No hacer nada si el clic fue fuera del contenedor
+            
             for i, row in enumerate(self.rows):
                 # Calcular la posición Y de la fila teniendo en cuenta el desplazamiento
                 y_pos = self.y + self.config['margin_top'] + ((i - self.scroll_index) * (self.config['row_height'] + self.config['spacing']))
                 row_rect = pygame.Rect(self.x, y_pos, self.width, self.config['row_height'])
+                
+                # Verificar si el clic ocurrió dentro del área del input
+                if 'input' in row and row['input'].relative_rect.collidepoint(mouse_pos):
+                    return None  # No hacer nada si el clic fue en el input
+                
                 if row_rect.collidepoint(mouse_pos):
-                    # Deseleccionar todas las filas
-                    for r in self.rows:
-                        r['selected'] = False
-                    # Seleccionar la fila actual
-                    row['selected'] = True
-                    print(row['item'])  # Imprimir propiedades del producto
+                    if self.config['enable_multiple_row_selection']:
+                        row['selected'] = not row['selected']
+                    else:
+                        # Deseleccionar todas las filas
+                        for r in self.rows:
+                            r['selected'] = False
+                        # Seleccionar la fila actual
+                        row['selected'] = True
                     return row['item']  # Retornar propiedades del producto
         return None
+
+    def get_selected_items(self):
+        """Actualiza y retorna la lista de elementos seleccionados con sus cantidades"""
+        self.selected_items = []
+        for row in self.rows:
+            if row['selected']:
+                try:
+                    cantidad = float(row['input'].get_text() or "0") if 'input' in row else 0.0
+                except ValueError:
+                    cantidad = 0.0  # Valor por defecto si la conversión falla
+                item_with_cantidad = row['item'].copy()
+                item_with_cantidad['cantidad'] = cantidad
+                self.selected_items.append(item_with_cantidad)
+        print("Elementos seleccionados:", self.selected_items)
+        return self.selected_items
 
     def setup_rows(self, items):
         """Configura todas las filas y ajusta la altura del contenedor"""
@@ -157,6 +187,21 @@ class Container:
                 row['button'].kill()
         
         # Configurar filas nuevamente con la lista actualizada de productos
+        self.setup_rows(items)
+
+    def reset(self):
+        """Reinicia las filas del contenedor utilizando los mismos elementos actuales"""
+        # Obtener los elementos actuales
+        items = [row['item'] for row in self.rows]
+        
+        # Eliminar filas existentes
+        for row in self.rows:
+            if 'input' in row:
+                row['input'].kill()
+            if 'button' in row:
+                row['button'].kill()
+        
+        # Configurar filas nuevamente con los mismos elementos
         self.setup_rows(items)
 
     def update_visible_elements(self):
@@ -256,7 +301,7 @@ class Container:
                 self.scroll_index = new_index
                 return
         
-        if self.config['enable_row_selection']:
+        if self.config['enable_row_selection'] or self.config['enable_multiple_row_selection']:
             selected_item = self.handle_row_click(event)
             if selected_item:
                 return selected_item
@@ -275,3 +320,7 @@ class Container:
                                 row['input'].set_text("0")
                         else:
                             callback(row['item'][self.config['item_id_field']])
+            elif event.user_type == pygame_gui.UI_TEXT_ENTRY_CHANGED:
+                for row in self.rows:
+                    if event.ui_element == row.get('input'):
+                        break

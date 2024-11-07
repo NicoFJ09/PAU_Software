@@ -1,12 +1,22 @@
 [
   {
     "codigoProducto": "TOM",
-    "nombre": "Tomate",
+    "Nombre": "Tomate",
     "unidadMedida": "kg"
   },
   {
     "codigoProducto": "PAP",
-    "nombre": "Papas",
+    "Nombre": "Papas",
+    "unidadMedida": "kg"
+  },
+  {
+    "codigoProducto": "MLL",
+    "Nombre": "Malla",
+    "unidadMedida": "u"
+  },
+  {
+    "codigoProducto": "S",
+    "Nombre": "Sal",
     "unidadMedida": "kg"
   }
 ]

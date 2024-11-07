@@ -1,7 +1,7 @@
 from datetime import datetime
 from Admin_Dashboard.utils.file_handler import FileHandler
 
-class ClassifiedProductService:
+class ClassifyProductService:
     
     def __init__(self):
         """Inicializa el servicio con manejadores de archivos"""
@@ -24,7 +24,7 @@ class ClassifiedProductService:
             raise ValueError(f"Cantidad insuficiente en el producto. Disponible: {product['cantidad']}, Solicitado: {cantidad}")
 
         # Buscar la plantilla del nuevo producto utilizando el nombre
-        template = next((t for t in templates if t['nombre'] == nombre), None)
+        template = next((t for t in templates if t["Nombre"] == nombre), None)
         if not template:
             raise ValueError(f"Plantilla con nombre {nombre} no encontrada.")
 
@@ -48,7 +48,7 @@ class ClassifiedProductService:
             # Crear el nuevo producto clasificado
             new_product = {
                 "codigoProducto": new_codigo,
-                "nombre": nombre,
+                "Nombre": nombre,
                 "unidadMedida": unidadMedida,
                 "Date": current_date,
                 "cantidad": cantidad,
