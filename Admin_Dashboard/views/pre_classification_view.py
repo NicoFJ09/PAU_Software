@@ -148,17 +148,6 @@ class PreClassificationView:
         """Configura las fuentes"""
         self.title_font = pygame.font.SysFont("Georgia", 45)
 
-    def handle_event(self, event):
-        """Maneja eventos de la vista"""
-        self.ui_manager.process_events(event)
-        self.container.handle_event(event, self.controller.order_product)
-        self.form.handle_event(event, self.create_and_update_product)
-        
-        # Manejar evento del botón "Continuar"
-        if event.type == pygame.USEREVENT and event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-            if event.ui_element == self.continue_button:
-                self.change_screen_callback(Screens.CLASSIFICATION)
-
     def create_and_update_product(self, codigo, nombre, unidad):
         """Crea un nuevo producto y actualiza el contenedor"""
         # Crear el nuevo producto
@@ -169,6 +158,17 @@ class PreClassificationView:
         
         # Actualizar el contenedor con los nuevos productos
         self.container.update(updated_products)
+
+    def handle_event(self, event):
+        """Maneja eventos de la vista"""
+        self.ui_manager.process_events(event)
+        self.container.handle_event(event, self.controller.order_product)
+        self.form.handle_event(event, self.create_and_update_product)
+        
+        # Manejar evento del botón "Continuar"
+        if event.type == pygame.USEREVENT and event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+            if event.ui_element == self.continue_button:
+                self.change_screen_callback(Screens.CLASSIFICATION)
 
     def update(self):
         """Actualiza elementos de la UI"""

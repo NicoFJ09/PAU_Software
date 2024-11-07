@@ -175,7 +175,7 @@ class ClassificationView:
             self.selected_item = selected_item
         self.form.handle_event(event, self.classify_and_update_product)
 
-        # Manejar evento del botón "Continuar"
+        # Manejar evento del botón "Continuar" y "Regresar"
         if event.type == pygame.USEREVENT and event.user_type == pygame_gui.UI_BUTTON_PRESSED:
             if event.ui_element == self.continue_button:
                 self.change_screen_callback(Screens.RECIPE_CREATOR)
