@@ -1,13 +1,4 @@
-import os
-import sys
-
-# Obtener la ruta absoluta del directorio raíz del proyecto
-CURRENT_DIR = os.path.dirname(os.path.abspath(__file__))
-PROJECT_ROOT = os.path.dirname(os.path.dirname(CURRENT_DIR))
-sys.path.append(PROJECT_ROOT)
-
 import pygame
-
 import pygame_gui
 from Admin_Dashboard.constants import COLORS
 from Admin_Dashboard.controllers.Recipe_creator_controller import RecipeCreatorController
