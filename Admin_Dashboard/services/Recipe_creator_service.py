@@ -24,8 +24,8 @@ class RecipeCreatorService:
             "Precio": precio,
             "materiales": [
                 {
-                    "codigoMaterial": p["codigoProducto"],
-                    "descripcion": p["Nombre"],
+                    "codigoProducto": p["codigoProducto"],
+                    "Nombre": p["Nombre"],
                     "cantidad": p["cantidad"],
                     "unidadMedida": p["unidadMedida"]
                 } for p in selected_products
@@ -36,32 +36,3 @@ class RecipeCreatorService:
         recipes.append(new_recipe)
         self.recipes_handler.write_file(recipes)
         print("Receta creada y guardada exitosamente.")
-
-def main():
-    service = RecipeCreatorService()
-    
-    # Obtener productos disponibles
-    available_products = service.get_available_products()
-    print("Productos disponibles para la receta:")
-    for product in available_products:
-        print(f"{product['codigoProducto']}: {product['Nombre']}")
-    
-    # Ejemplo de productos seleccionados y sus cantidades
-    selected_products = [
-        {"codigoProducto": "PAP-001", "Nombre": "Papa fresca", "cantidad": 1.2, "unidadMedida": "Kilogramos"},
-        {"codigoProducto": "SAL-003", "Nombre": "Sal", "cantidad": 10, "unidadMedida": "Gramos"}
-    ]
-    
-    # Parámetros del nuevo producto
-    codigo_producto = "CHP"
-    nombre = "Chips de papa (Paquete de 500g)"
-    precio = 2500
-    
-    # Crear receta
-    new_recipe = service.create_recipe(selected_products, codigo_producto, nombre, precio)
-    
-    # Añadir receta al archivo
-    service.add_recipe_to_file(new_recipe)
-
-if __name__ == "__main__":
-    main()

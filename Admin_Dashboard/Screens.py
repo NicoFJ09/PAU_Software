@@ -5,3 +5,5 @@ class Screens(Enum):
     CLASSIFICATION = "Classification"
     RECIPE_CREATOR = "Recipe_creator"
     FACTORY = "Factory"
+    PREVIEW = "Preview"
+    SALE = "Sale"

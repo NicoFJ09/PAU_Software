@@ -9,5 +9,5 @@ class ClassificationController:
         """Obtener Tomates y Papas del archivo JSON"""
         return self.ClassifyProductService.get_products()
     
-    def classify_product(self, product_id: int, cantidad: float, nombre: str,unidadMedida:str, date: str):
-        return self.ClassifyProductService.classify_product(product_id, cantidad, nombre, unidadMedida, date)
+    def classify_product(self, product_id: int, cantidad: float, nombre: str,unidadMedida:str, date: str, codigo_Producto: str ):
+        return self.ClassifyProductService.classify_product(product_id, cantidad, nombre, unidadMedida, date, codigo_Producto)

@@ -78,7 +78,6 @@ class Container:
                 manager=self.ui_manager,
                 placeholder_text="Cantidad de producto"
             )
-            input_box.set_allowed_characters('0123456789.')  # Permitir números y punto decimal
             row_data['input'] = input_box
         
         # Botón (opcional)
@@ -314,7 +313,10 @@ class Container:
                 for row in self.rows:
                     if event.ui_element == row['button']:
                         if self.config['show_input']:
-                            amount = int(row['input'].get_text() or "0")
+                            try:
+                                amount = float(row['input'].get_text() or "0")
+                            except ValueError:
+                                amount = 0.0
                             if amount > 0:
                                 callback(row['item'][self.config['item_id_field']], amount)
                                 row['input'].set_text("0")

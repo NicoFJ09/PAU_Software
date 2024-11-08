@@ -1,113 +1,97 @@
 [
   {
-    "codigoProducto": "PAP_P",
-    "Nombre": "Papa pequeña",
-    "unidadMedida": "kg",
-    "Date": "2024-11-06",
-    "cantidad": 130.0,
-    "Id": 1
-  },
-  {
-    "codigoProducto": "TOM",
-    "Nombre": "Tomate",
-    "unidadMedida": "kg",
-    "Date": "2024-11-06",
-    "cantidad": 15.0,
-    "Id": 2
-  },
-  {
     "codigoProducto": "TOM_VE",
     "Nombre": "Tomate verde",
     "unidadMedida": "kg",
-    "Date": "2024-11-06",
-    "cantidad": 40.0,
+    "Date": "2024-11-07",
+    "cantidad": 6.5,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "PAP_G",
+    "Nombre": "Papa grande",
+    "unidadMedida": "kg",
+    "Date": "2024-11-07",
+    "cantidad": 50.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "PAP_P",
+    "Nombre": "Papa pequeña",
+    "unidadMedida": "kg",
+    "Date": "2024-11-07",
+    "cantidad": 5.0,
+    "Id": 2
+  },
+  {
+    "codigoProducto": "PAP_DA",
+    "Nombre": "Papa dañada",
+    "unidadMedida": "kg",
+    "Date": "2024-11-07",
+    "cantidad": 8.0,
     "Id": 2
   },
   {
     "codigoProducto": "TOM_MM_G",
     "Nombre": "Tomate muy maduro grande",
     "unidadMedida": "kg",
-    "Date": "2024-11-06",
-    "cantidad": 30.0,
+    "Date": "2024-11-07",
+    "cantidad": 10.0,
     "Id": 2
   },
   {
-    "codigoProducto": "PAP_G",
-    "Nombre": "Papa grande",
+    "codigoProducto": "PAP_P",
+    "Nombre": "Papa pequeña",
     "unidadMedida": "kg",
-    "Date": "2024-11-06",
-    "cantidad": 70.0,
+    "Date": "2024-11-07",
+    "cantidad": 25.0,
     "Id": 1
   },
   {
     "codigoProducto": "TOM_MM_P",
     "Nombre": "Tomate muy maduro pequeño",
     "unidadMedida": "kg",
-    "Date": "2024-11-06",
-    "cantidad": 15.0,
-    "Id": 2
-  },
-  {
-    "codigoProducto": "PAP",
-    "Nombre": "Papas",
-    "unidadMedida": "kg",
     "Date": "2024-11-07",
-    "cantidad": 70.0,
+    "cantidad": 1.0,
     "Id": 1
-  },
-  {
-    "codigoProducto": "PAP",
-    "Nombre": "Papas",
-    "unidadMedida": "kg",
-    "Date": "2024-11-07",
-    "cantidad": 30.0,
-    "Id": 2
   },
   {
     "codigoProducto": "TOM",
     "Nombre": "Tomate",
     "unidadMedida": "kg",
     "Date": "2024-11-07",
+    "cantidad": 10.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "TOM",
+    "Nombre": "Tomate",
+    "unidadMedida": "kg",
+    "Date": "2024-11-08",
     "cantidad": 20.0,
     "Id": 1
   },
   {
-    "codigoProducto": "TOM",
-    "Nombre": "Tomate",
-    "unidadMedida": "kg",
-    "Date": "2024-11-07",
-    "cantidad": 10.0,
-    "Id": 2
-  },
-  {
     "codigoProducto": "PAP",
     "Nombre": "Papas",
     "unidadMedida": "kg",
-    "Date": "2024-11-07",
-    "cantidad": 10.0,
-    "Id": 3
+    "Date": "2024-11-08",
+    "cantidad": 100.0,
+    "Id": 1
   },
   {
-    "codigoProducto": "PAP_P",
-    "Nombre": "Papa pequeña",
+    "codigoProducto": "TOM_VE",
+    "Nombre": "Tomate verde",
     "unidadMedida": "kg",
-    "Date": "2024-11-07",
-    "cantidad": 15.0,
-    "Id": 3
+    "Date": "2024-11-08",
+    "cantidad": 40.0,
+    "Id": 1
   },
   {
-    "codigoProducto": "PAP_G",
-    "Nombre": "Papa grande",
+    "codigoProducto": "TOM_MA",
+    "Nombre": "Tomate maduro",
     "unidadMedida": "kg",
-    "Date": "2024-11-07",
-    "cantidad": 5.0,
-    "Id": 3
-  },
-  {
-    "codigoProducto": "PAP_P",
-    "Nombre": "Papa pequeña",
-    "unidadMedida": "kg",
-    "Date": "2024-11-07",
+    "Date": "2024-11-08",
     "cantidad": 30.0,
     "Id": 1
   }
