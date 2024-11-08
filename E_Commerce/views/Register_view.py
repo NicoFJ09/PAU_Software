@@ -1,7 +1,7 @@
 import pygame
 import pygame_gui
 from E_Commerce.Screens_web import Screens
-from Admin_Dashboard.constants import COLORS
+from E_Commerce.constants import COLORS
 
 class RegisterView:
     def __init__(self, window, change_screen_callback):

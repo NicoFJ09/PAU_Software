@@ -18,6 +18,7 @@ class ECommerce:
         self.clock = pygame.time.Clock()
         self.is_running = True
 
+        # Configuración de la pantalla inicial y las vistas
         self.current_screen = Screens.SIGN_IN
         self.views = {
             Screens.SIGN_IN: SignInView,
