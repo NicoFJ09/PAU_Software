@@ -4,14 +4,11 @@ from E_Commerce.Screens_web import Screens
 from E_Commerce.constants import COLORS
 
 class RegisterView:
-    def __init__(self, window, change_screen_callback):
-        pygame.init()
+    def __init__(self, surface, window_size, change_screen_callback):
+        self.surface = surface
+        self.window_size = window_size
+        self.ui_manager = pygame_gui.UIManager(window_size)
         self.change_screen_callback = change_screen_callback
-        self.ancho, self.alto = pygame.display.Info().current_w, pygame.display.Info().current_h
-        self.window = window
-
-        # Crear el administrador de la interfaz
-        self.manager = pygame_gui.UIManager((self.ancho, self.alto - 50))
 
         # Configuración de fuente
         self.fuente = pygame.font.SysFont("Georgia", 18)
@@ -23,11 +20,11 @@ class RegisterView:
         # Configurar etiqueta de texto
         self.crear_cuenta_label = self.fuente.render("Crear cuenta nueva", True, COLORS['RED'])
 
-        # Definir posiciones y tamaños
-        self.rect_ancho = self.ancho // 3
-        self.rect_alto = int(self.alto * 0.8)
-        self.rect_x = (self.ancho - self.rect_ancho) // 2
-        self.rect_y = (self.alto - self.rect_alto) // 2 - 35
+        # Definir posiciones y tamaños usando window_size
+        self.rect_ancho = self.window_size[0] // 3
+        self.rect_alto = int(self.window_size[1] * 0.8)
+        self.rect_x = (self.window_size[0] - self.rect_ancho) // 2
+        self.rect_y = (self.window_size[1] - self.rect_alto) // 2 - 35
 
         self.setup_ui_elements()
         self.clock = pygame.time.Clock()

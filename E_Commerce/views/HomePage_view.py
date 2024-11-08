@@ -4,20 +4,19 @@ from E_Commerce.constants import COLORS
 from E_Commerce.Screens_web import Screens
 
 class HomePageView:
-    def __init__(self, window_home, change_screen_callback):
-        pygame.init()
+    def __init__(self, surface, window_size, change_screen_callback):
+        self.surface = surface
+        self.window_size = window_size
         self.change_screen_callback = change_screen_callback
-        self.ancho, self.alto = pygame.display.Info().current_w, pygame.display.Info().current_h
-        self.window_home = window_home
 
         # Crear el administrador de la interfaz
-        self.manager = pygame_gui.UIManager((self.ancho, self.alto - 50))
+        self.manager = pygame_gui.UIManager(self.window_size)
 
         # Configuración del rectángulo de referencia
-        self.rect_ancho = self.ancho - 50
-        self.rect_alto = int(self.alto * 0.8)
-        self.rect_x = (self.ancho - self.rect_ancho) // 2
-        self.rect_y = (self.alto - self.rect_alto) // 2 + 50
+        self.rect_ancho = self.window_size[0] - 50
+        self.rect_alto = int(self.window_size[1] * 0.8)
+        self.rect_x = (self.window_size[0] - self.rect_ancho) // 2
+        self.rect_y = (self.window_size[1] - self.rect_alto) // 2 + 50
 
         # Cargar imágenes de "encabezado"
         self.logo_image = pygame.image.load("Images/logo.png").convert_alpha()
@@ -28,8 +27,14 @@ class HomePageView:
         self.letras_image = pygame.transform.scale(self.letras_image, (100, 100))
 
         # Crear entry que simula barra de búsqueda
-        self.entrada_busqueda_rect = pygame.Rect((self.rect_x + (self.rect_ancho // 4), 60), (self.rect_ancho // 2, 30))
-        self.entrada_busqueda = pygame_gui.elements.UITextEntryLine(relative_rect=self.entrada_busqueda_rect, manager=self.manager)
+        self.entrada_busqueda_rect = pygame.Rect(
+            (self.rect_x + (self.rect_ancho // 4), 60),
+            (self.rect_ancho // 2, 30)
+        )
+        self.entrada_busqueda = pygame_gui.elements.UITextEntryLine(
+            relative_rect=self.entrada_busqueda_rect,
+            manager=self.manager
+        )
         self.entrada_busqueda.placeholder_text = "¿Qué estás buscando?"
         self.entrada_busqueda.background_colour = pygame.Color(245, 245, 220)
         self.entrada_busqueda.border_colour = pygame.Color(156, 26, 21)
@@ -38,7 +43,10 @@ class HomePageView:
 
         # Botón para el carrito
         self.carrito_b = pygame_gui.elements.UIButton(
-            relative_rect=pygame.Rect((self.rect_x + (self.rect_ancho // 2 + 550), 60), (self.rect_ancho // 35, 35)),
+            relative_rect=pygame.Rect(
+                (self.rect_x + (self.rect_ancho // 2 + 550), 60),
+                (self.rect_ancho // 35, 35)
+            ),
             text="",
             manager=self.manager
         )
@@ -69,7 +77,10 @@ class HomePageView:
         self.botones_ver_mas = []
         for i, producto in enumerate(self.productos):
             x, y = self.panel_positions[i]
-            boton_rect = pygame.Rect((x - self.rect_x + 200, y - self.rect_y + 325), (70, 25))
+            boton_rect = pygame.Rect(
+                (x - self.rect_x + 200, y - self.rect_y + 325),
+                (70, 25)
+            )
             boton_ver_mas = pygame_gui.elements.UIButton(
                 relative_rect=boton_rect,
                 text="Ver más",
@@ -84,7 +95,7 @@ class HomePageView:
         self.manager.process_events(event)
         if event.type == pygame.USEREVENT and event.user_type == pygame_gui.UI_BUTTON_PRESSED:
             if event.ui_element == self.carrito_b:
-                self.change_screen_callback(Screens.SHOPPING_CART)  # Redirige a pantalla de carrito de compra
+                self.change_screen_callback(Screens.SHOPPING_CART)
 
     def update(self):
         """Actualiza elementos de la UI"""
@@ -93,7 +104,7 @@ class HomePageView:
 
     def draw(self):
         """Dibuja todos los elementos de la vista"""
-        self.window_home.fill(COLORS['GREEN'])
+        self.surface.fill(COLORS['GREEN'])
         panel_surface = pygame.Surface((self.rect_ancho, self.rect_alto))
         panel_surface.fill(COLORS['GREEN'])
 
@@ -116,9 +127,9 @@ class HomePageView:
             panel_surface.blit(precio_text, (panel_rect.x + 10, panel_rect.y + 260))
 
         # Dibujar elementos de encabezado
-        self.window_home.blit(panel_surface, (self.rect_x, self.rect_y))
-        self.window_home.blit(self.logo_image, (30, 18))
-        self.window_home.blit(self.letras_image, (130, 18))
+        self.surface.blit(panel_surface, (self.rect_x, self.rect_y))
+        self.surface.blit(self.logo_image, (30, 18))
+        self.surface.blit(self.letras_image, (130, 18))
         # Dibujar la interfaz de usuario
-        self.manager.draw_ui(self.window_home)
-        self.window_home.blit(self.carrito_image, (1170, 45))
+        self.manager.draw_ui(self.surface)
+        self.surface.blit(self.carrito_image, (1170, 45))

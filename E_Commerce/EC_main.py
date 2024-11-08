@@ -27,7 +27,8 @@ class ECommerce:
             Screens.SHOPPING_CART: ShoppingCartView,
         }
         self.current_view = self.views[self.current_screen](
-            self.window_surface,
+            self.window_surface, 
+            self.window_size,
             self.change_screen  # Pasar el callback para cambiar la pantalla
         )
 
@@ -36,7 +37,8 @@ class ECommerce:
         self.current_screen = new_screen
         self.current_view = self.views[self.current_screen](
             self.window_surface,
-            self.change_screen  # Pasar el callback para cambiar la pantalla
+            self.window_size, 
+            self.change_screen  # Callback para cambiar la pantalla
         )
 
     def run(self):
