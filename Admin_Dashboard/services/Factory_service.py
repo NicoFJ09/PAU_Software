@@ -1,4 +1,3 @@
-
 from datetime import datetime
 from Admin_Dashboard.utils.file_handler import FileHandler
 
@@ -8,6 +7,7 @@ class FactoryService:
         """Inicializa el servicio con manejadores de archivos"""
         self.product_handler = FileHandler("products.json")
         self.recipe_handler = FileHandler("recipes.json")
+        self.presale_handler = FileHandler("presaleproducts.json")
     
     def _generate_id(self, products: list, new_product: dict) -> int:
         """Genera ID único basado en fecha y código de producto"""
@@ -69,6 +69,7 @@ class FactoryService:
         fecha = datetime.now().strftime("%Y-%m-%d")
         recipe = self.get_recipe_by_name(nombre)
         all_products = self.product_handler.read_file()
+        presale_products = self.presale_handler.read_file() or []
         
         # Verificar materiales disponibles
         for material in recipe["materiales"]:
@@ -115,10 +116,14 @@ class FactoryService:
             "Precio": recipe["Precio"],
             "Date": fecha,
             "cantidad": cantidad,
-            "Id": self._generate_id(all_products, {"codigoProducto": recipe["codigoProducto"], "Date": fecha})
+            "Id": self._generate_id(presale_products, {"codigoProducto": recipe["codigoProducto"], "Date": fecha})
         }
         
-        all_products.append(new_product)
+        # Guardar el nuevo producto en presaleproducts.json
+        presale_products.append(new_product)
+        self.presale_handler.write_file(presale_products)
+        
+        # Actualizar products.json con los materiales reducidos
         self.product_handler.write_file(all_products)
         
         return new_product

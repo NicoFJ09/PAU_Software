@@ -29,6 +29,10 @@ class FactoryView:
         # Llamar configuración formulario
         self.setup_Form()
 
+        #Llamar configuración Botón Continuar y Regresar
+        self.setup_continue_button()
+        self.setup_return_button()
+
     def setup_container(self):
         """Configura el contenedor y sus productos"""
         container_config = {
@@ -89,6 +93,26 @@ class FactoryView:
             }
         )
 
+    def setup_continue_button(self):
+        """Configura el botón 'Continuar'"""
+        button_x = self.container.x + (self.container.width - 150) / 2  # Centrar el botón en X
+        button_y = self.craftform.y + self.craftform.height + 20  # Debajo del formulario
+        self.continue_button = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect(button_x + 200, button_y, 150, 40),  # Ajustar la posición para centrar respecto a los bordes
+            text='Continuar',
+            manager=self.ui_manager
+        )
+
+    def setup_return_button(self):
+        """Configura el botón 'Regresar'"""
+        button_x = self.container.x + (self.container.width - 150) / 2  # Centrar el botón en X
+        button_y = self.craftform.y + self.craftform.height + 20  # Debajo del formulario
+        self.return_button = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect(button_x - 200, button_y, 150, 40),  # Ajustar la posición para centrar respecto a los bordes
+            text='Regresar',
+            manager=self.ui_manager
+        )
+
     def setup_ui_theme(self):
         """Configura el tema de la interfaz"""
         self.default_theme = {
@@ -130,15 +154,39 @@ class FactoryView:
         material = self.container.handle_event(event, None)
         self.craftform.handle_event(event, self.craft_product)
         
-        if material:
+        if material and material != self.material:  # Solo actualizar si es un material diferente
             self.material = material
             # Obtener cantidades actualizadas
             material_quantities = self.controller.get_material_quantities(material['Nombre'])
-            # Usar update_form en lugar de setup_Form
-            self.craftform.update_form(
+            # Recrear el formulario con el nuevo material
+            self.craftform.destroy_form_elements()
+            self.craftform = CraftForm(
+                container_bottom_y=self.container.y + self.container.height,
+                ui_manager=self.ui_manager,
+                surface=self.surface,
                 material=material,
-                material_quantities=material_quantities
+                material_quantities=material_quantities,
+                config={
+                    'width': self.container.width,
+                    'height': self.container.height,
+                    'margin_x': self.container.x,
+                    'margin_top': 20,
+                    'margin_bottom': 20,
+                    'spacing': -20,
+                    'row_height': 40,
+                    'button_width': 100,
+                    'button_text': 'Craft',
+                    'Title_text': f"Receta de {material['Nombre']}",
+                    'material_text_formatter': lambda item, available: f"{item['Nombre']} - {item['cantidad']}{item['unidadMedida']} | Disponible: {available['disponible']}{item['unidadMedida']}"
+                }
             )
+
+        # Manejar evento del botón "Continuar" y "Regresar"
+        if event.type == pygame.USEREVENT and event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+            if event.ui_element == self.continue_button:
+                self.change_screen_callback(Screens.PREVIEW)
+            elif event.ui_element == self.return_button:
+                self.change_screen_callback(Screens.RECIPE_CREATOR)
 
     def craft_product(self, material, cantidad):
         """Llama a la función del controlador para crear el producto"""

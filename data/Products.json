@@ -4,7 +4,7 @@
     "Nombre": "Tomate verde",
     "unidadMedida": "kg",
     "Date": "2024-11-07",
-    "cantidad": 31.5,
+    "cantidad": 6.5,
     "Id": 1
   },
   {
@@ -60,15 +60,39 @@
     "Nombre": "Tomate",
     "unidadMedida": "kg",
     "Date": "2024-11-07",
+    "cantidad": 10.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "TOM",
+    "Nombre": "Tomate",
+    "unidadMedida": "kg",
+    "Date": "2024-11-08",
     "cantidad": 20.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "PAP",
+    "Nombre": "Papas",
+    "unidadMedida": "kg",
+    "Date": "2024-11-08",
+    "cantidad": 100.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "TOM_VE",
+    "Nombre": "Tomate verde",
+    "unidadMedida": "kg",
+    "Date": "2024-11-08",
+    "cantidad": 40.0,
     "Id": 1
   },
   {
     "codigoProducto": "TOM_MA",
     "Nombre": "Tomate maduro",
     "unidadMedida": "kg",
-    "Date": "2024-11-07",
-    "cantidad": 1.0,
+    "Date": "2024-11-08",
+    "cantidad": 30.0,
     "Id": 1
   }
 ]
