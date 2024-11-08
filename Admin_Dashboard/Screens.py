@@ -6,3 +6,4 @@ class Screens(Enum):
     RECIPE_CREATOR = "Recipe_creator"
     FACTORY = "Factory"
     PREVIEW = "Preview"
+    SALE = "Sale"

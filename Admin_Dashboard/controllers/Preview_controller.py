@@ -1,4 +1,11 @@
-from Admin_Dashboard.utils.file_handler import FileHandler
+from Admin_Dashboard.services.Preview_service import PreviewService
 
 class PreviewController:
-    None
+    def __init__(self):
+        self.PreviewService = PreviewService()
+
+    def get_products(self):
+        return self.PreviewService.get_products()
+    
+    def get_presale_products(self):
+        return self.PreviewService.get_presale_products()

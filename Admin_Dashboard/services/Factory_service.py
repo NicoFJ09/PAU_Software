@@ -113,6 +113,7 @@ class FactoryService:
         new_product = {
             "codigoProducto": recipe["codigoProducto"],
             "Nombre": recipe["Nombre"],
+            "unidadMedida": "u",
             "Precio": recipe["Precio"],
             "Date": fecha,
             "cantidad": cantidad,

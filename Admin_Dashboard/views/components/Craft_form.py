@@ -22,7 +22,7 @@ class CraftForm:
             'spacing': 10,
             'row_height': 40,
             'button_width': 100,
-            'button_text': 'Craft',
+            'button_text': 'Fabricar',
             'Title_text': 'Craft Items',
             'material_text_formatter': lambda item, available: f"{item['Nombre']} ({item['unidadMedida']}): {item['cantidad']} | Disponible: {available['disponible']}{item['unidadMedida']}"
         }
