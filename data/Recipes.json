@@ -1,3 +1,21 @@
 [
-
+  {
+    "codigoProducto": "MTM",
+    "Nombre": "Mezcla tomates",
+    "Precio": "1000",
+    "materiales": [
+      {
+        "codigoProducto": "TOM_VE",
+        "Nombre": "Tomate verde",
+        "cantidad": 1.0,
+        "unidadMedida": "kg"
+      },
+      {
+        "codigoProducto": "TOM_MA",
+        "Nombre": "Tomate maduro",
+        "cantidad": 1.0,
+        "unidadMedida": "kg"
+      }
+    ]
+  }
 ]

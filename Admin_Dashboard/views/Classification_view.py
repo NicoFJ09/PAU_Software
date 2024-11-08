@@ -33,6 +33,7 @@ class ClassificationView:
         #Llamar configuración Botón Continuar y Regresar
         self.setup_continue_button()
         self.setup_return_button()
+        
     # ------------------------
     # Configurar Contenedor
     # ------------------------
@@ -185,11 +186,14 @@ class ClassificationView:
     def classify_and_update_product(self, cantidad, nombre):
         """Maneja la sumisión del formulario"""
         if self.classified_produce:
+            print("Item seleccionado:", self.classified_produce)
             product_id = self.classified_produce['Id']
             date = self.classified_produce['Date']
             unidadMedida = self.classified_produce['unidadMedida']
+            codigoProducto = self.classified_produce['codigoProducto']
             try:
-                self.controller.classify_product(product_id, float(cantidad), nombre, unidadMedida, date)
+                self.controller.classify_product(product_id, float(cantidad), nombre, unidadMedida, date, codigoProducto)
+                print(product_id, cantidad, nombre, unidadMedida, date)
                 print(f"Producto clasificado: {cantidad} de {nombre}")
                 # Obtener la lista actualizada de productos
                 updated_products = self.controller.get_products()

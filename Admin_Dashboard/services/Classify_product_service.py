@@ -8,7 +8,7 @@ class ClassifyProductService:
         self.product_handler = FileHandler("products")
         self.template_handler = FileHandler("produce_templates")
     
-    def classify_product(self, product_id: int, cantidad: float, nombre: str, unidadMedida:str, date: str) -> dict:
+    def classify_product(self, product_id: int, cantidad: float, nombre: str, unidadMedida:str, date: str, codigo_Producto: str) -> dict:
         """
         Clasifica una cantidad de un producto específico en un nuevo tipo de producto.
         """
@@ -16,7 +16,7 @@ class ClassifyProductService:
         templates = self.template_handler.read_file()
 
         # Buscar el producto específico primero
-        product = next((p for p in products if p['Id'] == product_id and p['Date'] == date and p['codigoProducto'] in ('TOM', 'PAP')), None)
+        product = next((p for p in products if p['Id'] == product_id and p['Date'] == date and p['codigoProducto']==codigo_Producto in ('TOM', 'PAP')), None)
         if not product:
             raise ValueError(f"Producto con ID {product_id}, fecha {date} y código de producto TOM o PAP no encontrado.")
 

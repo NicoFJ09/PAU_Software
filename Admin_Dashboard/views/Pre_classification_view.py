@@ -80,7 +80,7 @@ class PreClassificationView:
                 'fields': [
                     {'label': 'Código de producto', 'type': 'text'},
                     {'label': "Nombre", 'type': 'text'},
-                    {'label': 'Unidad de medida', 'type': 'dropdown', 'options': ['Kg', 'U', 'L', 'mL']}
+                    {'label': 'Unidad de medida', 'type': 'dropdown', 'options': ['Kg', 'g', 'U', 'L', 'mL']}
                 ],
                 'Title_text': 'Añadir productos nuevos'
             }

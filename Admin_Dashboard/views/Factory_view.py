@@ -1,17 +1,93 @@
 import pygame
 import pygame_gui
 from Admin_Dashboard.constants import COLORS
+from Admin_Dashboard.controllers.Factory_controller import FactoryController
+from Admin_Dashboard.views.components.Container import Container
+from Admin_Dashboard.views.components.Craft_form import CraftForm
+from Admin_Dashboard.Screens import Screens
 
 class FactoryView:
     def __init__(self, surface, window_size, change_screen_callback):
         self.surface = surface
         self.window_size = window_size
         self.ui_manager = pygame_gui.UIManager(window_size)
-        self.change_screen_callback = change_screen_callback  # Callback para cambiar la pantalla
+        self.change_screen_callback = change_screen_callback
         
         # Configuraciones iniciales
         self.setup_ui_theme()
         self.setup_fonts()
+
+        # Instanciar Controlador
+        self.controller = FactoryController()
+
+        # Inicializar variable para almacenar el item seleccionado
+        self.material = None
+
+        # Llamar configuración contenedor
+        self.setup_container()
+
+        # Llamar configuración formulario
+        self.setup_Form()
+
+    def setup_container(self):
+        """Configura el contenedor y sus productos"""
+        container_config = {
+            'row_height': 40,
+            'spacing': 10,
+            'show_input': False,
+            'show_button': False,
+            'show_dividers': True,
+            'input_width': 100,
+            'button_width': 80,
+            'button_text': 'Pedir',
+            'text_formatter': lambda item: f"{item['Nombre']} ({item['codigoProducto']})",
+            'item_id_field': 'codigoProducto',
+            'margin_top': 5, 
+            'margin_bottom': 5,
+            'visible_rows': 5,
+            'enable_row_selection': True,
+            'enable_multiple_row_selection': False
+        }
+
+        self.container = Container(
+            surface=self.surface,
+            ui_manager=self.ui_manager,
+            position=(50, 100),
+            width=self.window_size[0] - 100,
+            config=container_config
+        )
+
+        # Configurar productos en contenedor
+        products = self.controller.get_available_recipes()
+        self.container.setup_rows(products)
+
+    def setup_Form(self, material=None):
+        """Configura el formulario de fabricación"""
+        if material:
+            material_quantities = self.controller.get_material_quantities(material['Nombre'])
+        else:
+            material_quantities = {}
+
+        self.craftform = CraftForm(
+            container_bottom_y=self.container.y + self.container.height,
+            ui_manager=self.ui_manager,
+            surface=self.surface,
+            material=material,
+            material_quantities=material_quantities,
+            config={
+                'width': self.container.width,
+                'height': self.container.height,
+                'margin_x': self.container.x,
+                'margin_top': 20,
+                'margin_bottom': 20,
+                'spacing': -20,
+                'row_height': 40,
+                'button_width': 100,
+                'button_text': 'Craft',
+                'Title_text': 'Craft Items',
+                'material_text_formatter': lambda material, available: f"{material['Nombre']} - {material['cantidad']}{material['unidadMedida']} | Disponible: {available['disponible']}{material['unidadMedida']}"
+            }
+        )
 
     def setup_ui_theme(self):
         """Configura el tema de la interfaz"""
@@ -51,6 +127,30 @@ class FactoryView:
     def handle_event(self, event):
         """Maneja eventos de la vista"""
         self.ui_manager.process_events(event)
+        material = self.container.handle_event(event, None)
+        self.craftform.handle_event(event, self.craft_product)
+        
+        if material:
+            self.material = material
+            # Obtener cantidades actualizadas
+            material_quantities = self.controller.get_material_quantities(material['Nombre'])
+            # Usar update_form en lugar de setup_Form
+            self.craftform.update_form(
+                material=material,
+                material_quantities=material_quantities
+            )
+
+    def craft_product(self, material, cantidad):
+        """Llama a la función del controlador para crear el producto"""
+        try:
+            new_product = self.controller.craft_product(material['Nombre'], cantidad)
+            # Obtener las nuevas cantidades
+            material_quantities = self.controller.get_material_quantities(material['Nombre'])
+            # Actualizar solo las cantidades en el formulario existente
+            self.craftform.update_quantities(material_quantities)
+            print(f"Producto creado exitosamente: {new_product}")
+        except ValueError as e:
+            print(f"Error al crear el producto: {e}")
 
     def update(self):
         """Actualiza elementos de la UI"""
@@ -68,4 +168,6 @@ class FactoryView:
         self.surface.blit(title_text, title_rect)
         
         # Dibujar elementos UI
+        self.container.draw()
+        self.craftform.draw()
         self.ui_manager.draw_ui(self.surface)

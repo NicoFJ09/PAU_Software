@@ -10,13 +10,23 @@
     "unidadMedida": "kg"
   },
   {
-    "codigoProducto": "MLL",
-    "Nombre": "Malla",
+    "codigoProducto": "BOL",
+    "Nombre": "Bolsas",
     "unidadMedida": "u"
   },
   {
-    "codigoProducto": "S",
-    "Nombre": "Sal",
+    "codigoProducto": "PN",
+    "Nombre": "Pene",
+    "unidadMedida": "u"
+  },
+  {
+    "codigoProducto": "ORE",
+    "Nombre": "Oregano",
+    "unidadMedida": "kg"
+  },
+  {
+    "codigoProducto": "PIM",
+    "Nombre": "Pimienta",
     "unidadMedida": "kg"
   }
 ]
