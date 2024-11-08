@@ -10,12 +10,6 @@
     "unidadMedida": "kg"
   },
   {
-    "codigoProducto": "BOL",
-    "Nombre": "Bolsas",
-    "unidadMedida": "u"
-  },
- 
-  {
     "codigoProducto": "ORE",
     "Nombre": "Oregano",
     "unidadMedida": "kg"
@@ -23,6 +17,76 @@
   {
     "codigoProducto": "PIM",
     "Nombre": "Pimienta",
+    "unidadMedida": "kg"
+  },
+  {
+    "codigoProducto": "S",
+    "Nombre": "Sal",
+    "unidadMedida": "g"
+  },
+  {
+    "codigoProducto": "OLI",
+    "Nombre": "Aceite vegetal",
+    "unidadMedida": "l"
+  },
+  {
+    "codigoProducto": "EMP",
+    "Nombre": "Empaque para chips (200g)",
+    "unidadMedida": "u"
+  },
+  {
+    "codigoProducto": "EMP_2",
+    "Nombre": "Empaque para chips (500g)",
+    "unidadMedida": "kg"
+  },
+  {
+    "codigoProducto": "AGU",
+    "Nombre": "Agua",
+    "unidadMedida": "l"
+  },
+  {
+    "codigoProducto": "PRE",
+    "Nombre": "Preservantes",
+    "unidadMedida": "g"
+  },
+  {
+    "codigoProducto": "BOT",
+    "Nombre": "Botella plastica para salsa (500ml)",
+    "unidadMedida": "u"
+  },
+  {
+    "codigoProducto": "BOT_2",
+    "Nombre": "Tapa botella plastica (500ml)",
+    "unidadMedida": "kg"
+  },
+  {
+    "codigoProducto": "BOT_3",
+    "Nombre": "Botella plástica para salsa (1L)",
+    "unidadMedida": "u"
+  },
+  {
+    "codigoProducto": "BOT_4",
+    "Nombre": "Tapa para botella plástica (1L)",
+    "unidadMedida": "kg"
+  },
+  {
+    "codigoProducto": "LAT",
+    "Nombre": "Lata para salsa de tomate (400g)",
+    "unidadMedida": "kg"
+  },
+  {
+    "codigoProducto": "LAT_2",
+    "Nombre": "Lata para salsa de tomate (1kg)",
+    "unidadMedida": "kg"
+  },
+  {
+    "codigoProducto": "MLL",
+    "Nombre": "Malla",
+    "unidadMedida": "u"
+  },
+  {
+    "codigoProducto": "PPY",
+    "Nombre": "Papaya",
     "unidadMedida": "kg"
   }
 ]

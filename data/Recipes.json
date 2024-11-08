@@ -1,19 +1,50 @@
 [
   {
-    "codigoProducto": "MTM",
-    "Nombre": "Mezcla tomates",
-    "Precio": "1000",
+    "codigoProducto": "CHP",
+    "Nombre": "Chips de papa (Paquete de 200g)",
+    "Precio": "2000",
     "materiales": [
       {
-        "codigoProducto": "TOM_VE",
-        "Nombre": "Tomate verde",
-        "cantidad": 1.0,
-        "unidadMedida": "kg"
+        "codigoProducto": "S",
+        "Nombre": "Sal",
+        "cantidad": 5.0,
+        "unidadMedida": "g"
       },
       {
-        "codigoProducto": "TOM_MA",
-        "Nombre": "Tomate maduro",
+        "codigoProducto": "OLI",
+        "Nombre": "Aceite vegetal",
+        "cantidad": 0.1,
+        "unidadMedida": "l"
+      },
+      {
+        "codigoProducto": "EMP",
+        "Nombre": "Empaque para chips (200g)",
         "cantidad": 1.0,
+        "unidadMedida": "u"
+      },
+      {
+        "codigoProducto": "PAP_G",
+        "Nombre": "Papa grande",
+        "cantidad": 1.0,
+        "unidadMedida": "kg"
+      }
+    ]
+  },
+  {
+    "codigoProducto": "MPP",
+    "Nombre": "Malla de papas",
+    "Precio": "2000",
+    "materiales": [
+      {
+        "codigoProducto": "MLL",
+        "Nombre": "Malla",
+        "cantidad": 1.0,
+        "unidadMedida": "u"
+      },
+      {
+        "codigoProducto": "PAP_P",
+        "Nombre": "Papa pequeña",
+        "cantidad": 2.0,
         "unidadMedida": "kg"
       }
     ]

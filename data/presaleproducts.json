@@ -1,38 +1,29 @@
 [
   {
-    "codigoProducto": "MTM",
-    "Nombre": "Mezcla tomates",
+    "codigoProducto": "CHP",
+    "Nombre": "Chips de papa (Paquete de 200g)",
     "unidadMedida": "u",
-    "Precio": "1000",
+    "Precio": "2000",
     "Date": "2024-11-08",
-    "cantidad": 1,
+    "cantidad": 10,
     "Id": 1
   },
   {
-    "codigoProducto": "MTM",
-    "Nombre": "Mezcla tomates",
+    "codigoProducto": "MPP",
+    "Nombre": "Malla de papas",
     "unidadMedida": "u",
-    "Precio": "1000",
+    "Precio": "2000",
+    "Date": "2024-11-08",
+    "cantidad": 10,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "CHP",
+    "Nombre": "Chips de papa (Paquete de 200g)",
+    "unidadMedida": "u",
+    "Precio": "2000",
     "Date": "2024-11-08",
     "cantidad": 5,
     "Id": 2
-  },
-  {
-    "codigoProducto": "MTM",
-    "Nombre": "Mezcla tomates",
-    "unidadMedida": "u",
-    "Precio": "1000",
-    "Date": "2024-11-08",
-    "cantidad": 4,
-    "Id": 3
-  },
-  {
-    "codigoProducto": "MTM",
-    "Nombre": "Mezcla tomates",
-    "unidadMedida": "u",
-    "Precio": "1000",
-    "Date": "2024-11-08",
-    "cantidad": 10,
-    "Id": 4
   }
 ]
