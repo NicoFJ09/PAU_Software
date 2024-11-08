@@ -10,10 +10,10 @@ class ECommerce:
     def __init__(self):
         pygame.init()
         # Obtener las dimensiones de la pantalla
-        self.ancho, self.alto = pygame.display.Info().current_w, pygame.display.Info().current_h
+        self.window_size =(1280, 900)
         # Crear la ventana
-        self.window_login = pygame.display.set_mode((self.ancho, self.alto - 50))
-        pygame.display.set_caption("")
+        self.window_surface = pygame.display.set_mode(self.window_size)
+        pygame.display.set_caption("E-Commerce")
 
         self.clock = pygame.time.Clock()
         self.is_running = True
@@ -26,7 +26,7 @@ class ECommerce:
             Screens.SHOPPING_CART: ShoppingCartView,
         }
         self.current_view = self.views[self.current_screen](
-            self.window_login,
+            self.window_surface,
             self.change_screen  # Pasar el callback para cambiar la pantalla
         )
 
@@ -34,7 +34,7 @@ class ECommerce:
         """Cambia la pantalla al nuevo estado"""
         self.current_screen = new_screen
         self.current_view = self.views[self.current_screen](
-            self.window_login,
+            self.window_surface,
             self.change_screen  # Pasar el callback para cambiar la pantalla
         )
 
