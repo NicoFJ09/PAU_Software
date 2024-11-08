@@ -1,6 +1,6 @@
 import pygame
 import pygame_gui
-from Admin_Dashboard.constants import COLORS
+from E_Commerce.constants import COLORS
 from E_Commerce.Screens_web import Screens
 
 class HomePageView:
