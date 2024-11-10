@@ -49,7 +49,6 @@ class PreClassificationView:
             'margin_bottom': 5,
             'visible_rows': 5,
             'enable_row_selection': False,
-            
         }
         
         self.container = Container(

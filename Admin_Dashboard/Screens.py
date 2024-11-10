@@ -7,3 +7,4 @@ class Screens(Enum):
     FACTORY = "Factory"
     PREVIEW = "Preview"
     SALE = "Sale"
+    DISCOUNT = "Discount"

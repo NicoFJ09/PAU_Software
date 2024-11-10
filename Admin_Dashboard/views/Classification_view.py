@@ -48,7 +48,7 @@ class ClassificationView:
             'input_width': 100,
             'button_width': 80,
             'button_text': 'Pedir',
-            'text_formatter': lambda item: f"{item['codigoProducto']}_{item['Date']}_{item['Id']} ({item['cantidad']}{item['unidadMedida']})",
+            'text_formatter': lambda item: f"{item['codigoProducto']}_{item['Date']}_{item['Id']} ({item['cantidad']}{item['unidadMedida']}) - {item['Nombre']}",
             'item_id_field': 'codigoProducto',
             'margin_top': 5, 
             'margin_bottom': 5,

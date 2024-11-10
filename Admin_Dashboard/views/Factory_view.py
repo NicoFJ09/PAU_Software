@@ -44,7 +44,7 @@ class FactoryView:
             'input_width': 100,
             'button_width': 80,
             'button_text': 'Pedir',
-            'text_formatter': lambda item: f"{item['Nombre']} ({item['codigoProducto']})",
+            'text_formatter': lambda item: f"{item['Nombre']} - ({item['codigoProducto']})",
             'item_id_field': 'codigoProducto',
             'margin_top': 5, 
             'margin_bottom': 5,
@@ -155,31 +155,7 @@ class FactoryView:
         self.craftform.handle_event(event, self.craft_product)
         
         if material and material != self.material:  # Solo actualizar si es un material diferente
-            self.material = material
-            # Obtener cantidades actualizadas
-            material_quantities = self.controller.get_material_quantities(material['Nombre'])
-            # Recrear el formulario con el nuevo material
-            self.craftform.destroy_form_elements()
-            self.craftform = CraftForm(
-                container_bottom_y=self.container.y + self.container.height,
-                ui_manager=self.ui_manager,
-                surface=self.surface,
-                material=material,
-                material_quantities=material_quantities,
-                config={
-                    'width': self.container.width,
-                    'height': self.container.height,
-                    'margin_x': self.container.x,
-                    'margin_top': 20,
-                    'margin_bottom': 20,
-                    'spacing': -20,
-                    'row_height': 40,
-                    'button_width': 100,
-                    'button_text': 'Fabricar',
-                    'Title_text': f"Receta de {material['Nombre']}",
-                    'material_text_formatter': lambda item, available: f"{item['Nombre']} - {item['cantidad']}{item['unidadMedida']} | Disponible: {available['disponible']}{item['unidadMedida']}"
-                }
-            )
+            self.update_material(material)
 
         # Manejar evento del botón "Continuar" y "Regresar"
         if event.type == pygame.USEREVENT and event.user_type == pygame_gui.UI_BUTTON_PRESSED:
@@ -187,6 +163,34 @@ class FactoryView:
                 self.change_screen_callback(Screens.PREVIEW)
             elif event.ui_element == self.return_button:
                 self.change_screen_callback(Screens.RECIPE_CREATOR)
+
+    def update_material(self, material):
+        """Actualiza el material y recrea el formulario"""
+        self.material = material
+        # Obtener cantidades actualizadas
+        material_quantities = self.controller.get_material_quantities(material['Nombre'])
+        # Recrear el formulario con el nuevo material
+        self.craftform.destroy_form_elements()
+        self.craftform = CraftForm(
+            container_bottom_y=self.container.y + self.container.height,
+            ui_manager=self.ui_manager,
+            surface=self.surface,
+            material=material,
+            material_quantities=material_quantities,
+            config={
+                'width': self.container.width,
+                'height': self.container.height,
+                'margin_x': self.container.x,
+                'margin_top': 20,
+                'margin_bottom': 20,
+                'spacing': -20,
+                'row_height': 40,
+                'button_width': 100,
+                'button_text': 'Fabricar',
+                'Title_text': f"Receta de {material['Nombre']}",
+                'material_text_formatter': lambda item, available: f"{item['Nombre']} - {item['cantidad']}{item['unidadMedida']} | Disponible: {available['disponible']}{item['unidadMedida']}"
+            }
+        )
 
     def craft_product(self, material, cantidad):
         """Llama a la función del controlador para crear el producto"""

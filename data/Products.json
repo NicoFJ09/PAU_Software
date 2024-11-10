@@ -28,7 +28,7 @@
     "Nombre": "Sal",
     "unidadMedida": "g",
     "Date": "2024-11-08",
-    "cantidad": 25.0,
+    "cantidad": 5.0,
     "Id": 1
   },
   {
@@ -36,7 +36,7 @@
     "Nombre": "Aceite vegetal",
     "unidadMedida": "l",
     "Date": "2024-11-08",
-    "cantidad": 98.5,
+    "cantidad": 98.1,
     "Id": 1
   },
   {
@@ -44,7 +44,7 @@
     "Nombre": "Empaque para chips (200g)",
     "unidadMedida": "u",
     "Date": "2024-11-08",
-    "cantidad": 85.0,
+    "cantidad": 81.0,
     "Id": 1
   },
   {
@@ -140,7 +140,7 @@
     "Nombre": "Papa grande",
     "unidadMedida": "kg",
     "Date": "2024-11-08",
-    "cantidad": 35.0,
+    "cantidad": 31.0,
     "Id": 1
   },
   {

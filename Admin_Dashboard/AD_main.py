@@ -6,6 +6,7 @@ from Admin_Dashboard.views.Recipe_creator_view import RecipeCreatorView
 from Admin_Dashboard.views.Factory_view import FactoryView
 from Admin_Dashboard.views.Preview_view import PreviewView
 from Admin_Dashboard.views.Sale_view import SaleView
+from Admin_Dashboard.views.Discount_view import DiscountView
 
 
 class AdminDashboard:
@@ -25,7 +26,8 @@ class AdminDashboard:
             Screens.RECIPE_CREATOR: RecipeCreatorView,
             Screens.FACTORY: FactoryView,
             Screens.PREVIEW: PreviewView,
-            Screens.SALE: SaleView
+            Screens.SALE: SaleView,
+            Screens.DISCOUNT: DiscountView
         }
         self.current_view = self.views[self.current_screen](
             self.window_surface, 
