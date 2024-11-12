@@ -26,7 +26,9 @@ class Container:
             'margin_bottom': 20,
             'visible_rows': 5,
             'enable_row_selection': True,
-            'enable_multiple_row_selection': False
+            'enable_multiple_row_selection': False,
+            'allow_zero_discount': False, 
+            "placeholder_text": "Cantidad de producto"
         }
         if config:
             self.config.update(config)
@@ -76,7 +78,7 @@ class Container:
             input_box = pygame_gui.elements.UITextEntryLine(
                 relative_rect=input_rect,
                 manager=self.ui_manager,
-                placeholder_text="Cantidad de producto"
+                placeholder_text=self.config['placeholder_text']
             )
             row_data['input'] = input_box
         
@@ -317,7 +319,7 @@ class Container:
                                 amount = float(row['input'].get_text() or "0")
                             except ValueError:
                                 amount = 0.0
-                            if amount > 0:
+                            if amount > 0 or self.config['allow_zero_discount']:
                                 callback(row['item'][self.config['item_id_field']], amount)
                                 row['input'].set_text("0")
                         else:

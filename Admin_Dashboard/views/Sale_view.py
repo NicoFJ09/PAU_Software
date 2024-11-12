@@ -42,7 +42,7 @@ class SaleView:
             'input_width': 180,
             'button_width': 80,
             'button_text': 'Vender',
-            'text_formatter': lambda item: f"{item['codigoProducto']}_{item['Date']}_{item['Id']} ({item['cantidad']}{item['unidadMedida']}) - {item['Nombre']}",
+            'text_formatter': lambda item: f"{item['codigoProducto']}_{item['Date']}_{item['Id']} ({item['cantidad']}{item['unidadMedida']}) - {item['Nombre']} | Precio:{item['Precio']} ",
             'item_id_field': 'codigoProducto',
             'margin_top': 5, 
             'margin_bottom': 5,

@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "codigoProducto": "MPP",
+    "Nombre": "Malla de papas",
+    "unidadMedida": "u",
+    "Precio": "2000",
+    "Date": "2024-11-11",
+    "cantidad": 5.0,
+    "Id": 1
+  }
+]

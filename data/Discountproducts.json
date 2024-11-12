@@ -1,0 +1,26 @@
+[
+  {
+    "codigoProducto": "CHP",
+    "Nombre": "Chips de papa (Paquete de 200g)",
+    "Precio": "2000",
+    "Descuento": 0.0
+  },
+  {
+    "codigoProducto": "MPP",
+    "Nombre": "Malla de papas",
+    "Precio": "2000",
+    "Descuento": 0.0
+  },
+  {
+    "codigoProducto": "SLS",
+    "Nombre": "Salsa Tomate",
+    "Precio": "1000",
+    "Descuento": 0
+  },
+  {
+    "codigoProducto": "TML",
+    "Nombre": "Tomate en malla",
+    "Precio": "1500",
+    "Descuento": 0.0
+  }
+]

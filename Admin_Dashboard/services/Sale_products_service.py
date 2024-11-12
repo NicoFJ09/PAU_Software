@@ -33,8 +33,6 @@ class SaleProductsService:
                 product_to_move["cantidad"] = cantidad
                 cantidad = 0
             
-            product_to_move["discount"] = False
-            
             # Verificar si el producto ya existe en sale_products
             existing_product = next(
                 (p for p in sale_products 
