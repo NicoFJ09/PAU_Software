@@ -48,6 +48,7 @@ class SaleView:
             'margin_bottom': 5,
             'visible_rows': 10,
             'enable_row_selection': False,
+            "Sale": True
         }
         
         self.container = Container(
@@ -120,7 +121,7 @@ class SaleView:
     def handle_event(self, event):
         """Maneja eventos de la vista"""
         self.ui_manager.process_events(event)
-        self.container.handle_event(event, self.handle_pedir_button)
+        selected_item = self.container.handle_event(event, self.handle_pedir_button)
 
         # Manejar evento del botón "Continuar" y "Regresar"
         if event.type == pygame.USEREVENT and event.user_type == pygame_gui.UI_BUTTON_PRESSED:
@@ -129,15 +130,14 @@ class SaleView:
             elif event.ui_element == self.return_button:
                 self.change_screen_callback(Screens.PREVIEW)
 
-    def handle_pedir_button(self, item_id, amount):
+    def handle_pedir_button(self, item, amount):
         """Maneja el evento del botón 'Pedir' en el contenedor"""
-        item = next((row['item'] for row in self.container.rows if row['item'][self.container.config['item_id_field']] == item_id), None)
         if item:
             codigo_producto = item['codigoProducto']
             fecha = item['Date']
             product_id = item['Id']
             self.controller.move_product_to_sale(codigo_producto, fecha, product_id, amount)
-            print(f"Producto {codigo_producto} movido a ventas.")
+            
             
             # Obtener la lista actualizada de productos
             updated_products = self.controller.get_products()

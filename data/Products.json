@@ -28,7 +28,7 @@
     "Nombre": "Sal",
     "unidadMedida": "g",
     "Date": "2024-11-08",
-    "cantidad": 5.0,
+    "cantidad": 1.0,
     "Id": 1
   },
   {
@@ -36,7 +36,7 @@
     "Nombre": "Aceite vegetal",
     "unidadMedida": "l",
     "Date": "2024-11-08",
-    "cantidad": 98.1,
+    "cantidad": 96.1,
     "Id": 1
   },
   {
@@ -124,15 +124,7 @@
     "Nombre": "Malla",
     "unidadMedida": "u",
     "Date": "2024-11-08",
-    "cantidad": 80.0,
-    "Id": 1
-  },
-  {
-    "codigoProducto": "PAP_P",
-    "Nombre": "Papa pequeña",
-    "unidadMedida": "kg",
-    "Date": "2024-11-08",
-    "cantidad": 10.0,
+    "cantidad": 56.0,
     "Id": 1
   },
   {
@@ -148,7 +140,7 @@
     "Nombre": "Tomate muy maduro grande",
     "unidadMedida": "kg",
     "Date": "2024-11-08",
-    "cantidad": 40.0,
+    "cantidad": 38.0,
     "Id": 1
   },
   {
@@ -172,7 +164,7 @@
     "Nombre": "Tomate verde",
     "unidadMedida": "kg",
     "Date": "2024-11-08",
-    "cantidad": 40.0,
+    "cantidad": 4.0,
     "Id": 1
   },
   {
@@ -188,7 +180,39 @@
     "Nombre": "Papas",
     "unidadMedida": "kg",
     "Date": "2024-11-08",
-    "cantidad": 100.0,
+    "cantidad": 58.0,
     "Id": 1
+  },
+  {
+    "codigoProducto": "PAP",
+    "Nombre": "Papas",
+    "unidadMedida": "kg",
+    "Date": "2024-11-16",
+    "cantidad": 5.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "PAP_P",
+    "Nombre": "Papa pequeña",
+    "unidadMedida": "kg",
+    "Date": "2024-11-16",
+    "cantidad": 57.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "PAP",
+    "Nombre": "Papas",
+    "unidadMedida": "kg",
+    "Date": "2024-11-16",
+    "cantidad": 2.0,
+    "Id": 2
+  },
+  {
+    "codigoProducto": "PAP_P",
+    "Nombre": "Papa pequeña",
+    "unidadMedida": "kg",
+    "Date": "2024-11-16",
+    "cantidad": 14.0,
+    "Id": 2
   }
 ]

@@ -28,7 +28,8 @@ class Container:
             'enable_row_selection': True,
             'enable_multiple_row_selection': False,
             'allow_zero_discount': False, 
-            "placeholder_text": "Cantidad de producto"
+            "placeholder_text": "Cantidad de producto",
+            "Sale":False
         }
         if config:
             self.config.update(config)
@@ -320,8 +321,12 @@ class Container:
                             except ValueError:
                                 amount = 0.0
                             if amount > 0 or self.config['allow_zero_discount']:
-                                callback(row['item'][self.config['item_id_field']], amount)
-                                row['input'].set_text("0")
+                                if self.config["Sale"]:
+                                    callback(row['item'], amount)
+                                    row['input'].set_text("0")
+                                else:
+                                    callback(row['item'][self.config['item_id_field']], amount)
+                                    row['input'].set_text("0")
                         else:
                             callback(row['item'][self.config['item_id_field']])
             elif event.user_type == pygame_gui.UI_TEXT_ENTRY_CHANGED:

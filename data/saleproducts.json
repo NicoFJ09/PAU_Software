@@ -6,8 +6,7 @@
     "Precio": "2000",
     "Date": "2024-11-08",
     "cantidad": 10.0,
-    "Id": 1,
-    "discount": false
+    "Id": 1
   },
   {
     "codigoProducto": "MPP",
@@ -15,8 +14,61 @@
     "unidadMedida": "u",
     "Precio": "2000",
     "Date": "2024-11-11",
-    "cantidad": 5.0,
-    "Id": 1,
-    "discount": false
+    "cantidad": 10.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "MPP",
+    "Nombre": "Malla de papas",
+    "unidadMedida": "u",
+    "Precio": "2000",
+    "Date": "2024-11-16",
+    "cantidad": 12.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "TML",
+    "Nombre": "Tomate en malla",
+    "unidadMedida": "u",
+    "Precio": "1500",
+    "Date": "2024-11-16",
+    "cantidad": 3.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "TML",
+    "Nombre": "Tomate en malla",
+    "unidadMedida": "u",
+    "Precio": "1500",
+    "Date": "2024-11-16",
+    "cantidad": 2.0,
+    "Id": 2
+  },
+  {
+    "codigoProducto": "SLS",
+    "Nombre": "Salsa Tomate",
+    "unidadMedida": "u",
+    "Precio": "1000",
+    "Date": "2024-11-16",
+    "cantidad": 2.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "TML",
+    "Nombre": "Tomate en malla",
+    "unidadMedida": "u",
+    "Precio": "1500",
+    "Date": "2024-11-16",
+    "cantidad": 13.0,
+    "Id": 3
+  },
+  {
+    "codigoProducto": "TML",
+    "Nombre": "Tomate en malla",
+    "unidadMedida": "u",
+    "Precio": "1500",
+    "Date": "2024-11-16",
+    "cantidad": 4.0,
+    "Id": 4
   }
 ]
