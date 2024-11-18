@@ -39,7 +39,7 @@ class RegisterView:
             relative_rect=pygame.Rect(
                 (self.rect_x + (self.rect_ancho // 6), self.crear_y + 60),
                 (self.rect_ancho * 2 // 3, 30)),
-            manager=self.manager
+            manager=self.ui_manager
         )
         self.configurar_entrada(self.entrada_nombre, "Nombre")
 
@@ -47,7 +47,7 @@ class RegisterView:
             relative_rect=pygame.Rect(
                 (self.rect_x + (self.rect_ancho // 6), self.crear_y + 130),
                 (self.rect_ancho * 2 // 3, 30)),
-            manager=self.manager
+            manager=self.ui_manager
         )
         self.configurar_entrada(self.entrada_correo, "Correo electrónico")
 
@@ -55,7 +55,7 @@ class RegisterView:
             relative_rect=pygame.Rect(
                 (self.rect_x + (self.rect_ancho // 6), self.crear_y + 200),
                 (self.rect_ancho * 2 // 3, 30)),
-            manager=self.manager
+            manager=self.ui_manager
         )
         self.configurar_entrada(self.entrada_password, "Contraseña")
 
@@ -63,7 +63,7 @@ class RegisterView:
             relative_rect=pygame.Rect(
                 (self.rect_x + (self.rect_ancho // 6), self.crear_y + 270),
                 (self.rect_ancho * 2 // 3, 30)),
-            manager=self.manager
+            manager=self.ui_manager
         )
         self.configurar_entrada(self.entrada_telefono, "Número telefónico")
 
@@ -73,7 +73,7 @@ class RegisterView:
                 (self.rect_x + (self.rect_ancho // 6), self.crear_y + 355),
                 (self.rect_ancho * 2 // 3, 40)),
             text="Confirmar",
-            manager=self.manager
+            manager=self.ui_manager
         )
 
     def configurar_entrada(self, entrada, placeholder_text):
@@ -87,7 +87,7 @@ class RegisterView:
 
     def handle_event(self, event):
         """Maneja eventos de la vista"""
-        self.manager.process_events(event)
+        self.ui_manager.process_events(event)
         if event.type == pygame.USEREVENT and event.user_type == pygame_gui.UI_BUTTON_PRESSED:
             if event.ui_element == self.confirmar_crear:
                 self.change_screen_callback(Screens.HOMEPAGE)  # Llamada de cambio de pantalla
@@ -95,21 +95,21 @@ class RegisterView:
     def update(self):
         """Actualiza los elementos de la UI"""
         time_delta = self.clock.tick(60) / 1000.0
-        self.manager.update(time_delta)
+        self.ui_manager.update(time_delta)
 
     def draw(self):
         """Dibuja todos los elementos de la vista"""
-        self.window.fill(COLORS['GREEN'])
-        pygame.draw.rect(self.window, (COLORS['WHITE']), (self.rect_x, self.rect_y, self.rect_ancho, self.rect_alto))
+        self.surface.fill(COLORS['GREEN'])
+        pygame.draw.rect(self.surface, (COLORS['WHITE']), (self.rect_x, self.rect_y, self.rect_ancho, self.rect_alto))
 
         # Dibujar la imagen del logo
         logo_x = self.rect_x + (self.rect_ancho - self.logo_image.get_width()) // 2
         logo_y = self.rect_y + 20
-        self.window.blit(self.logo_image, (logo_x, logo_y))
+        self.surface.blit(self.logo_image, (logo_x, logo_y))
 
         # Dibujar etiquetas de texto
-        self.window.blit(self.crear_cuenta_label, (self.crear_x, self.crear_y + 10))
+        self.surface.blit(self.crear_cuenta_label, (self.crear_x, self.crear_y + 10))
 
         # Dibujar la interfaz de usuario
-        self.manager.draw_ui(self.window)
+        self.ui_manager.draw_ui(self.surface)
         pygame.display.flip()
