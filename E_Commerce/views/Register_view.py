@@ -1,5 +1,6 @@
 import pygame
 import pygame_gui
+import re
 from E_Commerce.Screens_web import Screens
 from E_Commerce.constants import COLORS
 
@@ -75,6 +76,7 @@ class RegisterView:
             text="Confirmar",
             manager=self.ui_manager
         )
+        self.confirmar_crear.disable()
 
     def configurar_entrada(self, entrada, placeholder_text):
         """Configura cada entrada de texto"""
@@ -85,12 +87,34 @@ class RegisterView:
         entrada.text_colour = pygame.Color(0, 0, 0)
         entrada.rebuild()
 
+
+    def validar_campos(self):
+        """Valida si los campos están llenos, si tienen formato correcto 
+        y actualiza el estado del botón confirmar"""
+        correo_texto = self.entrada_correo.get_text().strip()
+        password_texto = self.entrada_password.get_text().strip()
+        nombre_texto = self.entrada_nombre.get_text().strip()
+        telefono_texto = self.entrada_telefono.get_text().strip()
+
+        nombre_valido = bool(re.fullmatch(r"[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+", nombre_texto))
+        correo_valido = bool(re.fullmatch(r"[^@]+@[^@]+\.[a-zA-Z]", correo_texto))
+        telefono_valido = telefono_texto.isdigit()
+
+        if correo_texto and password_texto and nombre_texto and telefono_texto and nombre_valido and correo_valido and telefono_valido:
+            self.confirmar_crear.enable()
+        else:
+            self.confirmar_crear.disable()
+
     def handle_event(self, event):
         """Maneja eventos de la vista"""
         self.ui_manager.process_events(event)
-        if event.type == pygame.USEREVENT and event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-            if event.ui_element == self.confirmar_crear:
-                self.change_screen_callback(Screens.HOMEPAGE)  # Llamada de cambio de pantalla
+        if event.type == pygame.USEREVENT:
+            if event.user_type == pygame_gui.UI_TEXT_ENTRY_CHANGED:
+                if event.ui_element in [self.entrada_correo, self.entrada_password, self.entrada_nombre, self.entrada_telefono]:
+                    self.validar_campos()
+            elif event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                if event.ui_element == self.confirmar_crear:
+                    self.change_screen_callback(Screens.HOMEPAGE)
 
     def update(self):
         """Actualiza los elementos de la UI"""

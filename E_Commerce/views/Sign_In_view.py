@@ -1,7 +1,9 @@
 import pygame
 import pygame_gui
+import re
 from Admin_Dashboard.constants import COLORS
 from E_Commerce.Screens_web import Screens
+
 
 class SignInView:
     def __init__(self, surface, window_size, change_screen_callback):
@@ -25,7 +27,7 @@ class SignInView:
             "*Algunas funciones solo están disponibles para usuarios registrados", True, COLORS['RED']
         )
 
-        # Configurar posiciones y tamaños usando window_size
+        # Configurar posiciones y tamaños 
         self.rect_ancho = self.window_size[0] // 3
         self.rect_alto = int(self.window_size[1] * 0.8)
         self.rect_x = (self.window_size[0] - self.rect_ancho) // 2
@@ -43,7 +45,7 @@ class SignInView:
         self.text3_x = self.rect_x + (self.rect_ancho - self.restricciones_label.get_width()) // 2
         self.text3_y = self.rect_y + 480
 
-        # Crear campos de texto para correo y contraseña
+        # Crear text entry para correo y contraseña
         self.entrada_correo = pygame_gui.elements.UITextEntryLine(
             relative_rect=pygame.Rect(
                 (self.rect_x + (self.rect_ancho // 6), self.text1_y + 55), 
@@ -71,6 +73,7 @@ class SignInView:
             text="Continuar",
             manager=self.ui_manager
         )
+        self.boton_continuar.disable()
 
         self.create_account_button = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect(
@@ -98,16 +101,33 @@ class SignInView:
         entrada.text_colour = pygame.Color(0, 0, 0)
         entrada.rebuild()
 
+    def validar_campos(self):
+        """Valida si los campos están llenos, son datos 
+        válidos y actualiza el estado del botón continuar"""
+
+        correo_texto = self.entrada_correo.get_text().strip()
+        password_texto = self.entrada_password.get_text().strip()
+        correo_valido = bool(re.fullmatch(r"[^@]+@[^@]+\.[a-zA-Z]{2,}", correo_texto))
+
+        if correo_texto and password_texto and correo_valido:
+            self.boton_continuar.enable()
+        else:
+            self.boton_continuar.disable()
+
     def handle_event(self, event):
         """Maneja eventos de la vista"""
         self.ui_manager.process_events(event)
-        if event.type == pygame.USEREVENT and event.user_type == pygame_gui.UI_BUTTON_PRESSED:
-            if event.ui_element == self.ingresar_button:
-                self.change_screen_callback(Screens.HOMEPAGE)
-            elif event.ui_element == self.boton_continuar:
-                self.change_screen_callback(Screens.HOMEPAGE)
-            elif event.ui_element == self.create_account_button:
-                self.change_screen_callback(Screens.REGISTER)
+        if event.type == pygame.USEREVENT:
+            if event.user_type == pygame_gui.UI_TEXT_ENTRY_CHANGED:
+                if event.ui_element in [self.entrada_correo, self.entrada_password]:
+                    self.validar_campos()
+            if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
+                if event.ui_element == self.boton_continuar:
+                    self.change_screen_callback(Screens.HOMEPAGE)
+                elif event.ui_element == self.create_account_button:
+                    self.change_screen_callback(Screens.REGISTER)
+                elif event.ui_element == self.ingresar_button:
+                    self.change_screen_callback(Screens.HOMEPAGE)
 
     def update(self):
         """Actualiza elementos de la UI"""
@@ -120,15 +140,15 @@ class SignInView:
         pygame.draw.rect(self.surface, COLORS['WHITE'],
                         (self.rect_x, self.rect_y, self.rect_ancho, self.rect_alto))
 
-        # Dibujar la imagen del logo
+        # Dibuja la imagen del logo
         logo_x = self.rect_x + (self.rect_ancho - self.logo_image.get_width()) // 2
         logo_y = self.rect_y + 30
         self.surface.blit(self.logo_image, (logo_x, logo_y))
 
-        # Dibujar las etiquetas de texto
+        # Dibuja las etiquetas de texto
         self.surface.blit(self.inicio_label, (self.text1_x, self.text1_y))
         self.surface.blit(self.cuenta_label, (self.text2_x, self.text2_y))
         self.surface.blit(self.restricciones_label, (self.text3_x, self.text3_y))
 
-        # Dibujar la interfaz de usuario
+        # Dibuja la interfaz de usuario
         self.ui_manager.draw_ui(self.surface)
