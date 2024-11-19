@@ -8,6 +8,7 @@ class ShoppingCartView:
         self.window_size = window_size
         self.ui_manager = pygame_gui.UIManager(window_size)
         self.change_screen_callback = change_screen_callback
+        signedin = True
 
         # Configuración inicial de los elementos de UI
         self.items = ["Item 1 - $10", "Item 2 - $15", "Item 3 - $20", "Item 4 - $25"]

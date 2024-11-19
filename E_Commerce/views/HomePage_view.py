@@ -2,6 +2,7 @@ import pygame
 import pygame_gui
 from E_Commerce.constants import COLORS
 from E_Commerce.Screens_web import Screens
+from E_Commerce.views.components.WebContainer import WebContainer
 
 class HomePageView:
     def __init__(self, surface, window_size, change_screen_callback):
@@ -11,12 +12,6 @@ class HomePageView:
 
         # Crear el administrador de la interfaz
         self.manager = pygame_gui.UIManager(self.window_size)
-
-        # Configuración del rectángulo de referencia
-        self.rect_ancho = self.window_size[0] - 50
-        self.rect_alto = int(self.window_size[1] * 0.8)
-        self.rect_x = (self.window_size[0] - self.rect_ancho) // 2
-        self.rect_y = (self.window_size[1] - self.rect_alto) // 2 + 50
 
         # Cargar imágenes de "encabezado"
         self.logo_image = pygame.image.load("Images/logo.png").convert_alpha()
@@ -28,8 +23,8 @@ class HomePageView:
 
         # Crear entry que simula barra de búsqueda
         self.entrada_busqueda_rect = pygame.Rect(
-            (self.rect_x + (self.rect_ancho // 4), 60),
-            (self.rect_ancho // 2, 30)
+            (self.window_size[0] // 4, 60),
+            (self.window_size[0] // 2, 30)
         )
         self.entrada_busqueda = pygame_gui.elements.UITextEntryLine(
             relative_rect=self.entrada_busqueda_rect,
@@ -44,8 +39,8 @@ class HomePageView:
         # Botón para el carrito
         self.carrito_b = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect(
-                (self.rect_x + (self.rect_ancho // 2 + 550), 60),
-                (self.rect_ancho // 35, 35)
+                (self.window_size[0] // 2 + 550, 60),
+                (self.window_size[0] // 35, 35)
             ),
             text="",
             manager=self.manager
@@ -63,36 +58,15 @@ class HomePageView:
             {"nombre": "Salsa de tomate enlatada (Lata 1kg)", "precio": "$ 100", "imagen": "Images/lata.png"},
         ]
 
-        # Configuración de los paneles de productos
-        self.panel_margin = 20
-        self.panel_size = (self.rect_ancho - 5 * self.panel_margin) // 4
-        self.total_panels = len(self.productos)
-        self.panel_positions = [
-            (self.rect_x + self.panel_margin + (i % 4) * (self.panel_size + self.panel_margin),
-             self.rect_y + self.panel_margin + (i // 4) * (self.panel_size + self.panel_margin))
-            for i in range(self.total_panels)
-        ]
-
-        # Crear botones "Ver más" para cada producto
-        self.botones_ver_mas = []
-        for i, producto in enumerate(self.productos):
-            x, y = self.panel_positions[i]
-            boton_rect = pygame.Rect(
-                (x - self.rect_x + 200, y - self.rect_y + 325),
-                (70, 25)
-            )
-            boton_ver_mas = pygame_gui.elements.UIButton(
-                relative_rect=boton_rect,
-                text="Ver más",
-                manager=self.manager
-            )
-            self.botones_ver_mas.append(boton_ver_mas)
+        # Crear el contenedor web con los productos
+        self.web_container = WebContainer(self.surface, self.window_size, self.productos, self.manager)
 
         self.clock = pygame.time.Clock()
 
     def handle_event(self, event):
         """Maneja eventos de la vista"""
         self.manager.process_events(event)
+        self.web_container.handle_event(event)
         if event.type == pygame.USEREVENT and event.user_type == pygame_gui.UI_BUTTON_PRESSED:
             if event.ui_element == self.carrito_b:
                 self.change_screen_callback(Screens.SHOPPING_CART)
@@ -105,31 +79,13 @@ class HomePageView:
     def draw(self):
         """Dibuja todos los elementos de la vista"""
         self.surface.fill(COLORS['GREEN'])
-        panel_surface = pygame.Surface((self.rect_ancho, self.rect_alto))
-        panel_surface.fill(COLORS['GREEN'])
 
-        # Dibujar productos en sus paneles
-        for i, producto in enumerate(self.productos):
-            x, y = self.panel_positions[i]
-            panel_rect = pygame.Rect(x - self.rect_x, y - self.rect_y, self.panel_size, self.panel_size)
-            pygame.draw.rect(panel_surface, COLORS['WHITE'], panel_rect, border_radius=10)
-
-            # Cargar y dibujar la imagen del producto
-            imagen_producto = pygame.image.load(producto["imagen"]).convert_alpha()
-            imagen_producto = pygame.transform.scale(imagen_producto, (185, 185))
-            panel_surface.blit(imagen_producto, (panel_rect.x + 10, panel_rect.y + 10))
-
-            # Dibujar nombre y precio
-            font = pygame.font.Font(None, 20)
-            nombre_text = font.render(producto["nombre"], True, COLORS['BLACK'])
-            precio_text = font.render(producto["precio"], True, COLORS['BLACK'])
-            panel_surface.blit(nombre_text, (panel_rect.x + 10, panel_rect.y + 230))
-            panel_surface.blit(precio_text, (panel_rect.x + 10, panel_rect.y + 260))
-
-        # Dibujar elementos de encabezado
-        self.surface.blit(panel_surface, (self.rect_x, self.rect_y))
-        self.surface.blit(self.logo_image, (30, 18))
-        self.surface.blit(self.letras_image, (130, 18))
+        # Dibujar el contenedor web
+        self.web_container.draw()
         # Dibujar la interfaz de usuario
         self.manager.draw_ui(self.surface)
+        # Dibujar elementos de encabezado
+        self.surface.blit(self.logo_image, (30, 18))
+        self.surface.blit(self.letras_image, (130, 18))
         self.surface.blit(self.carrito_image, (1170, 45))
+
