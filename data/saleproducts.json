@@ -3,72 +3,82 @@
     "codigoProducto": "MPP",
     "Nombre": "Malla de papas",
     "unidadMedida": "u",
-    "Precio": "2000",
-    "Date": "2024-11-08",
-    "cantidad": 10.0,
-    "Id": 1
-  },
-  {
-    "codigoProducto": "MPP",
-    "Nombre": "Malla de papas",
-    "unidadMedida": "u",
-    "Precio": "2000",
-    "Date": "2024-11-11",
-    "cantidad": 10.0,
-    "Id": 1
-  },
-  {
-    "codigoProducto": "MPP",
-    "Nombre": "Malla de papas",
-    "unidadMedida": "u",
-    "Precio": "2000",
-    "Date": "2024-11-16",
-    "cantidad": 12.0,
-    "Id": 1
-  },
-  {
-    "codigoProducto": "TML",
-    "Nombre": "Tomate en malla",
-    "unidadMedida": "u",
     "Precio": "1500",
-    "Date": "2024-11-16",
-    "cantidad": 3.0,
+    "Date": "2024-11-19",
+    "cantidad": 10,
     "Id": 1
   },
   {
-    "codigoProducto": "TML",
-    "Nombre": "Tomate en malla",
+    "codigoProducto": "CHPP",
+    "Nombre": "Chips (200g)",
     "unidadMedida": "u",
-    "Precio": "1500",
-    "Date": "2024-11-16",
-    "cantidad": 2.0,
-    "Id": 2
+    "Precio": "500",
+    "Date": "2024-11-19",
+    "cantidad": 10,
+    "Id": 1
   },
   {
-    "codigoProducto": "SLS",
-    "Nombre": "Salsa Tomate",
+    "codigoProducto": "CHPG",
+    "Nombre": "Chips (500)",
     "unidadMedida": "u",
     "Precio": "1000",
-    "Date": "2024-11-16",
-    "cantidad": 2.0,
+    "Date": "2024-11-19",
+    "cantidad": 10,
     "Id": 1
   },
   {
-    "codigoProducto": "TML",
-    "Nombre": "Tomate en malla",
+    "codigoProducto": "SALP",
+    "Nombre": "Salsa de tomate (500ml)",
     "unidadMedida": "u",
-    "Precio": "1500",
-    "Date": "2024-11-16",
-    "cantidad": 13.0,
-    "Id": 3
+    "Precio": "1000",
+    "Date": "2024-11-19",
+    "cantidad": 10,
+    "Id": 1
   },
   {
-    "codigoProducto": "TML",
-    "Nombre": "Tomate en malla",
+    "codigoProducto": "SLTP",
+    "Nombre": "Salsa de tomate en lata (400g)",
     "unidadMedida": "u",
-    "Precio": "1500",
-    "Date": "2024-11-16",
-    "cantidad": 4.0,
-    "Id": 4
+    "Precio": "1000",
+    "Date": "2024-11-19",
+    "cantidad": 10,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "SLTG",
+    "Nombre": "Salsa de tomate en lata (1kg)",
+    "unidadMedida": "u",
+    "Precio": "1800",
+    "Date": "2024-11-19",
+    "cantidad": 10,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "MTM",
+    "Nombre": "Malla de tomates",
+    "unidadMedida": "u",
+    "Precio": "2000",
+    "Date": "2024-11-19",
+    "cantidad": 10,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "SALG",
+    "Nombre": "Salsa de tomate (1L)",
+    "unidadMedida": "u",
+    "Precio": "1800",
+    "Date": "2024-11-19",
+    "cantidad": 10,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "SAL",
+    "Nombre": "Salsa de tomate (1L)",
+    "unidadMedida": "u",
+    "Precio": "1800",
+    "Date": "2024-11-19",
+    "cantidad": 10,
+    "Id": 1
   }
+
 ]

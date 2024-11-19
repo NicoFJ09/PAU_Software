@@ -42,15 +42,8 @@ class WebContainer:
 
         # Crear botones "Ver más" para cada producto
         self.botones_ver_mas = []
-        for i, producto in enumerate(self.productos):
-            row = i // self.panels_per_row
-            col = i % self.panels_per_row
-            x = self.x + self.panel_margin + col * (self.panel_size + self.panel_margin)
-            y = self.y + self.panel_margin + row * (self.panel_size + self.panel_margin)
-            boton_rect = pygame.Rect(
-                (x + self.panel_size - 80, y + self.panel_size - 35),
-                (70, 25)
-            )
+        for i in range(len(self.productos)):
+            boton_rect = pygame.Rect(0, 0, 70, 25)
             boton_ver_mas = pygame_gui.elements.UIButton(
                 relative_rect=boton_rect,
                 text="Ver más",
@@ -112,8 +105,26 @@ class WebContainer:
             precio_text = font.render(f"Precio: {producto['Precio']}", True, COLORS['BLACK'])
             self.surface.blit(precio_text, (panel_rect.x + 10, panel_rect.y + 220))
 
+            # Aplicar descuento si existe
+            descuento = producto.get("Descuento", 0)
+            if descuento > 0:
+                # Dibujar línea roja sobre el precio original
+                precio_rect = precio_text.get_rect(topleft=(panel_rect.x + 10, panel_rect.y + 220))
+                pygame.draw.line(self.surface, COLORS['RED'], (precio_rect.left, precio_rect.centery), (precio_rect.right, precio_rect.centery), 2)
+
+                # Calcular y dibujar el nuevo precio con descuento
+                precio_original = int(producto['Precio'])
+                nuevo_precio = precio_original * (1 - descuento / 100)
+                nuevo_precio_text = font.render(f"Nuevo Precio: {int(nuevo_precio)}", True, COLORS['BLACK'])
+                self.surface.blit(nuevo_precio_text, (panel_rect.x + 10, panel_rect.y + 240))
+
+                # Dibujar el texto de descuento junto al precio original
+                descuento_text = font.render(f"-{descuento}%", True, COLORS['RED'])
+                descuento_text_rect = descuento_text.get_rect(topleft=(precio_rect.right + 10, panel_rect.y + 220))
+                self.surface.blit(descuento_text, descuento_text_rect.topleft)
+
             # Actualizar y mostrar botón correspondiente
-            boton = self.botones_ver_mas[i % len(self.botones_ver_mas)]
+            boton = self.botones_ver_mas[i]
             boton.set_position((x + self.panel_size - 80, y + self.panel_size - 35))
             boton.show()
 

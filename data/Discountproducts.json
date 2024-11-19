@@ -1,15 +1,9 @@
 [
   {
-    "codigoProducto": "CHP",
-    "Nombre": "Chips de papa (Paquete de 200g)",
-    "Precio": "2000",
-    "Descuento": 0.0
-  },
-  {
     "codigoProducto": "MPP",
     "Nombre": "Malla de papas",
-    "Precio": "2000",
-    "Descuento": 0.0
+    "Precio": "1500",
+    "Descuento": 0
   },
   {
     "codigoProducto": "SLS",
@@ -22,5 +16,47 @@
     "Nombre": "Tomate en malla",
     "Precio": "1500",
     "Descuento": 0.0
+  },
+  {
+    "codigoProducto": "MTM",
+    "Nombre": "Malla de tomates",
+    "Precio": "2000",
+    "Descuento": 0
+  },
+  {
+    "codigoProducto": "CHPP",
+    "Nombre": "Chips (200g)",
+    "Precio": "500",
+    "Descuento": 0
+  },
+  {
+    "codigoProducto": "CHPG",
+    "Nombre": "Chips (500)",
+    "Precio": "1000",
+    "Descuento": 0
+  },
+  {
+    "codigoProducto": "SALP",
+    "Nombre": "Salsa de tomate (500ml)",
+    "Precio": "1000",
+    "Descuento": 0
+  },
+  {
+    "codigoProducto": "SALG",
+    "Nombre": "Salsa de tomate (1L)",
+    "Precio": "1800",
+    "Descuento": 20
+  },
+  {
+    "codigoProducto": "SLTP",
+    "Nombre": "Salsa de tomate en lata (400g)",
+    "Precio": "1000",
+    "Descuento": 0
+  },
+  {
+    "codigoProducto": "SLTG",
+    "Nombre": "Salsa de tomate en lata (1kg)",
+    "Precio": "1800",
+    "Descuento": 0
   }
 ]

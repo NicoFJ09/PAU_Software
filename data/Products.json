@@ -12,7 +12,7 @@
     "Nombre": "Oregano",
     "unidadMedida": "kg",
     "Date": "2024-11-08",
-    "cantidad": 100.0,
+    "cantidad": 99.0,
     "Id": 1
   },
   {
@@ -20,15 +20,7 @@
     "Nombre": "Pimienta",
     "unidadMedida": "kg",
     "Date": "2024-11-08",
-    "cantidad": 100.0,
-    "Id": 1
-  },
-  {
-    "codigoProducto": "S",
-    "Nombre": "Sal",
-    "unidadMedida": "g",
-    "Date": "2024-11-08",
-    "cantidad": 1.0,
+    "cantidad": 98.0,
     "Id": 1
   },
   {
@@ -36,7 +28,7 @@
     "Nombre": "Aceite vegetal",
     "unidadMedida": "l",
     "Date": "2024-11-08",
-    "cantidad": 96.1,
+    "cantidad": 94.1,
     "Id": 1
   },
   {
@@ -44,7 +36,7 @@
     "Nombre": "Empaque para chips (200g)",
     "unidadMedida": "u",
     "Date": "2024-11-08",
-    "cantidad": 81.0,
+    "cantidad": 71.0,
     "Id": 1
   },
   {
@@ -52,7 +44,7 @@
     "Nombre": "Empaque para chips (500g)",
     "unidadMedida": "kg",
     "Date": "2024-11-08",
-    "cantidad": 100.0,
+    "cantidad": 90.0,
     "Id": 1
   },
   {
@@ -60,15 +52,7 @@
     "Nombre": "Agua",
     "unidadMedida": "l",
     "Date": "2024-11-08",
-    "cantidad": 100.0,
-    "Id": 1
-  },
-  {
-    "codigoProducto": "PRE",
-    "Nombre": "Preservantes",
-    "unidadMedida": "g",
-    "Date": "2024-11-08",
-    "cantidad": 100.0,
+    "cantidad": 98.0,
     "Id": 1
   },
   {
@@ -76,7 +60,7 @@
     "Nombre": "Botella plastica para salsa (500ml)",
     "unidadMedida": "u",
     "Date": "2024-11-08",
-    "cantidad": 100.0,
+    "cantidad": 90.0,
     "Id": 1
   },
   {
@@ -92,7 +76,7 @@
     "Nombre": "Botella plástica para salsa (1L)",
     "unidadMedida": "u",
     "Date": "2024-11-08",
-    "cantidad": 100.0,
+    "cantidad": 90.0,
     "Id": 1
   },
   {
@@ -108,7 +92,7 @@
     "Nombre": "Lata para salsa de tomate (400g)",
     "unidadMedida": "kg",
     "Date": "2024-11-08",
-    "cantidad": 100.0,
+    "cantidad": 90.0,
     "Id": 1
   },
   {
@@ -116,7 +100,7 @@
     "Nombre": "Lata para salsa de tomate (1kg)",
     "unidadMedida": "kg",
     "Date": "2024-11-08",
-    "cantidad": 100.0,
+    "cantidad": 90.0,
     "Id": 1
   },
   {
@@ -124,7 +108,7 @@
     "Nombre": "Malla",
     "unidadMedida": "u",
     "Date": "2024-11-08",
-    "cantidad": 56.0,
+    "cantidad": 20.0,
     "Id": 1
   },
   {
@@ -132,7 +116,7 @@
     "Nombre": "Papa grande",
     "unidadMedida": "kg",
     "Date": "2024-11-08",
-    "cantidad": 31.0,
+    "cantidad": 24.0,
     "Id": 1
   },
   {
@@ -140,7 +124,7 @@
     "Nombre": "Tomate muy maduro grande",
     "unidadMedida": "kg",
     "Date": "2024-11-08",
-    "cantidad": 38.0,
+    "cantidad": 33.0,
     "Id": 1
   },
   {
@@ -156,15 +140,7 @@
     "Nombre": "Tomate maduro",
     "unidadMedida": "kg",
     "Date": "2024-11-08",
-    "cantidad": 20.0,
-    "Id": 1
-  },
-  {
-    "codigoProducto": "TOM_VE",
-    "Nombre": "Tomate verde",
-    "unidadMedida": "kg",
-    "Date": "2024-11-08",
-    "cantidad": 4.0,
+    "cantidad": 6.0,
     "Id": 1
   },
   {
@@ -172,7 +148,7 @@
     "Nombre": "Tomate",
     "unidadMedida": "kg",
     "Date": "2024-11-08",
-    "cantidad": 80.0,
+    "cantidad": 30.0,
     "Id": 1
   },
   {
@@ -180,7 +156,7 @@
     "Nombre": "Papas",
     "unidadMedida": "kg",
     "Date": "2024-11-08",
-    "cantidad": 58.0,
+    "cantidad": 8.0,
     "Id": 1
   },
   {
@@ -196,7 +172,7 @@
     "Nombre": "Papa pequeña",
     "unidadMedida": "kg",
     "Date": "2024-11-16",
-    "cantidad": 57.0,
+    "cantidad": 9.0,
     "Id": 1
   },
   {
@@ -208,11 +184,179 @@
     "Id": 2
   },
   {
+    "codigoProducto": "TOM",
+    "Nombre": "Tomate",
+    "unidadMedida": "kg",
+    "Date": "2024-11-19",
+    "cantidad": 20.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "ORE",
+    "Nombre": "Oregano",
+    "unidadMedida": "kg",
+    "Date": "2024-11-19",
+    "cantidad": 100.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "PIM",
+    "Nombre": "Pimienta",
+    "unidadMedida": "kg",
+    "Date": "2024-11-19",
+    "cantidad": 100.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "OLI",
+    "Nombre": "Aceite vegetal",
+    "unidadMedida": "l",
+    "Date": "2024-11-19",
+    "cantidad": 100.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "EMP",
+    "Nombre": "Empaque para chips (200g)",
+    "unidadMedida": "u",
+    "Date": "2024-11-19",
+    "cantidad": 100.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "EMP_2",
+    "Nombre": "Empaque para chips (500g)",
+    "unidadMedida": "kg",
+    "Date": "2024-11-19",
+    "cantidad": 100.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "AGU",
+    "Nombre": "Agua",
+    "unidadMedida": "l",
+    "Date": "2024-11-19",
+    "cantidad": 100.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "PRE",
+    "Nombre": "Preservantes",
+    "unidadMedida": "g",
+    "Date": "2024-11-19",
+    "cantidad": 100.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "BOT",
+    "Nombre": "Botella plastica para salsa (500ml)",
+    "unidadMedida": "u",
+    "Date": "2024-11-19",
+    "cantidad": 100.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "BOT_2",
+    "Nombre": "Tapa botella plastica (500ml)",
+    "unidadMedida": "kg",
+    "Date": "2024-11-19",
+    "cantidad": 100.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "BOT_3",
+    "Nombre": "Botella plástica para salsa (1L)",
+    "unidadMedida": "u",
+    "Date": "2024-11-19",
+    "cantidad": 100.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "BOT_4",
+    "Nombre": "Tapa para botella plástica (1L)",
+    "unidadMedida": "kg",
+    "Date": "2024-11-19",
+    "cantidad": 100.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "LAT",
+    "Nombre": "Lata para salsa de tomate (400g)",
+    "unidadMedida": "kg",
+    "Date": "2024-11-19",
+    "cantidad": 100.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "LAT_2",
+    "Nombre": "Lata para salsa de tomate (1kg)",
+    "unidadMedida": "kg",
+    "Date": "2024-11-19",
+    "cantidad": 100.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "MLL",
+    "Nombre": "Malla",
+    "unidadMedida": "u",
+    "Date": "2024-11-19",
+    "cantidad": 100.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "PPY",
+    "Nombre": "Papaya",
+    "unidadMedida": "kg",
+    "Date": "2024-11-19",
+    "cantidad": 100.0,
+    "Id": 1
+  },
+  {
     "codigoProducto": "PAP_P",
     "Nombre": "Papa pequeña",
     "unidadMedida": "kg",
-    "Date": "2024-11-16",
-    "cantidad": 14.0,
-    "Id": 2
+    "Date": "2024-11-19",
+    "cantidad": 100.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "PAP_G",
+    "Nombre": "Papa grande",
+    "unidadMedida": "kg",
+    "Date": "2024-11-19",
+    "cantidad": 50.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "TOM_MA",
+    "Nombre": "Tomate maduro",
+    "unidadMedida": "kg",
+    "Date": "2024-11-19",
+    "cantidad": 30.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "TOM_MM_G",
+    "Nombre": "Tomate muy maduro grande",
+    "unidadMedida": "kg",
+    "Date": "2024-11-19",
+    "cantidad": 30.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "TOM_VE",
+    "Nombre": "Tomate verde",
+    "unidadMedida": "kg",
+    "Date": "2024-11-19",
+    "cantidad": 70.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "S",
+    "Nombre": "Sal",
+    "unidadMedida": "g",
+    "Date": "2024-11-19",
+    "cantidad": 950.0,
+    "Id": 1
   }
 ]

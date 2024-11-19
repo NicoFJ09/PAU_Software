@@ -1,39 +1,8 @@
 [
   {
-    "codigoProducto": "CHP",
-    "Nombre": "Chips de papa (Paquete de 200g)",
-    "Precio": "2000",
-    "materiales": [
-      {
-        "codigoProducto": "S",
-        "Nombre": "Sal",
-        "cantidad": 5.0,
-        "unidadMedida": "g"
-      },
-      {
-        "codigoProducto": "OLI",
-        "Nombre": "Aceite vegetal",
-        "cantidad": 0.1,
-        "unidadMedida": "l"
-      },
-      {
-        "codigoProducto": "EMP",
-        "Nombre": "Empaque para chips (200g)",
-        "cantidad": 1.0,
-        "unidadMedida": "u"
-      },
-      {
-        "codigoProducto": "PAP_G",
-        "Nombre": "Papa grande",
-        "cantidad": 1.0,
-        "unidadMedida": "kg"
-      }
-    ]
-  },
-  {
     "codigoProducto": "MPP",
     "Nombre": "Malla de papas",
-    "Precio": "2000",
+    "Precio": "1500",
     "materiales": [
       {
         "codigoProducto": "MLL",
@@ -44,40 +13,15 @@
       {
         "codigoProducto": "PAP_P",
         "Nombre": "Papa pequeña",
-        "cantidad": 2.0,
+        "cantidad": 3.0,
         "unidadMedida": "kg"
       }
     ]
   },
   {
-    "codigoProducto": "SLS",
-    "Nombre": "Salsa Tomate",
-    "Precio": "1000",
-    "materiales": [
-      {
-        "codigoProducto": "S",
-        "Nombre": "Sal",
-        "cantidad": 2.0,
-        "unidadMedida": "g"
-      },
-      {
-        "codigoProducto": "OLI",
-        "Nombre": "Aceite vegetal",
-        "cantidad": 1.0,
-        "unidadMedida": "l"
-      },
-      {
-        "codigoProducto": "TOM_MM_G",
-        "Nombre": "Tomate muy maduro grande",
-        "cantidad": 1.0,
-        "unidadMedida": "kg"
-      }
-    ]
-  },
-  {
-    "codigoProducto": "TML",
-    "Nombre": "Tomate en malla",
-    "Precio": "1500",
+    "codigoProducto": "MTM",
+    "Nombre": "Malla de tomates",
+    "Precio": "2000",
     "materiales": [
       {
         "codigoProducto": "MLL",
@@ -89,6 +33,222 @@
         "codigoProducto": "TOM_VE",
         "Nombre": "Tomate verde",
         "cantidad": 3.0,
+        "unidadMedida": "kg"
+      }
+    ]
+  },
+  {
+    "codigoProducto": "CHPP",
+    "Nombre": "Chips (200g)",
+    "Precio": "500",
+    "materiales": [
+      {
+        "codigoProducto": "PIM",
+        "Nombre": "Pimienta",
+        "cantidad": 0.05,
+        "unidadMedida": "kg"
+      },
+      {
+        "codigoProducto": "S",
+        "Nombre": "Sal",
+        "cantidad": 5.0,
+        "unidadMedida": "g"
+      },
+      {
+        "codigoProducto": "OLI",
+        "Nombre": "Aceite vegetal",
+        "cantidad": 0.05,
+        "unidadMedida": "l"
+      },
+      {
+        "codigoProducto": "EMP",
+        "Nombre": "Empaque para chips (200g)",
+        "cantidad": 1.0,
+        "unidadMedida": "u"
+      },
+      {
+        "codigoProducto": "PAP_G",
+        "Nombre": "Papa grande",
+        "cantidad": 0.2,
+        "unidadMedida": "kg"
+      }
+    ]
+  },
+  {
+    "codigoProducto": "CHPG",
+    "Nombre": "Chips (500)",
+    "Precio": "1000",
+    "materiales": [
+      {
+        "codigoProducto": "PIM",
+        "Nombre": "Pimienta",
+        "cantidad": 0.05,
+        "unidadMedida": "kg"
+      },
+      {
+        "codigoProducto": "S",
+        "Nombre": "Sal",
+        "cantidad": 5.0,
+        "unidadMedida": "g"
+      },
+      {
+        "codigoProducto": "OLI",
+        "Nombre": "Aceite vegetal",
+        "cantidad": 0.05,
+        "unidadMedida": "l"
+      },
+      {
+        "codigoProducto": "EMP_2",
+        "Nombre": "Empaque para chips (500g)",
+        "cantidad": 1.0,
+        "unidadMedida": "kg"
+      },
+      {
+        "codigoProducto": "PAP_G",
+        "Nombre": "Papa grande",
+        "cantidad": 0.5,
+        "unidadMedida": "kg"
+      }
+    ]
+  },
+  {
+    "codigoProducto": "SALP",
+    "Nombre": "Salsa de tomate (500ml)",
+    "Precio": "1000",
+    "materiales": [
+      {
+        "codigoProducto": "ORE",
+        "Nombre": "Oregano",
+        "cantidad": 0.05,
+        "unidadMedida": "kg"
+      },
+      {
+        "codigoProducto": "PIM",
+        "Nombre": "Pimienta",
+        "cantidad": 0.05,
+        "unidadMedida": "kg"
+      },
+      {
+        "codigoProducto": "S",
+        "Nombre": "Sal",
+        "cantidad": 5.0,
+        "unidadMedida": "g"
+      },
+      {
+        "codigoProducto": "OLI",
+        "Nombre": "Aceite vegetal",
+        "cantidad": 0.05,
+        "unidadMedida": "l"
+      },
+      {
+        "codigoProducto": "AGU",
+        "Nombre": "Agua",
+        "cantidad": 0.1,
+        "unidadMedida": "l"
+      },
+      {
+        "codigoProducto": "PRE",
+        "Nombre": "Preservantes",
+        "cantidad": 5.0,
+        "unidadMedida": "g"
+      },
+      {
+        "codigoProducto": "BOT",
+        "Nombre": "Botella plastica para salsa (500ml)",
+        "cantidad": 1.0,
+        "unidadMedida": "u"
+      },
+      {
+        "codigoProducto": "TOM_MM_G",
+        "Nombre": "Tomate muy maduro grande",
+        "cantidad": 0.5,
+        "unidadMedida": "kg"
+      }
+    ]
+  },
+  {
+    "codigoProducto": "SALG",
+    "Nombre": "Salsa de tomate (1L)",
+    "Precio": "1800",
+    "materiales": [
+      {
+        "codigoProducto": "ORE",
+        "Nombre": "Oregano",
+        "cantidad": 0.05,
+        "unidadMedida": "kg"
+      },
+      {
+        "codigoProducto": "PIM",
+        "Nombre": "Pimienta",
+        "cantidad": 0.05,
+        "unidadMedida": "kg"
+      },
+      {
+        "codigoProducto": "S",
+        "Nombre": "Sal",
+        "cantidad": 5.0,
+        "unidadMedida": "g"
+      },
+      {
+        "codigoProducto": "OLI",
+        "Nombre": "Aceite vegetal",
+        "cantidad": 0.05,
+        "unidadMedida": "l"
+      },
+      {
+        "codigoProducto": "AGU",
+        "Nombre": "Agua",
+        "cantidad": 0.1,
+        "unidadMedida": "l"
+      },
+      {
+        "codigoProducto": "PRE",
+        "Nombre": "Preservantes",
+        "cantidad": 5.0,
+        "unidadMedida": "g"
+      },
+      {
+        "codigoProducto": "BOT_3",
+        "Nombre": "Botella plástica para salsa (1L)",
+        "cantidad": 1.0,
+        "unidadMedida": "u"
+      }
+    ]
+  },
+  {
+    "codigoProducto": "SLTP",
+    "Nombre": "Salsa de tomate en lata (400g)",
+    "Precio": "1000",
+    "materiales": [
+      {
+        "codigoProducto": "LAT",
+        "Nombre": "Lata para salsa de tomate (400g)",
+        "cantidad": 1.0,
+        "unidadMedida": "kg"
+      },
+      {
+        "codigoProducto": "TOM_MA",
+        "Nombre": "Tomate maduro",
+        "cantidad": 0.4,
+        "unidadMedida": "kg"
+      }
+    ]
+  },
+  {
+    "codigoProducto": "SLTG",
+    "Nombre": "Salsa de tomate en lata (1kg)",
+    "Precio": "1800",
+    "materiales": [
+      {
+        "codigoProducto": "LAT_2",
+        "Nombre": "Lata para salsa de tomate (1kg)",
+        "cantidad": 1.0,
+        "unidadMedida": "kg"
+      },
+      {
+        "codigoProducto": "TOM_MA",
+        "Nombre": "Tomate maduro",
+        "cantidad": 1.0,
         "unidadMedida": "kg"
       }
     ]

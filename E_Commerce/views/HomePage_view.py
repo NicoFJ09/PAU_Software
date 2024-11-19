@@ -55,8 +55,8 @@ class HomePageView:
         self.productos= self.controller.get_products()
 
         self.imagenes = [
-            {"MPP": "Images/tomate.png"},
-            {"MTM": "Images/papas.png"},
+            {"MPP": "Images/papas.png"},
+            {"MTM": "Images/tomate.png"},
             {"CHPG": "Images/chips500.png"},
             {"CHPP": "Images/chips200.png"},
             {"SALP": "Images/botella500.png"},
@@ -64,7 +64,7 @@ class HomePageView:
             {"SLTP": "Images/lata.png"},
             {"SLTG": "Images/lata.png"},
         ]
-        
+
         # Crear el contenedor web con los productos
         self.web_container = WebContainer(self.surface, self.window_size, self.productos, self.imagenes, self.manager)
 

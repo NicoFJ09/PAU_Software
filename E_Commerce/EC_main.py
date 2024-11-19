@@ -5,7 +5,6 @@ from E_Commerce.views.Register_view import RegisterView
 from E_Commerce.views.HomePage_view import HomePageView
 from E_Commerce.views.ShoppingCart_view import ShoppingCartView
 
-
 class ECommerce:
     def __init__(self):
         pygame.init()
