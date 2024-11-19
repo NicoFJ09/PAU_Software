@@ -107,7 +107,7 @@ class SignInView:
 
         correo_texto = self.entrada_correo.get_text().strip()
         password_texto = self.entrada_password.get_text().strip()
-        correo_valido = bool(re.fullmatch(r"[^@]+@[^@]+\.[a-zA-Z]", correo_texto))
+        correo_valido = bool(re.fullmatch(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', correo_texto))
 
         if correo_texto and password_texto and correo_valido:
             self.boton_continuar.enable()

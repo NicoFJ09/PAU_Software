@@ -105,9 +105,9 @@ class RegisterView:
         nombre_texto = self.entrada_nombre.get_text().strip()
         telefono_texto = self.entrada_telefono.get_text().strip()
 
-        nombre_valido = bool(re.fullmatch(r"[a-zA-ZáéíóúÁÉÍÓÚñÑ ]+", nombre_texto))
-        correo_valido = bool(re.fullmatch(r"[^@]+@[^@]+\.[a-zA-Z]", correo_texto))
-        telefono_valido = telefono_texto.isdigit()
+        nombre_valido = bool(re.fullmatch(r"^[a-zA-ZáéíóúÁÉÍÓÚñÑ\s]{2,50}$", nombre_texto))
+        correo_valido = bool(re.fullmatch(r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$', correo_texto))
+        telefono_valido = bool(re.fullmatch(r"^\d{8}$", telefono_texto))
 
         if correo_texto and password_texto and nombre_texto and telefono_texto and nombre_valido and correo_valido and telefono_valido:
             self.confirmar_crear.enable()
