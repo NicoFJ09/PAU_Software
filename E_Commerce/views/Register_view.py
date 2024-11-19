@@ -78,6 +78,15 @@ class RegisterView:
         )
         self.confirmar_crear.disable()
 
+        # Botón de regresar
+        self.regresar_button = pygame_gui.elements.UIButton(
+            relative_rect=pygame.Rect(
+                (self.rect_x + (self.rect_ancho // 6), self.crear_y + 400),
+                (self.rect_ancho * 2 // 3, 40)),
+            text="Regresar",
+            manager=self.ui_manager
+        )
+
     def configurar_entrada(self, entrada, placeholder_text):
         """Configura cada entrada de texto"""
         entrada.placeholder_text = placeholder_text
@@ -115,6 +124,8 @@ class RegisterView:
             elif event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == self.confirmar_crear:
                     self.change_screen_callback(Screens.HOMEPAGE)
+                if event.ui_element == self.regresar_button:
+                    self.change_screen_callback(Screens.SIGN_IN)
 
     def update(self):
         """Actualiza los elementos de la UI"""
