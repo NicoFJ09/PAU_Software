@@ -3,6 +3,7 @@ import pygame_gui
 from E_Commerce.constants import COLORS
 from E_Commerce.Screens_web import Screens
 from E_Commerce.views.components.WebContainer import WebContainer
+from E_Commerce.controllers.HomePage_controller import HomePageController
 
 class HomePageView:
     def __init__(self, surface, window_size, change_screen_callback):
@@ -12,6 +13,9 @@ class HomePageView:
 
         # Crear el administrador de la interfaz
         self.manager = pygame_gui.UIManager(self.window_size)
+
+        # Instanciar Controlador
+        self.controller = HomePageController()
 
         # Cargar imágenes de "encabezado"
         self.logo_image = pygame.image.load("Images/logo.png").convert_alpha()
@@ -47,19 +51,22 @@ class HomePageView:
         )
 
         # Lista de productos(define nombre, precio e imagen representativa)
-        self.productos = [
-            {"nombre": "Tomate", "precio": "$ 100", "imagen": "Images/tomate.png"},
-            {"nombre": "Papas mini en malla", "precio": "$ 100", "imagen": "Images/papas.png"},
-            {"nombre": "Chips de papa (Paquete de 500g)", "precio": "$ 100", "imagen": "Images/chips500.png"},
-            {"nombre": "Chips de papa (Paquete de 200g)", "precio": "$ 100", "imagen": "Images/chips200.png"},
-            {"nombre": "Salsa de tomate envasada (Botella 500ml)", "precio": "$ 100", "imagen": "Images/botella500.png"},
-            {"nombre": "Salsa de tomate envasada (Botella 1L)", "precio": "$ 100", "imagen": "Images/botella1L.png"},
-            {"nombre": "Salsa de tomate enlatada (Lata 400g)", "precio": "$ 100", "imagen": "Images/lata.png"},
-            {"nombre": "Salsa de tomate enlatada (Lata 1kg)", "precio": "$ 100", "imagen": "Images/lata.png"},
-        ]
+        
+        self.productos= self.controller.get_products()
 
+        self.imagenes = [
+            {"MPP": "Images/tomate.png"},
+            {"MTM": "Images/papas.png"},
+            {"CHPG": "Images/chips500.png"},
+            {"CHPP": "Images/chips200.png"},
+            {"SALP": "Images/botella500.png"},
+            {"SALG": "Images/botella1L.png"},
+            {"SLTP": "Images/lata.png"},
+            {"SLTG": "Images/lata.png"},
+        ]
+        
         # Crear el contenedor web con los productos
-        self.web_container = WebContainer(self.surface, self.window_size, self.productos, self.manager)
+        self.web_container = WebContainer(self.surface, self.window_size, self.productos, self.imagenes, self.manager)
 
         self.clock = pygame.time.Clock()
 

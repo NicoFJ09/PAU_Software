@@ -4,10 +4,11 @@ from E_Commerce.constants import COLORS
 from E_Commerce.views.components.ScrollBar import Scrollbar
 
 class WebContainer:
-    def __init__(self, surface, window_size, productos, ui_manager):
+    def __init__(self, surface, window_size, productos, imagenes, ui_manager):
         self.surface = surface
         self.window_size = window_size
         self.productos = productos
+        self.imagenes = imagenes
         self.manager = ui_manager
         self.padding = 50
 
@@ -59,6 +60,10 @@ class WebContainer:
             boton_ver_mas.hide()  # Ocultar todos los botones inicialmente
             self.botones_ver_mas.append(boton_ver_mas)
 
+        # Cargar imagen predeterminada
+        self.default_image = pygame.image.load("Images/PaperBag.png").convert_alpha()
+        self.default_image = pygame.transform.scale(self.default_image, (150, 150))
+
     def draw(self):
         """Dibuja el contenedor con un borde y fondo transparente"""
         # Dibujar borde del contenedor
@@ -75,7 +80,6 @@ class WebContainer:
 
         # Dibujar productos en sus paneles
         start_row = self.scroll_index
-        end_row = start_row + 2
         start_index = start_row * self.panels_per_row
         end_index = min(start_index + 2 * self.panels_per_row, self.total_panels)
         visible_productos = self.productos[start_index:end_index]
@@ -88,22 +92,28 @@ class WebContainer:
             panel_rect = pygame.Rect(x, y, self.panel_size, self.panel_size)
             pygame.draw.rect(self.surface, COLORS['WHITE'], panel_rect, border_radius=10)
 
-            # Cargar y dibujar la imagen del producto
-            imagen_producto = pygame.image.load(producto["imagen"]).convert_alpha()
-            imagen_producto = pygame.transform.scale(imagen_producto, (150, 150))
-            self.surface.blit(imagen_producto, (panel_rect.x + 10, panel_rect.y + 10))
+            # Cargar y dibujar la imagen del producto si existe
+            codigo_producto = producto["CodigoProducto"]
+            imagen_path = next((img[codigo_producto] for img in self.imagenes if codigo_producto in img), None)
+            if imagen_path:
+                imagen_producto = pygame.image.load(imagen_path).convert_alpha()
+                imagen_producto = pygame.transform.scale(imagen_producto, (150, 150))
+                self.surface.blit(imagen_producto, (panel_rect.x + 10, panel_rect.y + 10))
+            else:
+                # Dibujar imagen predeterminada si no hay imagen específica
+                self.surface.blit(self.default_image, (panel_rect.x + 10, panel_rect.y + 10))
 
-            # Dibujar nombre y precio
+            # Dibujar nombre y precio debajo de la imagen
             font = pygame.font.Font(None, 20)
-            nombre_lines = self.split_text(producto["nombre"], font, self.panel_size * 3 // 4)
+            nombre_lines = self.split_text(producto["Nombre"], font, self.panel_size * 3 // 4)
             for j, line in enumerate(nombre_lines):
                 self.surface.blit(line, (panel_rect.x + 10, panel_rect.y + 170 + j * 25))
 
-            precio_text = font.render(producto["precio"], True, COLORS['BLACK'])
+            precio_text = font.render(f"Precio: {producto['Precio']}", True, COLORS['BLACK'])
             self.surface.blit(precio_text, (panel_rect.x + 10, panel_rect.y + 220))
 
             # Actualizar y mostrar botón correspondiente
-            boton = self.botones_ver_mas[start_index + i]
+            boton = self.botones_ver_mas[i % len(self.botones_ver_mas)]
             boton.set_position((x + self.panel_size - 80, y + self.panel_size - 35))
             boton.show()
 
@@ -126,7 +136,7 @@ class WebContainer:
             start_index = self.scroll_index * self.panels_per_row
             for i, boton in enumerate(self.botones_ver_mas):
                 if event.ui_element == boton:
-                    real_index = i
+                    real_index = start_index + i
                     if real_index < len(self.productos):
                         producto = self.productos[real_index]
                         print(f"Producto {real_index}: {producto}")
