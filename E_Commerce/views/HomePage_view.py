@@ -51,8 +51,7 @@ class HomePageView:
         )
 
         # Lista de productos(define nombre, precio e imagen representativa)
-        
-        self.productos= self.controller.get_products()
+        self.productos = self.controller.get_products()
 
         self.imagenes = [
             {"MPP": "Images/papas.png"},
@@ -69,6 +68,7 @@ class HomePageView:
         self.web_container = WebContainer(self.surface, self.window_size, self.productos, self.imagenes, self.manager)
 
         self.clock = pygame.time.Clock()
+        self.previous_text = ""
 
     def handle_event(self, event):
         """Maneja eventos de la vista"""
@@ -83,16 +83,27 @@ class HomePageView:
         time_delta = self.clock.tick(60) / 1000.0
         self.manager.update(time_delta)
 
+        # Verificar si la entrada de búsqueda está seleccionada y actualizar su contenido
+        current_text = self.entrada_busqueda.get_text()
+        if self.entrada_busqueda.is_focused:
+            if current_text != self.previous_text:
+                print(current_text)
+                self.previous_text = current_text
+                self.web_container.draw(search_text=current_text)
+        else:
+            if current_text != self.previous_text:
+                self.previous_text = current_text
+                self.web_container.draw(search_text=current_text)
+
     def draw(self):
         """Dibuja todos los elementos de la vista"""
         self.surface.fill(COLORS['GREEN'])
 
         # Dibujar el contenedor web
-        self.web_container.draw()
+        self.web_container.draw(search_text=self.previous_text)
         # Dibujar la interfaz de usuario
         self.manager.draw_ui(self.surface)
         # Dibujar elementos de encabezado
         self.surface.blit(self.logo_image, (30, 18))
         self.surface.blit(self.letras_image, (130, 18))
         self.surface.blit(self.carrito_image, (1170, 45))
-

@@ -57,8 +57,11 @@ class WebContainer:
         self.default_image = pygame.image.load("Images/PaperBag.png").convert_alpha()
         self.default_image = pygame.transform.scale(self.default_image, (150, 150))
 
-    def draw(self):
+    def draw(self, search_text=""):
         """Dibuja el contenedor con un borde y fondo transparente"""
+        # Filtrar productos según el texto de búsqueda
+        self.filtered_productos = [p for p in self.productos if search_text.lower() in p["Nombre"].lower()]
+
         # Dibujar borde del contenedor
         pygame.draw.rect(
             self.surface,
@@ -74,8 +77,8 @@ class WebContainer:
         # Dibujar productos en sus paneles
         start_row = self.scroll_index
         start_index = start_row * self.panels_per_row
-        end_index = min(start_index + 2 * self.panels_per_row, self.total_panels)
-        visible_productos = self.productos[start_index:end_index]
+        end_index = min(start_index + 2 * self.panels_per_row, len(self.filtered_productos))
+        visible_productos = self.filtered_productos[start_index:end_index]
 
         for i, producto in enumerate(visible_productos):
             row = (start_index + i) // self.panels_per_row
@@ -148,8 +151,8 @@ class WebContainer:
             for i, boton in enumerate(self.botones_ver_mas):
                 if event.ui_element == boton:
                     real_index = start_index + i
-                    if real_index < len(self.productos):
-                        producto = self.productos[real_index]
+                    if real_index < len(self.filtered_productos):
+                        producto = self.filtered_productos[real_index]
                         print(f"Producto {real_index}: {producto}")
 
     def split_text(self, text, font, max_width):
