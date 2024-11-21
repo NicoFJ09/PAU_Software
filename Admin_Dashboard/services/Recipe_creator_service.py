@@ -16,7 +16,7 @@ class RecipeCreatorService:
         combined_products = product_templates + produce_templates
         return [p for p in combined_products if p["codigoProducto"] not in ["PAP", "TOM", "PAP_DA", "TOM_DA"]]
     
-    def create_recipe(self, selected_products: list, codigo_producto: str, nombre: str, precio: float):
+    def create_recipe(self, selected_products: list, codigo_producto: str, nombre: float, precio: float):
         """Crea una nueva receta a partir de los productos seleccionados y sus cantidades, y la añade al archivo Recipes.json"""
         new_recipe = {
             "codigoProducto": codigo_producto,

@@ -3,9 +3,18 @@
     "codigoProducto": "MPP",
     "Nombre": "Malla de papas",
     "unidadMedida": "u",
-    "Precio": "2000",
+    "Precio": 2000,
     "Date": "2024-11-17",
-    "cantidad": 2.0,
+    "cantidad": 1.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "MTM",
+    "Nombre": "Malla de tomates",
+    "unidadMedida": "u",
+    "Precio": 2000,
+    "Date": "2024-11-21",
+    "cantidad": 4,
     "Id": 1
   }
 ]

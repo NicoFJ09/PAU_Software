@@ -3,7 +3,7 @@
     "codigoProducto": "MPP",
     "Nombre": "Malla de papas",
     "unidadMedida": "u",
-    "Precio": "1500",
+    "Precio": 1500,
     "Date": "2024-11-19",
     "cantidad": 10,
     "Id": 1
@@ -12,7 +12,7 @@
     "codigoProducto": "CHPP",
     "Nombre": "Chips (200g)",
     "unidadMedida": "u",
-    "Precio": "500",
+    "Precio": 500,
     "Date": "2024-11-19",
     "cantidad": 10,
     "Id": 1
@@ -21,7 +21,7 @@
     "codigoProducto": "CHPG",
     "Nombre": "Chips (500g)",
     "unidadMedida": "u",
-    "Precio": "1000",
+    "Precio": 1000,
     "Date": "2024-11-19",
     "cantidad": 10,
     "Id": 1
@@ -30,7 +30,7 @@
     "codigoProducto": "SALP",
     "Nombre": "Salsa de tomate (500ml)",
     "unidadMedida": "u",
-    "Precio": "1000",
+    "Precio": 1000,
     "Date": "2024-11-19",
     "cantidad": 10,
     "Id": 1
@@ -39,7 +39,7 @@
     "codigoProducto": "SLTP",
     "Nombre": "Salsa de tomate en lata (400g)",
     "unidadMedida": "u",
-    "Precio": "1000",
+    "Precio": 1000,
     "Date": "2024-11-19",
     "cantidad": 10,
     "Id": 1
@@ -48,7 +48,7 @@
     "codigoProducto": "SLTG",
     "Nombre": "Salsa de tomate en lata (1kg)",
     "unidadMedida": "u",
-    "Precio": "1800",
+    "Precio": 1800,
     "Date": "2024-11-19",
     "cantidad": 10,
     "Id": 1
@@ -57,7 +57,7 @@
     "codigoProducto": "MTM",
     "Nombre": "Malla de tomates",
     "unidadMedida": "u",
-    "Precio": "2000",
+    "Precio": 2000,
     "Date": "2024-11-19",
     "cantidad": 10,
     "Id": 1
@@ -66,7 +66,7 @@
     "codigoProducto": "SALG",
     "Nombre": "Salsa de tomate (1L)",
     "unidadMedida": "u",
-    "Precio": "1800",
+    "Precio": 1800,
     "Date": "2024-11-19",
     "cantidad": 10,
     "Id": 1
@@ -75,10 +75,18 @@
     "codigoProducto": "SAL",
     "Nombre": "Salsa de tomate (1L)",
     "unidadMedida": "u",
-    "Precio": "1800",
+    "Precio": 1800,
     "Date": "2024-11-19",
     "cantidad": 10,
     "Id": 1
+  },
+  {
+    "codigoProducto": "MPP",
+    "Nombre": "Malla de papas",
+    "unidadMedida": "u",
+    "Precio": 2000,
+    "Date": "2024-11-17",
+    "cantidad": 1.0,
+    "Id": 1
   }
-
 ]

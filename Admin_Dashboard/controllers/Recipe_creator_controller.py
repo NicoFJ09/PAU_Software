@@ -7,5 +7,5 @@ class RecipeCreatorController:
     def get_products(self):
         return self.ClassifyProductService.get_products()
     
-    def create_recipe(self, selected_products: list, codigo_producto: str,nombre:str, precio: float):
+    def create_recipe(self, selected_products: list, codigo_producto: str,nombre:float, precio: float):
         return self.ClassifyProductService.create_recipe(selected_products, codigo_producto, nombre, precio)

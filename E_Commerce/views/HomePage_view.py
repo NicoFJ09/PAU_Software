@@ -7,6 +7,9 @@ from E_Commerce.controllers.HomePage_controller import HomePageController
 from E_Commerce.views.components.ItemContainer import ItemContainer  # Importar el nuevo componente
 
 class HomePageView:
+    productos_carrito = []  # Variable de clase
+    vaciar_carrito_flag = False  # Flag para vaciar el carrito
+
     def __init__(self, surface, window_size, change_screen_callback):
         self.surface = surface
         self.window_size = window_size
@@ -53,7 +56,10 @@ class HomePageView:
 
         # Lista de productos(define nombre, precio e imagen representativa)
         self.productos = self.controller.get_products()
-        self.productos_carrito = []
+
+        # Actualizar productos si hay algo en el carrito
+        if HomePageView.productos_carrito:
+            self.actualizar_productos()
 
         self.imagenes = [
             {"MPP": "Images/papas.png"},
@@ -73,6 +79,21 @@ class HomePageView:
         self.previous_text = ""
         self.item_container = None  # Inicializar el contenedor emergente como None
         self.producto = None  # Inicializar el producto como None
+
+    def actualizar_productos(self):
+        """Actualiza los productos con la información más reciente del carrito"""
+        for item in HomePageView.productos_carrito:
+            for producto in self.productos:
+                if producto["CodigoProducto"] == item["CodigoProducto"]:
+                    producto["cantidad"] -= item["cantidad"]
+                    break
+
+    @classmethod
+    def vaciar_carrito(cls):
+        """Vacía el carrito de compras si el flag está activado"""
+        if cls.vaciar_carrito_flag:
+            cls.productos_carrito.clear()
+            cls.vaciar_carrito_flag = False
 
     def handle_event(self, event):
         """Maneja eventos de la vista"""
@@ -101,17 +122,17 @@ class HomePageView:
                             if producto.get("Descuento", 0) > 0:
                                 producto_carrito["Precio"] = int(producto["Precio"]) * (1 - producto["Descuento"] / 100)
                             # Verificar si el producto ya está en el carrito
-                            for item in self.productos_carrito:
+                            for item in HomePageView.productos_carrito:
                                 if item["CodigoProducto"] == codigo_producto:
                                     item["cantidad"] += cantidad_ordenar
                                     break
                             else:
-                                self.productos_carrito.append(producto_carrito)
+                                HomePageView.productos_carrito.append(producto_carrito)
                             break
 
                     # Imprimir el contenido del carrito
                     print("Productos en el carrito:")
-                    for producto in self.productos_carrito:
+                    for producto in HomePageView.productos_carrito:
                         print(producto)
 
                     self.producto = None  # Restablecer producto
@@ -124,7 +145,7 @@ class HomePageView:
 
         if event.type == pygame.USEREVENT and event.user_type == pygame_gui.UI_BUTTON_PRESSED:
             if event.ui_element == self.carrito_b:
-                self.change_screen_callback(Screens.SHOPPING_CART)
+                self.change_screen_callback(Screens.SHOPPING_CART, HomePageView.productos_carrito, self.productos)
 
     def update(self):
         """Actualiza elementos de la UI"""

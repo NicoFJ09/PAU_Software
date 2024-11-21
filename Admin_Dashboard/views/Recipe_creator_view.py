@@ -170,7 +170,7 @@ class RecipeCreatorView:
             elif event.ui_element == self.return_button:
                 self.change_screen_callback(Screens.CLASSIFICATION)
 
-    def create_recipe(self, codigo_producto: str, nombre: str, precio: float):
+    def create_recipe(self, codigo_producto: str, nombre: float, precio: float):
         """Crea una receta con los valores del formulario y los elementos seleccionados del contenedor"""
         selected_products = self.container.get_selected_items()
         self.controller.create_recipe(selected_products, codigo_producto, nombre, precio)

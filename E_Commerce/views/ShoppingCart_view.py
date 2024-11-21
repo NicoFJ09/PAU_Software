@@ -4,7 +4,7 @@ from E_Commerce.constants import COLORS
 from E_Commerce.Screens_web import Screens
 
 class ShoppingCartView:
-    def __init__(self, surface, window_size, change_screen_callback):
+    def __init__(self, surface, window_size, change_screen_callback, cartProducts, Products):
         self.surface = surface
         self.window_size = window_size
         self.ui_manager = pygame_gui.UIManager(window_size)
@@ -16,18 +16,9 @@ class ShoppingCartView:
         self.logo_image = pygame.transform.scale(self.logo_image, (90, 90))
         self.letras_image = pygame.image.load("Images/letras.png").convert_alpha()
         self.letras_image = pygame.transform.scale(self.letras_image, (100, 100))
-
-        # Diccionario de productos
-        self.items = [
-            {"codigoProducto": "MPP", "Nombre": "Malla de papas", "Precio": 1500, "cantidad": 4},
-            {"codigoProducto": "CHPP", "Nombre": "Chips (200g)", "Precio": 500, "cantidad": 2},
-            {"codigoProducto": "CHPG", "Nombre": "Chips (500g)", "Precio": 1000, "cantidad": 3},
-            {"codigoProducto": "SALP", "Nombre": "Salsa de tomate (500ml)", "Precio": 1000, "cantidad": 2},
-            {"codigoProducto": "SLTP", "Nombre": "Salsa de tomate en lata (400g)", "Precio": 1000, "cantidad": 2},
-            {"codigoProducto": "SLTG", "Nombre": "Salsa de tomate en lata (1kg)", "Precio": 1800, "cantidad": 1},
-            {"codigoProducto": "MTM", "Nombre": "Malla de tomates", "Precio": 2000, "cantidad": 0},
-            {"codigoProducto": "SALG", "Nombre": "Salsa de tomate (1L)", "Precio": 1800, "cantidad": 0}
-        ]
+    
+        self.items = cartProducts
+        self.products = Products
 
         self.setup_ui()
 
@@ -75,7 +66,7 @@ class ShoppingCartView:
                 container=item_panel
             )
             
-                # Crear un label para la cantidad entre los botones
+            # Crear un label para la cantidad entre los botones
             quantity_label = pygame_gui.elements.UILabel(
                 relative_rect=pygame.Rect((button_x + button_width, 10), (button_width, 30)),
                 text=str(item['cantidad']),
@@ -94,6 +85,14 @@ class ShoppingCartView:
             manager=self.ui_manager
         )
 
+        # Mensaje de carrito vacío
+        self.empty_cart_label = pygame_gui.elements.UILabel(
+            relative_rect=pygame.Rect((container_x, total_y_position - 40), (container_width, 40)),
+            text="Carrito vacío",
+            manager=self.ui_manager
+        )
+        self.empty_cart_label.hide()
+
         # Botones y labels
         self.atras_b = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect((1170, 20), (50, 50)),
@@ -108,6 +107,11 @@ class ShoppingCartView:
             manager=self.ui_manager
         )
 
+        # Deshabilitar el botón "Siguiente" si el carrito está vacío
+        if not self.items or all(item['cantidad'] == 0 for item in self.items):
+            self.next_button.disable()
+            self.empty_cart_label.show()
+
     def handle_event(self, event):
         if event.type == pygame.USEREVENT:
             if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
@@ -115,15 +119,38 @@ class ShoppingCartView:
                     self.change_screen_callback(Screens.HOMEPAGE)
                 for item, item_panel, add_button, remove_button, quantity_label in self.item_containers:
                     if event.ui_element == add_button:
-                        if item['cantidad'] < 20:  # Límite máximo
-                            item['cantidad'] += 1
-                            quantity_label.set_text(f"{item['cantidad']}")
-                            self.total_label.set_text(f"Total: ${self.calculate_total()}")
+                        # Verificar la cantidad disponible en Products
+                        for product in self.products:
+                            if product['CodigoProducto'] == item['CodigoProducto']:
+                                if product['cantidad'] > 0:
+                                    item['cantidad'] += 1
+                                    product['cantidad'] -= 1
+                                    quantity_label.set_text(f"{item['cantidad']}")
+                                    self.total_label.set_text(f"Total: ${self.calculate_total()}")
+                                else:
+                                    print("No hay suficiente cantidad disponible")
+                                break
                     elif event.ui_element == remove_button:
                         if item['cantidad'] > 0:  # Evitar cantidad negativa
                             item['cantidad'] -= 1
+                            # Aumentar la cantidad disponible en Products
+                            for product in self.products:
+                                if product['CodigoProducto'] == item['CodigoProducto']:
+                                    product['cantidad'] += 1
+                                    break
                             quantity_label.set_text(f"{item['cantidad']}")
                             self.total_label.set_text(f"Total: ${self.calculate_total()}")
+                            # Eliminar el elemento de self.items si la cantidad es 0
+                            if item['cantidad'] == 0:
+                                self.items.remove(item)
+                                item_panel.kill()  # Eliminar el panel del UI
+                # Verificar si todos los productos tienen cantidad 0 o si no hay elementos en self.items
+                if not self.items or all(item['cantidad'] == 0 for item in self.items):
+                    self.empty_cart_label.show()
+                    self.next_button.disable()
+                else:
+                    self.empty_cart_label.hide()
+                    self.next_button.enable()
                 if event.ui_element == self.next_button:
                     self.change_screen_callback(Screens.PAYMENT)
         
@@ -136,7 +163,6 @@ class ShoppingCartView:
 
     def update(self):
         self.ui_manager.update(pygame.time.get_ticks() / 1000.0)
-        print(self.items)
         
 
     def draw(self):

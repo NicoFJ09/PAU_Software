@@ -3,7 +3,7 @@ import pygame_gui
 import re
 from Admin_Dashboard.constants import COLORS
 from E_Commerce.Screens_web import Screens
-
+import globals  # Importar el módulo globals
 
 class SignInView:
     def __init__(self, surface, window_size, change_screen_callback):
@@ -11,7 +11,7 @@ class SignInView:
         self.window_size = window_size
         self.ui_manager = pygame_gui.UIManager(window_size)
         self.change_screen_callback = change_screen_callback
-
+        
         # Configuración de fuentes
         self.fuente = pygame.font.SysFont("Georgia", 18)
         self.fuente2 = pygame.font.SysFont("Georgia", 9)
@@ -124,10 +124,13 @@ class SignInView:
             if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == self.boton_continuar:
                     self.change_screen_callback(Screens.HOMEPAGE)
+                    globals.signed_in = True  # Establecer signed_in como True
                 elif event.ui_element == self.create_account_button:
                     self.change_screen_callback(Screens.REGISTER)
+                    globals.signed_in = True  # Establecer signed_in como True
                 elif event.ui_element == self.ingresar_button:
                     self.change_screen_callback(Screens.HOMEPAGE)
+                    globals.signed_in = False  # Establecer signed_in como True
 
     def update(self):
         """Actualiza elementos de la UI"""
