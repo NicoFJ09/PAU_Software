@@ -4,7 +4,7 @@ from E_Commerce.views.Sign_In_view import SignInView
 from E_Commerce.views.Register_view import RegisterView
 from E_Commerce.views.HomePage_view import HomePageView
 from E_Commerce.views.ShoppingCart_view import ShoppingCartView
-
+from E_Commerce.views.Payment_view import PaymentView
 class ECommerce:
     def __init__(self):
         pygame.init()
@@ -24,6 +24,7 @@ class ECommerce:
             Screens.REGISTER: RegisterView,
             Screens.HOMEPAGE: HomePageView,
             Screens.SHOPPING_CART: ShoppingCartView,
+            Screens.PAYMENT : PaymentView,
         }
         self.current_view = self.views[self.current_screen](
             self.window_surface, 
