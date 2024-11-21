@@ -4,6 +4,7 @@ from E_Commerce.constants import COLORS
 from E_Commerce.Screens_web import Screens
 from E_Commerce.views.components.WebContainer import WebContainer
 from E_Commerce.controllers.HomePage_controller import HomePageController
+from E_Commerce.views.components.ItemContainer import ItemContainer  # Importar el nuevo componente
 
 class HomePageView:
     def __init__(self, surface, window_size, change_screen_callback):
@@ -52,6 +53,7 @@ class HomePageView:
 
         # Lista de productos(define nombre, precio e imagen representativa)
         self.productos = self.controller.get_products()
+        self.productos_carrito = []
 
         self.imagenes = [
             {"MPP": "Images/papas.png"},
@@ -69,11 +71,57 @@ class HomePageView:
 
         self.clock = pygame.time.Clock()
         self.previous_text = ""
+        self.item_container = None  # Inicializar el contenedor emergente como None
+        self.producto = None  # Inicializar el producto como None
 
     def handle_event(self, event):
         """Maneja eventos de la vista"""
-        self.manager.process_events(event)
-        self.web_container.handle_event(event)
+        producto = self.manager.process_events(event)
+        if not producto:
+            producto = self.web_container.handle_event(event)
+        if producto and isinstance(producto, dict) and not self.item_container:
+            self.producto = producto
+            self.item_container = ItemContainer(self.surface, self.window_size, self.producto, self.manager)
+
+        if self.item_container:
+            result = self.item_container.handle_event(event)
+            if result:
+                if result[0] == "añadir":
+                    codigo_producto, cantidad_ordenar = result[1], result[2]
+                    print(f"Producto añadido al carrito: {codigo_producto}, Cantidad: {cantidad_ordenar}")
+
+                    # Reducir la cantidad del producto en self.productos
+                    for producto in self.productos:
+                        if producto["CodigoProducto"] == codigo_producto:
+                            producto["cantidad"] -= cantidad_ordenar
+                            # Crear una copia del producto sin la propiedad Descuento
+                            producto_carrito = {k: v for k, v in producto.items() if k != "Descuento"}
+                            producto_carrito["cantidad"] = cantidad_ordenar
+                            # Aplicar descuento si existe
+                            if producto.get("Descuento", 0) > 0:
+                                producto_carrito["Precio"] = int(producto["Precio"]) * (1 - producto["Descuento"] / 100)
+                            # Verificar si el producto ya está en el carrito
+                            for item in self.productos_carrito:
+                                if item["CodigoProducto"] == codigo_producto:
+                                    item["cantidad"] += cantidad_ordenar
+                                    break
+                            else:
+                                self.productos_carrito.append(producto_carrito)
+                            break
+
+                    # Imprimir el contenido del carrito
+                    print("Productos en el carrito:")
+                    for producto in self.productos_carrito:
+                        print(producto)
+
+                    self.producto = None  # Restablecer producto
+                    self.item_container.hide()  # Ocultar botones
+                    self.item_container = None  # Cerrar el contenedor emergente
+                elif result == "cancelar":
+                    self.producto = None  # Restablecer producto
+                    self.item_container.hide()  # Ocultar botones
+                    self.item_container = None  # Cerrar el contenedor emergente
+
         if event.type == pygame.USEREVENT and event.user_type == pygame_gui.UI_BUTTON_PRESSED:
             if event.ui_element == self.carrito_b:
                 self.change_screen_callback(Screens.SHOPPING_CART)
@@ -89,21 +137,25 @@ class HomePageView:
             if current_text != self.previous_text:
                 print(current_text)
                 self.previous_text = current_text
-                self.web_container.draw(search_text=current_text)
+                self.web_container.draw(search_text=current_text, item_container_active=bool(self.item_container))
         else:
             if current_text != self.previous_text:
                 self.previous_text = current_text
-                self.web_container.draw(search_text=current_text)
+                self.web_container.draw(search_text=current_text, item_container_active=bool(self.item_container))
 
     def draw(self):
         """Dibuja todos los elementos de la vista"""
         self.surface.fill(COLORS['GREEN'])
 
         # Dibujar el contenedor web
-        self.web_container.draw(search_text=self.previous_text)
+        self.web_container.draw(search_text=self.previous_text, item_container_active=bool(self.item_container))
         # Dibujar la interfaz de usuario
         self.manager.draw_ui(self.surface)
         # Dibujar elementos de encabezado
         self.surface.blit(self.logo_image, (30, 18))
         self.surface.blit(self.letras_image, (130, 18))
         self.surface.blit(self.carrito_image, (1170, 45))
+
+        # Dibujar el contenedor emergente si existe
+        if self.item_container:
+            self.item_container.draw()

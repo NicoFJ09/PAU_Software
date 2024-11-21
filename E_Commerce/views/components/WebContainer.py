@@ -57,7 +57,7 @@ class WebContainer:
         self.default_image = pygame.image.load("Images/PaperBag.png").convert_alpha()
         self.default_image = pygame.transform.scale(self.default_image, (150, 150))
 
-    def draw(self, search_text=""):
+    def draw(self, search_text="", item_container_active=False):
         """Dibuja el contenedor con un borde y fondo transparente"""
         # Filtrar productos según el texto de búsqueda
         self.filtered_productos = [p for p in self.productos if search_text.lower() in p["Nombre"].lower()]
@@ -86,7 +86,12 @@ class WebContainer:
             x = self.x + self.panel_margin + col * (self.panel_size + self.panel_margin)
             y = self.y + self.panel_margin + (row - start_row) * (self.panel_size + self.panel_margin)
             panel_rect = pygame.Rect(x, y, self.panel_size, self.panel_size)
-            pygame.draw.rect(self.surface, COLORS['WHITE'], panel_rect, border_radius=10)
+            
+            # Dibujar el contenedor en gris si la cantidad es 0
+            if producto["cantidad"] == 0:
+                pygame.draw.rect(self.surface, COLORS['GRAY'], panel_rect, border_radius=10)
+            else:
+                pygame.draw.rect(self.surface, COLORS['WHITE'], panel_rect, border_radius=10)
 
             # Cargar y dibujar la imagen del producto si existe
             codigo_producto = producto["CodigoProducto"]
@@ -104,6 +109,10 @@ class WebContainer:
             nombre_lines = self.split_text(producto["Nombre"], font, self.panel_size * 3 // 4)
             for j, line in enumerate(nombre_lines):
                 self.surface.blit(line, (panel_rect.x + 10, panel_rect.y + 170 + j * 25))
+
+            # Dibujar inventario disponible
+            inventario_text = font.render(f"Inventario: {producto['cantidad']}", True, COLORS['BLACK'])
+            self.surface.blit(inventario_text, (panel_rect.x + 10, panel_rect.y + 200))
 
             precio_text = font.render(f"Precio: {producto['Precio']}", True, COLORS['BLACK'])
             self.surface.blit(precio_text, (panel_rect.x + 10, panel_rect.y + 220))
@@ -126,10 +135,18 @@ class WebContainer:
                 descuento_text_rect = descuento_text.get_rect(topleft=(precio_rect.right + 10, panel_rect.y + 220))
                 self.surface.blit(descuento_text, descuento_text_rect.topleft)
 
-            # Actualizar y mostrar botón correspondiente
-            boton = self.botones_ver_mas[i]
-            boton.set_position((x + self.panel_size - 80, y + self.panel_size - 35))
-            boton.show()
+            # Dibujar el texto "Agotado" encima de todo si la cantidad es 0
+            if producto["cantidad"] == 0:
+                agotado_text = pygame.font.Font(None, 30).render("Agotado", True, COLORS['BLACK'])
+                self.surface.blit(agotado_text, (panel_rect.x + (self.panel_size - agotado_text.get_width()) // 2, panel_rect.y + (self.panel_size - agotado_text.get_height()) // 2))
+                # Dibujar línea amarilla debajo del texto "Agotado"
+                pygame.draw.line(self.surface, COLORS['YELLOW'], (panel_rect.x + (self.panel_size - agotado_text.get_width()) // 2, panel_rect.y + (self.panel_size + agotado_text.get_height()) // 2 + 5), (panel_rect.x + (self.panel_size + agotado_text.get_width()) // 2, panel_rect.y + (self.panel_size + agotado_text.get_height()) // 2 + 5), 2)
+
+            # Actualizar y mostrar botón correspondiente solo si el contenedor emergente no está activo y el producto no está agotado
+            if not item_container_active and producto["cantidad"] > 0:
+                boton = self.botones_ver_mas[i]
+                boton.set_position((x + self.panel_size - 80, y + self.panel_size - 35))
+                boton.show()
 
         # Dibujar la interfaz de usuario
         self.manager.draw_ui(self.surface)
@@ -144,7 +161,7 @@ class WebContainer:
             new_index = self.scrollbar.handle_event(event)
             if new_index is not None:
                 self.scroll_index = new_index
-                return
+                return None
 
         if event.type == pygame.USEREVENT and event.user_type == pygame_gui.UI_BUTTON_PRESSED:
             start_index = self.scroll_index * self.panels_per_row
@@ -154,6 +171,8 @@ class WebContainer:
                     if real_index < len(self.filtered_productos):
                         producto = self.filtered_productos[real_index]
                         print(f"Producto {real_index}: {producto}")
+                        return producto
+        return None
 
     def split_text(self, text, font, max_width):
         """Divide el texto en varias líneas si es demasiado largo"""
