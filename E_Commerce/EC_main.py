@@ -32,7 +32,7 @@ class ECommerce:
             self.change_screen  # Pasar el callback para cambiar la pantalla
         )
 
-    def change_screen(self, new_screen, cartProducts=None, Products=None):
+    def change_screen(self, new_screen, cartProducts=None, Products=None, totalprice=None):
         """Cambia la pantalla al nuevo estado"""
         self.current_screen = new_screen
         if new_screen == Screens.SHOPPING_CART:
@@ -42,6 +42,13 @@ class ECommerce:
                 self.change_screen,
                 cartProducts,
                 Products
+            )
+        elif new_screen == Screens.PAYMENT:
+            self.current_view = self.views[self.current_screen](
+                self.window_surface,
+                self.window_size,
+                self.change_screen,
+                totalprice
             )
         else:
             self.current_view = self.views[self.current_screen](

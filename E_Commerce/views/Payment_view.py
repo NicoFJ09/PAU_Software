@@ -2,15 +2,14 @@ import pygame
 import pygame_gui
 from E_Commerce.constants import COLORS
 from E_Commerce.Screens_web import Screens
-from E_Commerce.views.ShoppingCart_view import ShoppingCartView
 
 class PaymentView:
-    def _init_(self, surface, window_size, change_screen_callback, shopping_cart_view):
+    def __init__(self, surface, window_size, change_screen_callback, totalprice):
         self.surface = surface
         self.window_size = window_size
         self.ui_manager = pygame_gui.UIManager(window_size)
         self.change_screen_callback = change_screen_callback
-        self.shopping_cart_view = shopping_cart_view
+        self.total_price = totalprice
 
         # Configuración inicial de los elementos de UI
         self.setup_ui()
@@ -49,7 +48,7 @@ class PaymentView:
 
         self.button2 = pygame_gui.elements.UIButton(
             relative_rect=pygame.Rect((350, 50), (60, 30)),
-            text="Simpe",
+            text="Sinpe",
             manager=self.ui_manager,
             container=self.main_panel
         )
@@ -68,10 +67,9 @@ class PaymentView:
         )
 
         # Mostrar el total del carrito de compras
-        total_price = self.shopping_cart_view.total_price
         self.total_label = pygame_gui.elements.UILabel(
             relative_rect=pygame.Rect((10, 180), (container_width - 20, 30)),
-            text=f"Total del carrito: ${total_price}",
+            text=f"Total del carrito: ${self.total_price}",
             manager=self.ui_manager,
             container=self.main_panel
         )
@@ -99,6 +97,9 @@ class PaymentView:
                 print("Botón Simpe presionado. Deshabilitando cuadros de texto...")
                 self.text_box1.disable()
                 self.text_box2.disable()
+            elif event.ui_element == self.button3:
+                print("Botón Pagar presionado. Cambiando a la vista de inicio...")
+                self.change_screen_callback(Screens.SHOPPING_CART)
 
         self.ui_manager.process_events(event)
 
