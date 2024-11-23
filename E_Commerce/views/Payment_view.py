@@ -10,7 +10,6 @@ class PaymentView:
         self.ui_manager = pygame_gui.UIManager(window_size)
         self.change_screen_callback = change_screen_callback
         self.total_price = totalprice
-
         # Configuración inicial de los elementos de UI
         self.setup_ui()
 

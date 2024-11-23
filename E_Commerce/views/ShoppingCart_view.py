@@ -152,7 +152,8 @@ class ShoppingCartView:
                     self.empty_cart_label.hide()
                     self.next_button.enable()
                 if event.ui_element == self.next_button:
-                    self.change_screen_callback(Screens.PAYMENT, self.calculate_total())
+                    self.change_screen_callback(Screens.PAYMENT, None, None, self.calculate_total())
+                    
         
         self.ui_manager.process_events(event)
 
