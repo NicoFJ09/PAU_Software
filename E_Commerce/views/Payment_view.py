@@ -58,12 +58,16 @@ class PaymentView:
             manager=self.ui_manager,
             container=self.main_panel
         )
+        self.text_box1.placeholder_text = "Número de tarjeta"
+        self.text_box1.rebuild()
 
         self.text_box2 = pygame_gui.elements.UITextEntryLine(
             relative_rect=pygame.Rect((10, 140), (container_width - 20, 30)),
             manager=self.ui_manager,
             container=self.main_panel
         )
+        self.text_box2.placeholder_text = "Código de seguridad"
+        self.text_box2.rebuild()
 
         # Mostrar el total del carrito de compras
         self.total_label = pygame_gui.elements.UILabel(
@@ -108,3 +112,4 @@ class PaymentView:
     def draw(self):
         self.surface.fill(COLORS['GREEN'])
         self.ui_manager.draw_ui(self.surface)
+
