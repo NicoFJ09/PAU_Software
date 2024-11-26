@@ -123,13 +123,13 @@ class SignInView:
                     self.validar_campos()
             if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == self.boton_continuar:
-                    self.change_screen_callback(Screens.HOMEPAGE)
+                    self.change_screen_callback(Screens.HOMEPAGE, paid=False)
                     globals.signed_in = True  # Establecer signed_in como True
                 elif event.ui_element == self.create_account_button:
                     self.change_screen_callback(Screens.REGISTER)
                     globals.signed_in = True  # Establecer signed_in como True
                 elif event.ui_element == self.ingresar_button:
-                    self.change_screen_callback(Screens.HOMEPAGE)
+                    self.change_screen_callback(Screens.HOMEPAGE, paid=False)
                     globals.signed_in = False  # Establecer signed_in como True
 
     def update(self):

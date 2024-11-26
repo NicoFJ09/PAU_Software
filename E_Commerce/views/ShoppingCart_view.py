@@ -46,7 +46,7 @@ class ShoppingCartView:
             # Etiqueta del producto
             item_label = pygame_gui.elements.UILabel(
                 relative_rect=pygame.Rect((10, 10), (label_width, 30)),
-                text=f"{item['Nombre']} - ${item['Precio']}",
+                text=f"{item['Nombre']} - {item['Precio']} col",
                 manager=self.ui_manager,
                 container=item_panel
             )
@@ -81,7 +81,7 @@ class ShoppingCartView:
         total_y_position = y_offset + 20
         self.total_label = pygame_gui.elements.UILabel(
             relative_rect=pygame.Rect((container_x, total_y_position), (container_width, 40)),
-            text=f"Total: ${int(self.calculate_total())}",
+            text=f"Total: {int(self.calculate_total())} col",
             manager=self.ui_manager
         )
 
@@ -116,7 +116,7 @@ class ShoppingCartView:
         if event.type == pygame.USEREVENT:
             if event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == self.atras_b:
-                    self.change_screen_callback(Screens.HOMEPAGE)
+                    self.change_screen_callback(Screens.HOMEPAGE, paid=False)
                 for item, item_panel, add_button, remove_button, quantity_label in self.item_containers:
                     if event.ui_element == add_button:
                         # Verificar la cantidad disponible en Products
@@ -126,7 +126,7 @@ class ShoppingCartView:
                                     item['cantidad'] += 1
                                     product['cantidad'] -= 1
                                     quantity_label.set_text(f"{item['cantidad']}")
-                                    self.total_label.set_text(f"Total: ${self.calculate_total()}")
+                                    self.total_label.set_text(f"Total: {self.calculate_total()} col")
                                 else:
                                     print("No hay suficiente cantidad disponible")
                                 break
@@ -139,7 +139,7 @@ class ShoppingCartView:
                                     product['cantidad'] += 1
                                     break
                             quantity_label.set_text(f"{item['cantidad']}")
-                            self.total_label.set_text(f"Total: ${self.calculate_total()}")
+                            self.total_label.set_text(f"Total: {self.calculate_total()} col")
                             # Eliminar el elemento de self.items si la cantidad es 0
                             if item['cantidad'] == 0:
                                 self.items.remove(item)
@@ -152,7 +152,7 @@ class ShoppingCartView:
                     self.empty_cart_label.hide()
                     self.next_button.enable()
                 if event.ui_element == self.next_button:
-                    self.change_screen_callback(Screens.PAYMENT, None, None, self.calculate_total())
+                    self.change_screen_callback(Screens.PAYMENT, self.items, self.products, self.calculate_total())
                     
         
         self.ui_manager.process_events(event)

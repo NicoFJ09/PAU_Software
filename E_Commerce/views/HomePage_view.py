@@ -8,9 +8,8 @@ from E_Commerce.views.components.ItemContainer import ItemContainer  # Importar 
 
 class HomePageView:
     productos_carrito = []  # Variable de clase
-    vaciar_carrito_flag = False  # Flag para vaciar el carrito
 
-    def __init__(self, surface, window_size, change_screen_callback):
+    def __init__(self, surface, window_size, change_screen_callback, paidconfirm):
         self.surface = surface
         self.window_size = window_size
         self.change_screen_callback = change_screen_callback
@@ -57,6 +56,10 @@ class HomePageView:
         # Lista de productos(define nombre, precio e imagen representativa)
         self.productos = self.controller.get_products()
 
+        # Clear cart if paidconfirm is True
+        if paidconfirm:
+            self.clear_cart()
+
         # Actualizar productos si hay algo en el carrito
         if HomePageView.productos_carrito:
             self.actualizar_productos()
@@ -79,6 +82,10 @@ class HomePageView:
         self.previous_text = ""
         self.item_container = None  # Inicializar el contenedor emergente como None
         self.producto = None  # Inicializar el producto como None
+
+    def clear_cart(self):
+        """Clear the cart"""
+        HomePageView.productos_carrito.clear()
 
     def actualizar_productos(self):
         """Actualiza los productos con la información más reciente del carrito"""

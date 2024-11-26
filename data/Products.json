@@ -52,7 +52,7 @@
     "Nombre": "Agua",
     "unidadMedida": "l",
     "Date": "2024-11-08",
-    "cantidad": 98.0,
+    "cantidad": 87.8,
     "Id": 1
   },
   {
@@ -356,7 +356,31 @@
     "Nombre": "Sal",
     "unidadMedida": "g",
     "Date": "2024-11-19",
-    "cantidad": 950.0,
+    "cantidad": 899.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "TOM",
+    "Nombre": "Tomate",
+    "unidadMedida": "kg",
+    "Date": "2024-11-26",
+    "cantidad": 50.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "TOM_MM_P",
+    "Nombre": "Tomate muy maduro pequeño",
+    "unidadMedida": "kg",
+    "Date": "2024-11-26",
+    "cantidad": 50.0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "PIN",
+    "Nombre": "Pina",
+    "unidadMedida": "kg",
+    "Date": "2024-11-26",
+    "cantidad": 91.5,
     "Id": 1
   }
 ]

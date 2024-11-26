@@ -34,7 +34,7 @@ class SaleProductsService:
         
         return added_products
 
-    def sell_product(self, codigo_producto, cantidad):
+    def sell_products(self, codigo_producto, cantidad):
         sale_products = self.sale_handler.read_file() or []
         
         # Filtrar los productos por codigoProducto

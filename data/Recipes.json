@@ -252,5 +252,30 @@
         "unidadMedida": "kg"
       }
     ]
+  },
+  {
+    "codigoProducto": "JPN",
+    "Nombre": "Jugo de pina",
+    "Precio": "23000",
+    "materiales": [
+      {
+        "codigoProducto": "S",
+        "Nombre": "Sal",
+        "cantidad": 3.0,
+        "unidadMedida": "g"
+      },
+      {
+        "codigoProducto": "AGU",
+        "Nombre": "Agua",
+        "cantidad": 0.6,
+        "unidadMedida": "l"
+      },
+      {
+        "codigoProducto": "PIN",
+        "Nombre": "Pina",
+        "cantidad": 0.5,
+        "unidadMedida": "kg"
+      }
+    ]
   }
 ]

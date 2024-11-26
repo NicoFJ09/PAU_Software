@@ -23,7 +23,7 @@
     "unidadMedida": "u",
     "Precio": 1000,
     "Date": "2024-11-19",
-    "cantidad": 10,
+    "cantidad": 5,
     "Id": 1
   },
   {
@@ -68,16 +68,7 @@
     "unidadMedida": "u",
     "Precio": 1800,
     "Date": "2024-11-19",
-    "cantidad": 10,
-    "Id": 1
-  },
-  {
-    "codigoProducto": "SAL",
-    "Nombre": "Salsa de tomate (1L)",
-    "unidadMedida": "u",
-    "Precio": 1800,
-    "Date": "2024-11-19",
-    "cantidad": 10,
+    "cantidad": 2,
     "Id": 1
   },
   {
@@ -86,7 +77,16 @@
     "unidadMedida": "u",
     "Precio": 2000,
     "Date": "2024-11-17",
-    "cantidad": 1.0,
+    "cantidad": 0,
+    "Id": 1
+  },
+  {
+    "codigoProducto": "JPN",
+    "Nombre": "Jugo de pina",
+    "unidadMedida": "u",
+    "Precio": "23000",
+    "Date": "2024-11-26",
+    "cantidad": 0,
     "Id": 1
   }
 ]

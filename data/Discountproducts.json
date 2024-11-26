@@ -58,5 +58,11 @@
     "Nombre": "Salsa de tomate en lata (1kg)",
     "Precio": 1800,
     "Descuento": 0
+  },
+  {
+    "codigoProducto": "JPN",
+    "Nombre": "Jugo de pina",
+    "Precio": "23000",
+    "Descuento": 5.0
   }
 ]

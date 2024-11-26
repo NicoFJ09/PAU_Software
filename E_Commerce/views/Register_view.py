@@ -123,7 +123,7 @@ class RegisterView:
                     self.validar_campos()
             elif event.user_type == pygame_gui.UI_BUTTON_PRESSED:
                 if event.ui_element == self.confirmar_crear:
-                    self.change_screen_callback(Screens.HOMEPAGE)
+                    self.change_screen_callback(Screens.HOMEPAGE, paid=False)
                 if event.ui_element == self.regresar_button:
                     self.change_screen_callback(Screens.SIGN_IN)
 

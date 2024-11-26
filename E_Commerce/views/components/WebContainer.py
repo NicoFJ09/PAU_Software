@@ -114,7 +114,7 @@ class WebContainer:
             inventario_text = font.render(f"Inventario: {producto['cantidad']}", True, COLORS['BLACK'])
             self.surface.blit(inventario_text, (panel_rect.x + 10, panel_rect.y + 200))
 
-            precio_text = font.render(f"Precio: {producto['Precio']}", True, COLORS['BLACK'])
+            precio_text = font.render(f"Precio: {producto['Precio']} col", True, COLORS['BLACK'])
             self.surface.blit(precio_text, (panel_rect.x + 10, panel_rect.y + 220))
 
             # Aplicar descuento si existe
@@ -127,7 +127,7 @@ class WebContainer:
                 # Calcular y dibujar el nuevo precio con descuento
                 precio_original = int(producto['Precio'])
                 nuevo_precio = precio_original * (1 - descuento / 100)
-                nuevo_precio_text = font.render(f"Nuevo Precio: {int(nuevo_precio)}", True, COLORS['BLACK'])
+                nuevo_precio_text = font.render(f"Nuevo Precio: {int(nuevo_precio)} col", True, COLORS['BLACK'])
                 self.surface.blit(nuevo_precio_text, (panel_rect.x + 10, panel_rect.y + 240))
 
                 # Dibujar el texto de descuento junto al precio original

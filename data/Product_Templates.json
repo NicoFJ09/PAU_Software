@@ -88,5 +88,10 @@
     "codigoProducto": "PPY",
     "Nombre": "Papaya",
     "unidadMedida": "kg"
+  },
+  {
+    "codigoProducto": "PIN",
+    "Nombre": "Pina",
+    "unidadMedida": "kg"
   }
 ]
